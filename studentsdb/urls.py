@@ -13,9 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import include, url
+# from django.conf.urls import patterns
 from django.contrib import admin
+from students.views import students_list, groups_list, students_add, students_edit, students_delete, groups_add, groups_edit, groups_delete
 
+
+# urlpatterns = [
+#     url(r'^admin/', admin.site.urls),
+# ]
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', students_list, name='home'),
+    url(r'^students/add/$', students_add, name='students_add'),
+    url(r'^students/(?P<sid>\d+)/edit/$', students_edit, name='students_edit'),
+
+    url(r'^students/(?P<sid>\d+)/delete/$', students_delete, name='students_delete'),
+
+# Groups url
+    url(r'^groups/$', groups_list, name='groups'),
+    url(r'^groups/add/$', groups_add, name='groups_add'),
+    url(r'^groups/(?P<gid>\d+)/edit/$',groups_edit, name='groups_edit'),
+    url(r'^groups/(?P<gid>\d+)/delete/$', groups_delete, name='groups_delete'),
+    url(r'^admin/', include(admin.site.urls)),
 ]
+
+

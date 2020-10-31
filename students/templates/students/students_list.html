@@ -7,18 +7,30 @@
         <meta name="description"
               value="Система учета студентов Учебного Заведения"/>
 
+<!--        &lt;!&ndash; Development version &ndash;&gt;-->
+<!--<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>-->
+
+<!--&lt;!&ndash; Production version &ndash;&gt;-->
+<!--<script src="https://unpkg.com/@popperjs/core@2"></script>-->
+
+
 
         <!-- Include Stules -->
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <!-- Development version -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+
 
         <style type="text/css">.col-lg-12, .col-lg-4, .col-lg-8 </style>
 
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="../../../html/static/css/main.css">
 
     </head>
 
     <body>
+
+
 
          <! --Start Container -->
         <div class="cotainer">
@@ -56,18 +68,18 @@
                         <li class="nav-item"
                             role="presentation"
                             class="active">
-                            <a class="nav-link active" href="#">Студенты</a>
+                            <a class="nav-link active" href="{% url "home" %}">Студенты</a>
                         </li>
 
                         <li class="nav-item"
                             role="presentation"
                             class="active">
-                            <a class="nav-link" href="#">Посещение</a>
+                            <a class="nav-link" href="/jornal">Посещение</a>
                         </li>
                         <li class="nav-item"
                             role="presentation"
                             class="active">
-                            <a class="nav-link" href="#">Групы</a>
+                            <a class="nav-link" href="{% url "groups"%}">Групы</a>
                         </li>
                     </ul>
                 </div>
@@ -83,10 +95,11 @@
 
                     <!--Status Massege-->
                     <div class="alert alert-warning">Изменениея отменены.</div>
+
                     <h2>База студентов</h2>
 
                     <!-- Add Students Button-->
-                    <a class="btn btn-primary" href="#">Добавить студента</a>
+                    <a class="btn btn-primary" href="{% url "students_add" %}">Добавить студента</a>
                     <div>Сдесь будет таблица студентов</div>
 
                 </div>
@@ -113,26 +126,24 @@
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td><img height="=30" width="30" src="img/download.jpeg" class="rounded-circle" /> </td>
-                        <td><a title="Редактировать" heref="#"> Корост</a></td>
-                        <td><a title="Редактировать" heref="#">Андрей</a></td>
+                        <td><img height="=30" width="30" src="../../../html/static/img/download.jpeg" class="rounded-circle" /> </td>
+                        <td><a heref="{% url "students_edit" 1 %}"> Корост</td>
+                        <td><a heref="{% url "students_edit" 1 %}">Андрей</td>
                         <td>2123</td>
                         <td>
-                            <div class="=dropdown">
+                            <div class="=btn-group">
                                 <button class="btn btn-default dropdown-toggle"
                                         type="button" data-toggle="dropdown">Действие
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation">
-                                    <a role="menuitem" tabindex="-1"
-                                       href="#">Посещение</a>
+                                    <li><a href="/jornal/1">Посещение</a>
                                     </li>
-                                    <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">Редактировать</a>
+                                    <li>
+                                        <a href="{% url "students_edit" 1 %}">Редактировать</a>
                                     </li>
-                                    <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">Удалить</a>
+                                    <li>
+                                        <a href="{% url "students_delete" 1 %}">Удалить</a>
                                     </li>
                                 </ul>
                             </div>
@@ -140,9 +151,9 @@
                     </tr>
                 <tr>
                         <td>2</td>
-                        <td><img height="=30" width="30" src="img/download%20(1).jpeg" class="rounded-circle" /> </td>
-                        <td><a title="Редактировать" heref="#">Мазур</a></td>
-                        <td><a title="Редактировать" heref="#">Назар</a></td>
+                        <td><img height="=30" width="30" src="../../../html/static/img/download%20(1).jpeg" class="rounded-circle" /> </td>
+                        <td><a title="Редактировать" heref="/students/2/edit/">Мазур</a></td>
+                        <td><a title="Редактировать" heref="/students/2/edit/">Назар</a></td>
                         <td>2116</td>
                         <td>
                             <div class="=dropdown">
@@ -151,15 +162,15 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation">
-                                    <a role="menuitem" tabindex="-1"
-                                       href="#">Посещение</a>
+
+                                    <li>
+                                        <a href="/jornal/2">Посещение</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">Редактировать</a>
+                                        <a href="/students/2/edit/">Редактировать</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">Удалить</a>
+                                        <a href="/students/2/delete/">Удалить</a>
                                     </li>
                                 </ul>
                             </div>
@@ -219,11 +230,16 @@
 <!--  src="https://code.jquery.com/jquery-3.5.1.js"-->
 <!--  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="-->
 <!--  crossorigin="anonymous"></script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>-->
+
 
 
 
