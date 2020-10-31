@@ -10,10 +10,30 @@ from django.template import RequestContext, loader
 #     temlate = loader.get_template('demo.html')
 #     context = RequestContext(request, {})
 #     return HttpResponse(temlate.reder(context))
+
+# Views for Students
+
 def students_list(request):
-    return render(request, 'students/students_list.html',{})
-    # return HttpResponse('<h1>Hello World</h1>')
-# Create your views here.
+    students = (
+        {'id': 1,
+         'first_name':u'Андрей',
+         'last_name': u'Корост',
+         'ticket': 235,
+         'image': 'img/download.jpeg'},
+        {'id': 2,
+         'first_name': 'Назар',
+         'last_name': u'Мазур',
+         'ticket': 137,
+         'image': 'img/download (1).jpeg'
+        },
+        {'id': 3,
+         'first_name': 'Виталий',
+         'last_name': u'Подоба',
+         'ticket': 39,
+         'image': 'img/download (2).jpeg'
+         }
+    )
+    return render(request, 'students/students_list.html',{'students':students})
 
 def students_add(request):
     return HttpResponse('<h1>Student Add Form</h1>')
