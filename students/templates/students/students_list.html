@@ -1,229 +1,79 @@
+{% extends "students/base.html" %}
 {% load static from staticfiles %}
-<!DOCTIPE HTML>
-<html lang="uk">
-
-    <head>
-        <meta charset="UTF-8">
-        <title> Сервис учета студентов </title>
-        <meta name="description"
-              value="Система учета студентов Учебного Заведения"/>
-
-<!--        &lt;!&ndash; Development version &ndash;&gt;-->
-<!--<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>-->
-
-<!--&lt;!&ndash; Production version &ndash;&gt;-->
-<!--<script src="https://unpkg.com/@popperjs/core@2"></script>-->
+{% block meta_title %}Студенты{% endblock meta_title %}
+{% block title %}База студентов{% endblock title %}
+{% block content %}
 
 
 
-        <!-- Include Stules -->
-       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-        <!-- Development version -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<!-- Add Students Button-->
+<a class="btn btn-primary" href="{% url "students_add" %}">Добавить студента</a>
+<div>Сдесь будет таблица студентов</div>
 
 
-        <style type="text/css">.col-lg-12, .col-lg-4, .col-lg-8 </style>
+    <!-- Start Students Listing -->
 
-<!--        <link rel="stylesheet" href="/static/css/main.css">-->
-        <link rel="stylesheet" href="{%static "css/main.css"%}">
+<table class="table table-hover table-striped">
 
-    </head>
-
-    <body>
-
-
-
-         <! --Start Container -->
-        <div class="cotainer">
-
-            <!-- Start Header -->
-            <div class="row" id="header">
-
-
-                <!-- Logo -->
-                <div class="col-lg-8">
-                    <h1>Сервис учета студентов</h1>
-                </div>
-
-
-
-                <!--Groups Selector -->
-                <div class="col-lg-4" id="group-selector">
-                    <strong>Група:</strong>
-                    <select>
-                        <option value='''>Все студенты</option>
-                        <option value='''>MtM -21, Назар Мазур(№1)</option>
-                        <option value='''>MtM -22, Сергей Подоба(№1)</option>
-                    </select>
-
-                </div>
-            </div>
-
-            <!-- End Header -->
-
-            <!-- Start SubHeader -->
-            <div class="row" id="sub-header">
-                <div class="col-lg-12">
-                    <ul class="nav nav-tabs" role="tablist">
-
-                        <li class="nav-item"
-                            role="presentation"
-                            class="active">
-                            <a class="nav-link active" href="{% url "home" %}">Студенты</a>
+    <thead>
+    <tr>
+        <th><a heref='#'>№</a></th>
+        <th>Фото</th>
+        <th><a href='#'> Фамилия &uarr;</a></th>
+        <th><a href="#">Имя</a></th>
+        <th><a href="#">№ Билета</a></th>
+        <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><img height="=30" width="30"
+                     src="{% static student.image%}" class="rounded-circle" /> </td>
+            <td><a heref="{% url "students_edit" student.id %}">{{student.last_name }}</td>
+            <td><a heref="{% url "students_edit" student.id %}">{{student.first_name}}</td>
+            <td>{{student.ticket}}</td>
+            <td>
+                <div class="=btn-group">
+                    <button class="btn btn-default dropdown-toggle"
+                            type="button" data-toggle="dropdown">Действие
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/jornal/1{{ student.id}}">Посещение</a>
                         </li>
-
-                        <li class="nav-item"
-                            role="presentation"
-                            class="active">
-                            <a class="nav-link" href="/jornal">Посещение</a>
+                        <li>
+                            <a href="{% url "students_edit" student.id %}">Редактировать</a>
                         </li>
-                        <li class="nav-item"
-                            role="presentation"
-                            class="active">
-                            <a class="nav-link" href="{% url "groups"%}">Групы</a>
+                        <li>
+                            <a href="{% url "students_delete" student.id %}">Удалить</a>
                         </li>
                     </ul>
                 </div>
-            </div>
+            </td>
+        </tr>
+    <tr>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+<!-- End Students List -->
 
-
-         <!--End SubHeader-->
-
-         <!--Start Main Page Content-->
-            <div class="row" id="content-colums">
-
-                <div class="col-lg-12" id="content-column">
-
-                    <!--Status Massege-->
-                    <div class="alert alert-warning">Изменениея отменены.</div>
-
-                    <h2>База студентов</h2>
-
-                    <!-- Add Students Button-->
-                    <a class="btn btn-primary" href="{% url "students_add" %}">Добавить студента</a>
-                    <div>Сдесь будет таблица студентов</div>
-
-                </div>
-            </div>
-
-            <!-- Start Students List-->
-            <!-- Start Students Listing -->
-
-            <table class="table table-hover table-striped">
-
-                <thead>
-                <tr>
-                    <th><a heref='''>№</a></th>
-                    <th>Фото</th>
-                    <th><a href='''> Фамилия &uarr;</a></th>
-                    <th><a href="#">Имя</a></th>
-                    <th><a href="#">№ Билета</a></th>
-                    <th>Действие</th>
-                </tr>
-
-
-
-                </thead>
-                <tbody>
-                    {% for student in students %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td><img height="=30" width="30"
-                                 src="{% static student.image%}" class="rounded-circle" /> </td>
-                        <td><a heref="{% url "students_edit" student.id %}">{{student.last_name }}</td>
-                        <td><a heref="{% url "students_edit" student.id %}">{{student.first_name}}</td>
-                        <td>{{student.ticket}}</td>
-                        <td>
-                            <div class="=btn-group">
-                                <button class="btn btn-default dropdown-toggle"
-                                        type="button" data-toggle="dropdown">Действие
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="/jornal/1{{ student.id}}">Посещение</a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url "students_edit" student.id %}">Редактировать</a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url "students_delete" student.id %}">Удалить</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                <tr>
-                    </tr>
-                    {%endfor%}
-                </tbody>
-            </table>
-
-            <!-- Add Pagitnation-->
-            <nav aria-label="...">
-                <ul class="pagination">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
-
-
-
-
-
-
-                <!--Status Massege-->
-                <div class="alert alert-warning">Изменения отменены.</div>
-            </div>
-
-             <!--End Main Page Content-->
-
-            <!--Start Footer-->
-            <div class="row" id="footer">
-                <div class="col-lg-12">
-                    &copy; 2014 Сервис учета студентов
-                </div>
-            </div>
-
-            <!-- End Footer -->
-        </div>
-
-    <!-- End Container -->
-        </body>
-
-
-<!--    <h1>Поздравляю вас на нашей странице </h1>-->
-<!--    <p> Пока что тут пусто но скоро тут будет список студентов-->
-<!--    </p>-->
-
-    <!-- Javascript Section -->
-<!--    <script-->
-<!--  src="https://code.jquery.com/jquery-3.5.1.js"-->
-<!--  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="-->
-<!--  crossorigin="anonymous"></script>-->
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
-
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
-
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>-->
-
-
-
-
-
-
-
-</html>
+    <!-- Add Pagitnation-->
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock content %}
