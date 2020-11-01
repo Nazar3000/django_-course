@@ -1,86 +1,15 @@
 {% extends "students/base.html" %}
 {% load static from staticfiles %}
-{% block meta_title %}Студенты{% endblock meta_title %}
-{% block title %}База студентов{% endblock title %}
+{% block meta_title %}Список Групп{% endblock meta_title %}
+{% block title %}Список Групп{% endblock title %}
 {% block content %}
-
-
-    <body>
-
-         <! --Start Container -->
-        <div class="cotainer">
-
-            <!-- Start Header -->
-            <div class="row" id="header">
-
-
-                <!-- Logo -->
-                <div class="col-lg-8">
-                    <h1>Сервис учета студентов</h1>
-                </div>
-
-
-
-                <!--Groups Selector -->
-                <div class="col-lg-4" id="group-selector">
-                    <strong>Група:</strong>
-                    <select>
-                        <option value='''>Все студенты</option>
-                        <option value='''>MtM -21, Назар Мазур(№1)</option>
-                        <option value='''>MtM -22, Сергей Подоба(№1)</option>
-                    </select>
-
-                </div>
-            </div>
-
-            <!-- End Header -->
-
-            <!-- Start SubHeader -->
-            <div class="row" id="sub-header">
-                <div class="col-lg-12">
-                    <ul class="nav nav-tabs" role="tablist">
-
-                        <li class="nav-item"
-                            role="presentation"
-                            class="active">
-                            <a class="nav-link" href="#">Студенты</a>
-                        </li>
-
-                        <li class="nav-item"
-                            role="presentation"
-                            class="active">
-                            <a class="nav-link" href="#">Посещение</a>
-                        </li>
-                        <li class="nav-item"
-                            role="presentation"
-                            class="active">
-                            <a class="nav-link active" href="#">Групы</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
 
 
          <!--End SubHeader-->
 
          <!--Start Main Page Content-->
-            <div class="row" id="content-colums">
 
-                <div class="col-lg-12" id="content-column">
-
-                    <!--Status Massege-->
-                    <div class="alert alert-warning">Изменениея отменены.</div>
-                    <h2>Группы</h2>
-
-                    <!-- Add Students Button-->
-                    <a class="btn btn-primary" href="#">Добавить студента</a>
-
-
-                </div>
-            </div>
-
-            <!-- Start Students List-->
-            <!-- Start Students Listing -->
+            <!-- Start Groups Listing -->
 
             <table class="table table-hover table-striped" id="calendar">
 
@@ -170,48 +99,4 @@
             </nav>
 
 
-
-
-
-
-                <!--Status Massege-->
-                <div class="alert alert-warning">Изменения отменены.</div>
-            </div>
-
-             <!--End Main Page Content-->
-
-            <!--Start Footer-->
-            <div class="row" id="footer">
-                <div class="col-lg-12">
-                    &copy; 2014 Сервис учета студентов
-                </div>
-            </div>
-
-            <!-- End Footer -->
-        </div>
-
-    <!-- End Container -->
-        </body>
-
-
-<!--    <h1>Поздравляю вас на нашей странице </h1>-->
-<!--    <p> Пока что тут пусто но скоро тут будет список студентов-->
-<!--    </p>-->
-
-    <!-- Javascript Section -->
-<!--    <script-->
-<!--  src="https://code.jquery.com/jquery-3.5.1.js"-->
-<!--  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="-->
-<!--  crossorigin="anonymous"></script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
-
-
-
-
-
-
-</html>
+{% endblock content %}
