@@ -1,16 +1,12 @@
 {% extends "students/base.html" %}
-{% load static from staticfiles %}
 {% block meta_title %}Список Групп{% endblock meta_title %}
 {% block title %}Список Групп{% endblock title %}
 {% block content %}
 
 
-         <!--End SubHeader-->
-
-         <!--Start Main Page Content-->
 
             <!-- Start Groups Listing -->
-
+            {% if groups %}
             <table class="table table-hover table-striped" id="calendar">
 
                 <thead>
@@ -24,38 +20,12 @@
                 </thead>
 
                 <tbody>
+                {% for group in groups %}
                     <tr>
-                        <td>1</td>
+                        <td>{{ forloop.counter }}</td>
 
-                        <td><a title="Редактировать" heref="#"> MtM-21</a></td>
-                        <td><a title="Редактировать" heref="#">Корост Андрей</a></td>
-
-                        <td>
-                            <div class="=dropdown">
-                                <button class="btn btn-default dropdown-toggle"
-                                        type="button" data-toggle="dropdown">Действие
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation">
-                                    <a role="menuitem" tabindex="-1"
-                                       href="#">Посещение</a>
-                                    </li>
-                                    <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">Редактировать</a>
-                                    </li>
-                                    <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">Удалить</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                <tr>
-                        <td>2</td>
-
-                        <td><a title="Редактировать" heref="#">MtM-22</a></td>
-                        <td><a title="Редактировать" heref="#">Мазур Назар</a></td>
+                        <td><a heref="{% url "groups_edit" group.id %}">{{ group.name }}</a></td>
+                        <td><a heref="{% url "students_edit" group.leader.id %}">{{ group.leader.name }}</a></td>
 
                         <td>
                             <div class="=dropdown">
@@ -69,17 +39,22 @@
                                        href="#">Посещение</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">Редактировать</a>
+                                        <a role="menuitem" tabindex="-1" href="{% url "groups_edit" group.id %}">Редактировать</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">Удалить</a>
+                                        <a role="menuitem" tabindex="-1" href="{% url "groups_delete" group.id %}">Удалить</a>
                                     </li>
                                 </ul>
                             </div>
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
+            <!-- End Students List -->
+            {% else %}
+<p>Пока нет групп в базе </p>
+            {% endif %}
 
             <!-- Add Pagitnation-->
             <nav aria-label="...">

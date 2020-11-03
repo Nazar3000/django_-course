@@ -16,8 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 # from django.conf.urls import patterns
 from django.contrib import admin
-from students.views import students_list, groups_list, students_add, students_edit, students_delete, groups_add, groups_edit, groups_delete
-
+from students.views.students import students_list, students_add, students_edit, students_delete
+from students.views.groups import groups_list, groups_add, groups_edit, groups_delete
 
 # urlpatterns = [
 #     url(r'^admin/', admin.site.urls),
