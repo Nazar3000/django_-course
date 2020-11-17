@@ -6,6 +6,9 @@ from django.db import models
 # Create your models here.
 class Student(models.Model):
     '''Student Model'''
+    class Meta(object):
+        verbose_name = u"Студент"
+        verbose_name_plural = u"Студенты"
 
     first_name = models.CharField(
         max_length=256,
@@ -48,3 +51,6 @@ class Student(models.Model):
         blank=True,
         verbose_name=u"Дополнительные заметки"
     )
+    # Отображает имя стужента в админке
+    def __unicode__(self):
+        return u"%s %s" %(self.first_name, self.last_name)
