@@ -16,12 +16,21 @@ Including another URLconf
 from django.conf.urls import include, url
 # from django.conf.urls import patterns
 from django.contrib import admin
+from django.contrib.staticfiles import views
+# from django.urls import re_path
+from django.views.static import serve
+
 from students.views.students import students_list, students_add, students_edit, students_delete
 from students.views.groups import groups_list, groups_add, groups_edit, groups_delete
 from students.views.journal import journal
+from  .settings import MEDIA_ROOT, DEBUG
 # urlpatterns = [
 #     url(r'^admin/', admin.site.urls),
 # ]
+
+
+
+
 urlpatterns = [
     url(r'^$', students_list, name='home'),
     url(r'^students/add/$', students_add, name='students_add'),
@@ -40,5 +49,15 @@ urlpatterns = [
     url(r'^journal/$', journal, name='journal'),
 ]
 
-# journal
+if DEBUG:
+    # serve files from media folder
+
+    urlpatterns += [url(r'^media/(?P<path>.*)$', serve,{
+            'document_root': MEDIA_ROOT,
+        })
+    # urlpatterns += [url(r'^media/(?P<path>.*)$', serve,
+    #     document_root=MEDIA_ROOT,
+    # )
+            ]
+    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
