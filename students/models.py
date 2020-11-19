@@ -47,6 +47,7 @@ class Student(models.Model):
         verbose_name=u"Билет"
     )
 
+
     notes = models.TextField(
         blank=True,
         verbose_name=u"Дополнительные заметки"
