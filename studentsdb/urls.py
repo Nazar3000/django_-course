@@ -24,9 +24,7 @@ from students.views.students import students_list, students_add, students_edit, 
 from students.views.groups import groups_list, groups_add, groups_edit, groups_delete
 from students.views.journal import journal
 from  .settings import MEDIA_ROOT, DEBUG
-# urlpatterns = [
-#     url(r'^admin/', admin.site.urls),
-# ]
+
 
 
 

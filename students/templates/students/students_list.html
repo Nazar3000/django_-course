@@ -19,22 +19,20 @@
     <tr>
         <th><a heref='#'>№</a></th>
         <th>Фото</th>
-        <th><a href="{% url "home" %}?order_by=last_name
-            {% if order_by == 'last_name' and reverse != '1' %}&amp;reverse=1
-        {% endif %}"> Фамилия
+        <th><a href="{% url 'home' %}?order_by=last_name{% if order_by == 'last_name' and reverse != '1' %}&amp;reverse=1
+        {% endif %}">
+            Фамилия
             {% if order_by == 'last_name' and reverse != '1' %}&uarr;
             {% elif order_by == 'last_name' and reverse == '1' %}&darr;
           {% endif %}
             </a></th>
-        <th><a href="{% url "home" %}?order_by=first_name
-            {% if order_by == 'first_name' and reverse != '1' %}&amp;reverse=1
+        <th><a href="{% url 'home' %}?order_by=first_name{% if order_by == 'first_name' and reverse != '1' %}&amp;reverse=1
         {% endif %}">Имя
             {% if order_by == 'first_name' and reverse != '1' %}&uarr;
             {% elif order_by == 'first_name' and reverse == '1' %}&darr;
           {% endif %}
             </a></th>
-        <th><a href="{% url "home" %}?order_by=ticket
-            {% if order_by == 'first_name' and reverse != '1' %}&amp;reverse=1
+        <th><a href="{% url 'home' %}?order_by=ticket{% if order_by == 'ticket' and reverse != '1' %}&amp;reverse=1
         {% endif %}">№ Билета
             {% if order_by == 'ticket' and reverse != '1' %}&uarr;
             {% elif order_by == 'ticket' and reverse == '1' %}&darr;
