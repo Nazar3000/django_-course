@@ -85,21 +85,41 @@
     <!-- Add Pagitnation-->
 
     {% if students.has_other_pages %}
-    {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
+    {% with order_by=request.GET.order_by reverse=request.GET.reverse number_on_page=request.GET.number_on_page %}
+
+    <!-- Example single danger button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Количество на странице {{ students.paginator.per_page}}
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page=1">1</a>
+    <a class="dropdown-item" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page=2">2</a>
+    <a class="dropdown-item" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page=5">5</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ students.paginator.count}}">ALL</a>
+  </div>
+</div>
+
+
     <nav aria-label="...">
         <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">&laquo;</a>
+              <a class="page-link" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{number_on_page}}">&laquo;</a>
             </li>
             {% for p in students.paginator.page_range %}
-            <li {% if students.number == p %}class="page-item active"{% endif %}><a class="page-link" href="{% url "home" %}?page={{ p }}&amp;order_by={{ order_by }}&amp;order_by={{ order_by }}&amp;reverse={{reverse }}">{{p}}</a></li>
+            <li {% if students.number == p %}class="page-item active"{% endif %}><a class="page-link" href="{% url "home" %}?page={{ p }}&amp;order_by={{ order_by }}&amp;order_by={{ order_by }}&amp;reverse={{reverse }}&amp;number_on_page={{number_on_page}}">{{p}}</a></li>
 
             {% endfor %}
             <li class="page-item">
-              <a class="page-link" href="{% url "home" %}?page={{ students.paginator.num_pages}}&amp;order_by=={{ order_by }}&amp;reverse={{ reverse }}">&raquo;</a>
+              <a class="page-link" href="{% url "home" %}?page={{ students.paginator.num_pages}}&amp;order_by=={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{number_on_page}}">&raquo;</a>
             </li>
+
+            <li class="page-item"><a class="page-link" href="#">Total pages {{ students.paginator.num_pages}}</a></li>
+
         </ul>
     </nav>
+
     {% endwith %}
     {% endif %}
 {% endblock content %}
