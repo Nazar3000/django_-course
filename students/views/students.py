@@ -22,9 +22,13 @@ def students_list(request):
             students = students.reverse()
 
     # set nomber on page
+
     number_on_page= request.GET.get('number_on_page')
+    loading_step = 1
+
+
     # paginate students
-    paginator = Pagination(students, number_on_page)
+    paginator = Pagination(students, number_on_page, loading_step)
     # paginator = Paginator(students, 3)
     page = request.GET.get('page')
     try:

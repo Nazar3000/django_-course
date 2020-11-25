@@ -23,10 +23,11 @@ class EmptyPage(InvalidPage):
 
 class Pagination(object):
 
-    def __init__(self, object_list, per_page, orphans=0,
+    def __init__(self, object_list, per_page, loading_step, orphans=0,
                  allow_empty_first_page=True):
         self.object_list = object_list
         self._check_object_list_is_ordered()
+        self.load_more = str(int(per_page)+loading_step)
         self.per_page = int(per_page)
         self.orphans = int(orphans)
         self.allow_empty_first_page = allow_empty_first_page
