@@ -26,9 +26,7 @@ def students_list(request):
     number_on_page= request.GET.get('number_on_page')
     if number_on_page <1:
         number_on_page=1
-    # else:
-    #     number_on_page=1
-    # сделать проверку и обработать исклюение если не получаем
+
     loading_step = 1
 
 
