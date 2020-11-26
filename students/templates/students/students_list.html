@@ -13,27 +13,24 @@
 
     <!-- Start Students Listing -->
 
-<table class="table table-hover table-striped">
-    {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
+<table class="table table-hover table-striped" id="target" style="overflow: scroll;">
+    {% with order_by=request.GET.order_by reverse=request.GET.reverse number_on_page=request.GET.number_on_page %}
     <thead>
     <tr>
         <th><a heref='#'>№</a></th>
         <th>Фото</th>
-        <th><a href="{% url 'home' %}?order_by=last_name{% if order_by == 'last_name' and reverse != '1' %}&amp;reverse=1
-        {% endif %}">
+        <th><a href="{% url 'home' %}?order_by=last_name{% if order_by == 'last_name' and reverse != '1' %}&amp;reverse=1{% endif %}&amp;number_on_page={{ number_on_page }}">
             Фамилия
             {% if order_by == 'last_name' and reverse != '1' %}&uarr;
             {% elif order_by == 'last_name' and reverse == '1' %}&darr;
           {% endif %}
             </a></th>
-        <th><a href="{% url 'home' %}?order_by=first_name{% if order_by == 'first_name' and reverse != '1' %}&amp;reverse=1
-        {% endif %}">Имя
+        <th><a href="{% url 'home' %}?order_by=first_name{% if order_by == 'first_name' and reverse != '1' %}&amp;reverse=1{% endif %}&amp;number_on_page={{ number_on_page }}">Имя
             {% if order_by == 'first_name' and reverse != '1' %}&uarr;
             {% elif order_by == 'first_name' and reverse == '1' %}&darr;
           {% endif %}
             </a></th>
-        <th><a href="{% url 'home' %}?order_by=ticket{% if order_by == 'ticket' and reverse != '1' %}&amp;reverse=1
-        {% endif %}">№ Билета
+        <th><a href="{% url 'home' %}?order_by=ticket{% if order_by == 'ticket' and reverse != '1' %}&amp;reverse=1{% endif %}&amp;number_on_page={{ number_on_page }}">№ Билета
             {% if order_by == 'ticket' and reverse != '1' %}&uarr;
             {% elif order_by == 'ticket' and reverse == '1' %}&darr;
           {% endif %}
@@ -85,21 +82,114 @@
     <!-- Add Pagitnation-->
 
     {% if students.has_other_pages %}
-    {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
+    {% with order_by=request.GET.order_by reverse=request.GET.reverse number_on_page=request.GET.number_on_page load_more=students.load_more %}
+
+    <!-- Example single danger button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Количество на странице {{ students.paginator.per_page }}
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page=1">1</a>
+    <a class="dropdown-item" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page=2">2</a>
+    <a class="dropdown-item" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page=5">5</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ students.paginator.count}}">ALL</a>
+  </div>
+</div>
+
+
     <nav aria-label="...">
         <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">&laquo;</a>
+              <a class="page-link" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{number_on_page}}">&laquo;</a>
             </li>
+
             {% for p in students.paginator.page_range %}
-            <li {% if students.number == p %}class="page-item active"{% endif %}><a class="page-link" href="{% url "home" %}?page={{ p }}&amp;order_by={{ order_by }}&amp;order_by={{ order_by }}&amp;reverse={{reverse }}">{{p}}</a></li>
+            <li {% if students.number == p %}class="page-item active"{% endif %}><a class="page-link" href="{% url "home" %}?page={{ p }}&amp;order_by={{ order_by }}&amp;order_by={{ order_by }}&amp;reverse={{reverse }}&amp;number_on_page={{number_on_page}}">{{p}}</a></li>
 
             {% endfor %}
             <li class="page-item">
-              <a class="page-link" href="{% url "home" %}?page={{ students.paginator.num_pages}}&amp;order_by=={{ order_by }}&amp;reverse={{ reverse }}">&raquo;</a>
+              <a class="page-link" href="{% url "home" %}?page={{ students.paginator.num_pages}}&amp;order_by=={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{number_on_page}}">&raquo;</a>
             </li>
+
+            <li class="page-item"><a class="page-link" href="#">Total pages {{ students.paginator.num_pages}}</a></li>
+
         </ul>
     </nav>
+<a class="btn btn-primary" role="button" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ students.paginator.load_more }}" >Load more students</a>
     {% endwith %}
     {% endif %}
+<script>
+$("#target").ready(function(){$("#content-column > button").mousedown(function(){
+  alert("Кнопка мыши нажата");});
+});
+
+</script>
+
+
+
+<script>
+    jQuery(document).ready(function ($) {
+         //разрешаем выводить данные
+   var block = true;
+   //номер страницы для вывода
+   var page = 0;
+   //скроллинг
+        $(window).scroll(function () {
+            if ($(window).height() + $(window).scrollTop() >= $(document).height() && block){
+        console.log('scrollDown');
+        window.location.replace("{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ students.paginator.load_more }}");
+    }
+    //             $("#target").load("{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ students.paginator.load_more }}");
+    position = scroll;
+});});
+
+
+
+
+</script>
+
+<script>
+jQuery(document).ready(function ($) {
+   //разрешаем выводить данные
+   var block = true;
+   //номер страницы для вывода
+   var page = 0;
+   //скроллинг
+   $(window).scroll(function () {
+      if ($(window).height() + $(window).scrollTop() >= $(document).height() && block) {
+         block = false;
+         page++;
+         $.ajax({
+                type: 'GET',
+                url: "?page=1&order_by=last_name&reverse=1&number_on_page=4" + page,
+                success: function (list) {
+            stopLoading();
+            if (list == '') {
+               block = false;
+            } else {
+               $('.news').append(list);
+               block = true;
+            }
+                }
+            });
+            startLoading();
+        }
+   });
+   //старт анимация ajax
+   function startLoading() {
+      $('.loading').fadeIn(300);
+   }
+   //конец анимации ajax
+   function stopLoading() {
+      $('.loading').fadeOut();
+   }
+});
+
+</script>
+
+<a class="btn" role="button">Load more students</a>
+<button name="nada">button</button>
+<!--<script src="jquery-3.5.1.js"></script>-->
 {% endblock content %}
