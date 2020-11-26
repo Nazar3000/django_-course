@@ -1,1 +1,7 @@
-*.pyc, *∼, *.egg-info, *.mo, *.egg
+*.pyc
+*∼
+*.egg-info
+*.mo
+*.egg
+*.sqlite3
+eggs/
