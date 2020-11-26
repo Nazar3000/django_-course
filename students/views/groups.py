@@ -19,28 +19,28 @@ def groups_list(request):
         groups = groups.order_by(order_by)
         if request.GET.get('reverse', '') == '1':
             groups = groups.reverse()
-    #
-    # # set nomber on page
-    #
-    # number_on_page = request.GET.get('number_on_page')
-    # if number_on_page < 1:
-    #     number_on_page = 1
-    #
-    # loading_step = 1
-    #
-    # # paginate students
-    # paginator = Pagination(groups, number_on_page, loading_step)
-    # # paginator = Paginator(students, 3)
-    # page = request.GET.get('page')
-    # try:
-    #     groups = paginator.page(page)
-    # except PageNotAnInteger:
-    #     # If page is not an integer, deliver first page.
-    #     groups = paginator.page(1)
-    #
-    # except EmptyPage:
-    #     # If page is out of range (e.g 9999), deliver last page of resoult
-    #     groups = paginator.page(paginator.num_pages)
+
+    # set nomber on page
+
+    number_on_page = request.GET.get('number_on_page')
+    if number_on_page < 1:
+        number_on_page = 1
+
+    loading_step = 1
+
+    # paginate students
+    paginator = Pagination(groups, number_on_page, loading_step)
+    # paginator = Paginator(students, 3)
+    page = request.GET.get('page')
+    try:
+        groups = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        groups = paginator.page(1)
+
+    except EmptyPage:
+        # If page is out of range (e.g 9999), deliver last page of resoult
+        groups = paginator.page(paginator.num_pages)
 
     return render(request,'students/groups_list.html',
                   {'groups':groups})

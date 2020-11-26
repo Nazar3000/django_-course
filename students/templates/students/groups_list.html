@@ -68,22 +68,48 @@
 <p>Пока нет групп в базе </p>
             {% endif %}
 
+
+
             <!-- Add Pagitnation-->
+            {% if groups.has_other_pages %}
+            {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
             <nav aria-label="...">
                 <ul class="pagination">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
                     <li class="page-item">
-                      <a class="page-link" href="#">Next</a>
+                      <a class="page-link" href="{% url 'groups' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">&laquo;</a>
                     </li>
+                    {% for p in groups.paginator.page_range %}
+                    <li {% if groups.number == p %}class="page-item active"{% endif %}><a class="page-link" href="{% url 'groups' %}?page={{ p }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">{{ p }}</a></li>
+                    {% endfor %}
+                    <li>
+                      <a class="page-link" href="{% url 'groups' %}?page={{ groups.paginator.num_pages }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">&raquo;</a>
+                    </li>
+
                 </ul>
             </nav>
 
+<a class="btn btn-primary" role="button" href="{% url 'groups' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ groups.paginator.load_more }}" >Load more students</a>
+            {% endwith %}
+            {% endif %}
+<script>
+    jQuery(document).ready(function ($) {
+         //разрешаем выводить данные
+   var block = true;
+   //номер страницы для вывода
+   var page = 0;
+   //скроллинг
+        $(window).scroll(function () {
+            if ($(window).height() + $(window).scrollTop() >= $(document).height() && block){
+        console.log('scrollDown');
+        window.location.replace("{% url 'groups' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ groups.paginator.load_more }}");
+    }
+    //             $("#target").load("{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ students.paginator.load_more }}");
+    position = scroll;
+});});
+
+
+
+
+</script>
 
 {% endblock content %}

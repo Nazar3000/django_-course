@@ -120,12 +120,7 @@
 <a class="btn btn-primary" role="button" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ students.paginator.load_more }}" >Load more students</a>
     {% endwith %}
     {% endif %}
-<script>
-$("#target").ready(function(){$("#content-column > button").mousedown(function(){
-  alert("Кнопка мыши нажата");});
-});
 
-</script>
 
 
 
