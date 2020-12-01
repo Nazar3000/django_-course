@@ -52,6 +52,13 @@ class Student(models.Model):
         blank=True,
         verbose_name=u"Дополнительные заметки"
     )
+
+    student_group = models.ForeignKey('Group',
+        verbose_name=u"Группа",
+        blank=False,
+        null=True,
+        on_delete=models.PROTECT
+    )
     # Отображает имя стужента в админке
     def __unicode__(self):
         return u"%s %s" %(self.first_name, self.last_name)
@@ -84,8 +91,8 @@ class Group(models.Model):
 
 
     # Отображает имя группы в админке
-    def __unicode__(self):
-        if self.leader:
-            return u"%s (%s %s)" % (self.title, self.leader.first_name, self.leader.last_name)
-        else:
-            return u"%" % (self.title,)
+    # def __unicode__(self):
+    #     if self.leader:
+    #         return u"%s (%s %s)" % (self.title, self.leader.first_name, self.leader.last_name)
+    #     else:
+    #         return u"%s" % (self.title,)
