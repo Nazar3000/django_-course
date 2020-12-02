@@ -79,10 +79,17 @@ class Group(models.Model):
     )
 
     leader = models.OneToOneField('Student',
+<<<<<<< HEAD
         verbose_name=u"Староста",
         blank=True,
         null=True,
         on_delete=models.SET_NULL)
+=======
+                                  verbose_name=u"Староста",
+                                  blank=True,
+                                  null=True,
+                                  on_delete=models.SET_NULL)
+>>>>>>> e336e2e04061f1c7141d0980d2e41951f3af73af
 
     notes = models.TextField(
         blank=True,
@@ -91,8 +98,16 @@ class Group(models.Model):
 
 
     # Отображает имя группы в админке
+<<<<<<< HEAD
     def __unicode__(self):
         if self.leader:
             return u"%s (%s %s)" % (self.title, self.leader.first_name, self.leader.last_name)
         else:
             return u"%s" % (self.title,)
+=======
+    # def __unicode__(self):
+    #     if self.leader:
+    #         return u"%s (%s %s)" % (self.title, self.leader.first_name, self.leader.last_name)
+    #     else:
+    #         return u"%s" % (self.title,)
+>>>>>>> e336e2e04061f1c7141d0980d2e41951f3af73af
