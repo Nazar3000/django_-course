@@ -23,6 +23,7 @@ from django.views.static import serve
 from students.views.students import students_list, students_add, students_edit, students_delete
 from students.views.groups import groups_list, groups_add, groups_edit, groups_delete
 from students.views.journal import journal
+from students.views.exams import exams_list
 from  .settings import MEDIA_ROOT, DEBUG
 
 
@@ -45,6 +46,9 @@ urlpatterns = [
 
 # journal
     url(r'^journal/$', journal, name='journal'),
+
+# exams
+    url(r'^exams/$', exams_list, name='exams')
 ]
 
 if DEBUG:
