@@ -14,7 +14,7 @@
     <!-- Start Students Listing -->
 
 <table class="table table-hover table-striped" id="target" style="overflow: scroll;">
-    {% with order_by=request.GET.order_by reverse=request.GET.reverse number_on_page=request.GET.number_on_page %}
+    {% with order_by=request.GET.order_by reverse=request.GET.reverse number_on_page=students.paginator.per_page %}
     <thead>
     <tr>
         <th><a heref='#'>№</a></th>
