@@ -24,6 +24,7 @@ from students.views.students import students_list, students_add, students_edit, 
 from students.views.groups import groups_list, groups_add, groups_edit, groups_delete
 from students.views.journal import journal
 from students.views.exams import exams_list
+from students.views.exams_resoult import resoult_list
 from  .settings import MEDIA_ROOT, DEBUG
 
 
@@ -48,7 +49,10 @@ urlpatterns = [
     url(r'^journal/$', journal, name='journal'),
 
 # exams
-    url(r'^exams/$', exams_list, name='exams')
+    url(r'^exams/$', exams_list, name='exams'),
+
+# exams_resoult
+    url(r'^resoult/$', resoult_list, name='resoult'),
 ]
 
 if DEBUG:

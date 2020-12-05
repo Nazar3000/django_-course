@@ -1,39 +1,39 @@
 {% extends "students/base.html" %}
-{% block meta_title %}Список Экзаменов{% endblock meta_title %}
-{% block title %}Список Экзаменов{% endblock title %}
+{% block meta_title %}Список Результатов{% endblock meta_title %}
+{% block title %}Список Результатов{% endblock title %}
 {% block content %}
 
 
 
             <!-- Start Groups Listing -->
-            {% if exams %}
+            {% if resoult %}
             <table class="table table-hover table-striped" id="calendar">
                 {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
                 <thead>
                 <tr>
                     <th><a heref='''>#</a></th>
-                    <th><a href= "{% url 'exams' %}?order_by=title{% if order_by == 'title' and reverse != '1' %}&amp;reverse=1{% endif %}">
-                        Предмет
+                    <th><a href= "{% url 'resoult' %}?order_by=title{% if order_by == 'title' and reverse != '1' %}&amp;reverse=1{% endif %}">
+                        Оценка
                     {% if order_by == 'title' and reverse != '1' %}&uarr;
                         {% elif order_by == 'title' and reverse == '1' %}&darr;
                         {% endif %}
                     </a>
                     </th>
-                    <th><a href="{% url 'exams' %}?order_by=date{% if order_by == 'date' and reverse != '1' %}&amp;reverse=1{% endif %}">
-                        Дата
-                    {% if order_by == 'date' and reverse != '1'%}&uarr;
-                        {% elif order_by == 'date' and reverse == '1' %}&darr;
+                    <th><a href="{% url 'resoult' %}?order_by=student{% if order_by == 'student' and reverse != '1' %}&amp;reverse=1{% endif %}">
+                        Студент
+                    {% if order_by == 'student' and reverse != '1'%}&uarr;
+                        {% elif order_by == 'student' and reverse == '1' %}&darr;
                         {% endif %}
                     </a>
                     </th>
-                    <th><a href="{% url 'exams' %}?order_by=student_group{% if order_by == 'student_group' and reverse != '1' %}&amp;reverse=1{% endif %}">
-                        Группа
-                    {% if order_by == 'student_group' and reverse != '1'%}&uarr;
-                        {% elif order_by == 'student_group' and reverse == '1' %}&darr;
+                    <th><a href="{% url 'resoult' %}?order_by=exam{% if order_by == 'exam' and reverse != '1' %}&amp;reverse=1{% endif %}">
+                        Предмет
+                    {% if order_by == 'exam' and reverse != '1'%}&uarr;
+                        {% elif order_by == 'exam' and reverse == '1' %}&darr;
                         {% endif %}
                     </a>
                     </th>
-                    <th><a href="{% url 'exams' %}?order_by=teacher{% if order_by == 'teacher' and reverse != '1' %}&amp;reverse=1{% endif %}">
+                    <th><a href="{% url 'resoult' %}?order_by=teacher{% if order_by == 'teacher' and reverse != '1' %}&amp;reverse=1{% endif %}">
                         Преподаватель
                     {% if order_by == 'teacher' and reverse != '1'%}&uarr;
                         {% elif order_by == 'teacher' and reverse == '1' %}&darr;
@@ -46,14 +46,14 @@
                 </thead>
                 {% endwith %}
                 <tbody>
-                {% for exam in exams %}
+                {% for resoult in resoult %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
 
-                        <td><a heref="#">{{ exam.title }}</a></td>
-                        <td><a heref="#">{{ exam.date }}</a></td>
-                        <td><a heref="#">{{ exam.exams_group.title }}</a></td>
-                        <td><a heref="#">{{ exam.teacher }}</a></td>
+                        <td><a heref="#">{{ resoult.title }}</a></td>
+                        <td><a heref="#">{{ resoult.student }}</a></td>
+                        <td><a heref="#">{{ resoult.exam.title }}</a></td>
+                        <td><a heref="#">{{ resoult.teacher }}</a></td>
 
                         <td>
                             <div class="=dropdown">
@@ -87,25 +87,25 @@
 
 
             <!-- Add Pagitnation-->
-            {% if exams.has_other_pages %}
+            {% if resoult.has_other_pages %}
             {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
             <nav aria-label="...">
                 <ul class="pagination">
                     <li class="page-item">
-                      <a class="page-link" href="{% url 'exams' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">&laquo;</a>
+                      <a class="page-link" href="{% url 'resoult' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">&laquo;</a>
                     </li>
-                    {% for p in exams.paginator.page_range %}
-                    <li {% if exams.number == p %}class="page-item active"{% endif %}><a class="page-link" href="{% url 'exams' %}?page={{ p }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">{{ p }}</a></li>
+                    {% for p in resoult.paginator.page_range %}
+                    <li {% if resoult.number == p %}class="page-item active"{% endif %}><a class="page-link" href="{% url 'resoult' %}?page={{ p }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">{{ p }}</a></li>
                     {% endfor %}
                     <li>
-                      <a class="page-link" href="{% url 'exams' %}?page={{ exams.paginator.num_pages }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">&raquo;</a>
+                      <a class="page-link" href="{% url 'resoult' %}?page={{ resoult.paginator.num_pages }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">&raquo;</a>
                     </li>
 
                 </ul>
             </nav>
 
 
-<a class="btn btn-primary" role="button" href="{% url 'exams' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ exams.paginator.load_more }}" >Load more exams</a>
+<a class="btn btn-primary" role="button" href="{% url 'resoult' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ resoult.paginator.load_more }}" >Load more exams</a>
 
             {% endwith %}
             {% endif %}
@@ -119,7 +119,7 @@
         $(window).scroll(function () {
             if ($(window).height() + $(window).scrollTop() >= $(document).height() && block){
         console.log('scrollDown');
-        window.location.replace("{% url 'exams' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ exams.paginator.load_more }}");
+        window.location.replace("{% url 'resoult' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ resoult.paginator.load_more }}");
     }
     //             $("#target").load("{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ students.paginator.load_more }}");
     position = scroll;

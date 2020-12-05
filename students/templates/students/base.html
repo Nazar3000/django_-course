@@ -93,6 +93,13 @@
                             <a href="{% url "exams" %}">Экзамены</a>
                             </div>
                         </li>
+                        <li class="nav-item"
+                            role="presentation">
+
+                            <div {% if '/resoult/' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}>
+                            <a href="{% url "resoult" %}">Результаты</a>
+                            </div>
+                        </li>
 
 
                     </ul>

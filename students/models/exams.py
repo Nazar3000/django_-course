@@ -22,10 +22,11 @@ class Exam(models.Model):
     )
 
 
-    student_group = models.ManyToManyField('Group',
+    exams_group = models.ForeignKey('Group',
                                       verbose_name=u"Группа",
                                       blank=False,
                                       null=True,
+                                      on_delete=models.SET_NULL
                                       )
 
     teacher = models.ForeignKey('Teacher',
