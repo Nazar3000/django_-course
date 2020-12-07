@@ -2,6 +2,7 @@
 
 from django.db import models
 
+
 class Group(models.Model):
     '''Group Model'''
 
@@ -16,16 +17,14 @@ class Group(models.Model):
     )
 
     leader = models.OneToOneField('Student',
-        verbose_name=u"Староста",
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL)
+                                  verbose_name=u"Староста",
+                                  blank=True,
+                                  null=True,
+                                  on_delete=models.SET_NULL)
 
     notes = models.TextField(
         blank=True,
         verbose_name=u"Дополнительные заметки")
-
-
 
     # Отображает имя группы в админке
 
