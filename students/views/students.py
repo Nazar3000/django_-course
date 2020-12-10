@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from datetime import time
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
@@ -72,40 +72,70 @@ def students_list(request):
 
 def students_add(request):
 
-    # Если форма была запощена:
     # was from postes?
     if request.method == "POST":
-    #     Если кнопка Отменить была нажата:
-
-    #       Возвращаем пользователя к списку cтудентов
-
-    # Если кнопка Добавить была нажата:
-    #     was from add button clicked?
+        # was form add button clicked?
         if request.POST.get('add_button') is not None:
-    #     Проверяем данные на корректность и забираем ошибки
-    #         TODO:validate input from user
+            # errors collection
             errors={}
-        # Если данные были введены некорректно:
-        #     Отдаем шаблон формы вместе с найдеными ошибками
 
-        # Если данные были введены корректно:
+            # validate students data will go here
+            # data for student object
+            data = {'middle_name': request.POST.get('middle_name'),
+                    'notes': request.POST.get('notes')}
+            # validate user input
+            first_name = request.POST.get('first_name', '').strip()
+            if not first_name:
+                errors['first_name'] = u"Имя есть обязательным"
+            else:
+                data['first_name'] = first_name
+
+            last_name = request.POST.get('last_name', '').strip()
+            if not last_name:
+                errors['last_name'] = u"Фамилия тоже есть обязательной"
+            else:
+                data['last_name'] = last_name
+
+            birthday = request.POST.get('birthday', '').strip()
+            if not birthday:
+                errors['birthday'] = u"Дата рождения есть обязательной"
+            else:
+                try:
+                    datetime.strptime(birthday, '%Y-%m-%d')
+                except Exception:
+                    errors['birthday']=u"Введите корректный формат даты (напр.1984-12-30)"
+
+
+                else:
+                    data['birthday'] = birthday
+
+            ticket = request.POST.get('ticket', '').strip()
+            if not ticket:
+                errors['ticket'] = u"Номер билета есть обязательным"
+            else:
+                data['ticket'] = ticket
+
+            student_group = request.POST.get('student_group', '').strip()
+            if not student_group:
+                errors['student_group'] = u"Выберите группу для студента"
+            else:
+                groups = Group.objects.filter(pk=student_group)
+                if len(groups) !=1:
+                    errors['student_group'] = u"Выберите коректную группу"
+
+                else:
+                    data['student_group'] = groups[0]
+
+            photo = request.FILES.get('photo')
+            if photo:
+                data['photo'] = photo
+
+            # save studen
             if not errors:
-
-        #     Создаем и сохраняем студента в базе
-        #         create student object
-                student = Student(
-                    first_name=request.POST['first_name'],
-                    last_name=request.POST['last_name'],
-                    middle_name=request.POST['middle_name'],
-                    birthday=request.POST['birthday'],
-                    ticket=request.POST['ticket'],
-                    student_group=Group.objects.get(pk=request.POST['student_group']),
-                    photo=request.FILES['photo'],
-                )
-                # save it to database
+                student = Student(**data)
                 student.save()
-        #     Возвращаем пользователя к списку студентов
-        #       redirect user to students list
+
+                # redirect to students list
                 return  HttpResponseRedirect(reverse('home'))
             else:
                 # render form with errors and previous user input
