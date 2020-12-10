@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Демо форма</title>
+</head>
+
+<form action="/submit_form.html" method="post"
+      enctype="multipart/form-data" name="myform">
+<input type="hidden" value="27" name="student_id" />
+<div>
+    <label for="first_name">Ваше имя</label>
+    <input type="text" value="" name="first_name"
+           id="first_name"/>
+</div>
+<div>
+    <label for="graduate">Закончил обучение?</label>
+    <input type="checkbox" checked="1" name="graduated"
+           value="1" id="graduate"/>
+
+</div>
+
+<div>
+    <label for="gender"> Ваш пол</label>
+    <input type="radio" name="gender" value="male" id="gender"/>
+    <input type="radio" name="gender" value="female"/>
+</div>
+<div>
+    <label for="age">Ваш возраст</label>
+    <select name="age" id="age">
+        <option value="">
+            Пожалуйста, выберете ваш возраст
+        </option>
+        <option value="10">Больше чем 10</option>
+        <option value="20"> Больше чем 20</option>
+    </select>
+</div>
+<input type="submit" name="save_button" value="Сохранить"/>
+</form>
+</body>
+</html>
