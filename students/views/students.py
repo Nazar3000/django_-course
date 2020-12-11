@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# import os
-from __future__ import unicode_literals
-from datetime import time
+import os
+# from __future__ import unicode_literals
+from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
@@ -105,7 +105,7 @@ def students_add(request):
                 try:
                     datetime.strptime(birthday, '%Y-%m-%d')
                 except Exception:
-                    errors['birthday'] = u"Введите корректный формат даты (напр.1984-12-30)"
+                    errors['birthday'] = u"Вы ввели %s Введите корректный формат даты (напр.1984-12-30)" % (birthday)
 
                 else:
                     data['birthday'] = birthday
@@ -132,11 +132,20 @@ def students_add(request):
             # Валидация фото без Pillow
             photo = request.FILES.get('photo')
             if photo:
-                # ext = os.path.splitext(photo.name)[1]
-                # valid_extensions = ['.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif']
-                # if not ext.lower() in valid_extensions:
-                #     errors['photo'] = u"Никакое это не фото"
-                data['photo'] = photo
+                validate_type=validate_file_extension(photo)
+                if validate_type is True:
+                    validate=validate_size(photo)
+                    if validate is True:
+                        data['photo'] = photo
+                    else:
+                        errors['photo'] = u"Фото должно быть не больше 2 мб и не меньше 1 кб"
+                else:
+                    errors['photo'] = u"Это не фото, ты ошибся"
+
+
+
+
+                # data['photo'] = photo
 
                 # if photo.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
                 #     statfile = os.stat(photo)
@@ -197,8 +206,20 @@ def students_edit(request, sid):
 def students_delete(request, sid):
     return HttpResponse('<h1>Delete Student %s</h1>' %sid)
 
-# def validate_file_extension(value, errors):
-#     ext = os.path.splitext(value.name)[1]
-#     valid_extensions = ['.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif']
-#     if not ext.lower() in valid_extensions:
-#         errors['photo'] = u"Никакое это не фото"
+
+
+def validate_file_extension(value):
+    ext = os.path.splitext(value.name)[1]
+    valid_extensions = ['.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif']
+    if not ext.lower() in valid_extensions:
+        return False
+    else:
+        return True
+
+def validate_size(photo):
+    filesize = (photo._size) / 1000
+    if filesize == 0 or filesize > 2000:
+        return False
+    else:
+        return True
+
