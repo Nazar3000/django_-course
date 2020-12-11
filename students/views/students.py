@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+# import os
 from __future__ import unicode_literals
 from datetime import time
 from django.shortcuts import render
@@ -103,11 +105,11 @@ def students_add(request):
                 try:
                     datetime.strptime(birthday, '%Y-%m-%d')
                 except Exception:
-                    errors['birthday']=u"Введите корректный формат даты (напр.1984-12-30)"
-
+                    errors['birthday'] = u"Введите корректный формат даты (напр.1984-12-30)"
 
                 else:
                     data['birthday'] = birthday
+            # data['birthday'] = birthday
 
             ticket = request.POST.get('ticket', '').strip()
             if not ticket:
@@ -126,10 +128,43 @@ def students_add(request):
                 else:
                     data['student_group'] = groups[0]
 
+
+            # Валидация фото без Pillow
             photo = request.FILES.get('photo')
             if photo:
+                # ext = os.path.splitext(photo.name)[1]
+                # valid_extensions = ['.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif']
+                # if not ext.lower() in valid_extensions:
+                #     errors['photo'] = u"Никакое это не фото"
                 data['photo'] = photo
 
+                # if photo.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
+                #     statfile = os.stat(photo)
+                #     filesize = (statfile.st_size)/1000
+                #     if not filesize == 0 or filesize < 2000:
+                #         data['photo'] = photo
+                #     else:
+                #         errors['photo'] = u"Фото должно быть не больше 2 мб и не меньше 1 кб"
+                # else:
+                #     errors['photo'] = u"Никакое это не фото"
+
+
+
+            # statfile = os.stat(filename)
+            # filesize = statfile.st_size
+            # if filesize == 0:
+            # # manage here the 'faulty image' case
+
+            # ЗАЮЗАТЬ Pillow
+            # Если фото больше чем надо выдать исключение
+            # Если фото не того формата выдать исключение
+            # if photo.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif'))
+            # Выполнить загрузку
+            # ===================
+            # photo = request.FILES.get('photo')
+            # if photo:
+            #     data['photo'] = photo
+            # ==========================
             # save studen
             if not errors:
                 student = Student(**data)
@@ -162,3 +197,8 @@ def students_edit(request, sid):
 def students_delete(request, sid):
     return HttpResponse('<h1>Delete Student %s</h1>' %sid)
 
+# def validate_file_extension(value, errors):
+#     ext = os.path.splitext(value.name)[1]
+#     valid_extensions = ['.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif']
+#     if not ext.lower() in valid_extensions:
+#         errors['photo'] = u"Никакое это не фото"
