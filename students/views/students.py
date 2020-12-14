@@ -1,12 +1,19 @@
 # -*- coding: utf-8 -*-
-
+from django import forms
 import os
+from django.template.defaultfilters import filesizeformat
 # from __future__ import unicode_literals
+from django.conf import settings
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
+
+
+import magic
+import tempfile
+
 # from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
 from ..models import Student, Group
@@ -131,8 +138,11 @@ def students_add(request):
 
             # Валидация фото без Pillow
             photo = request.FILES.get('photo')
+
             if photo:
+
                 validate_type=validate_file_extension(photo)
+                data_type=type(photo)
                 if validate_type is True:
                     validate=validate_size(photo)
                     if validate is True:
@@ -144,36 +154,29 @@ def students_add(request):
 
 
 
-
-                # data['photo'] = photo
-
-                # if photo.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
-                #     statfile = os.stat(photo)
-                #     filesize = (statfile.st_size)/1000
-                #     if not filesize == 0 or filesize < 2000:
-                #         data['photo'] = photo
-                #     else:
-                #         errors['photo'] = u"Фото должно быть не больше 2 мб и не меньше 1 кб"
-                # else:
-                #     errors['photo'] = u"Никакое это не фото"
-
-
-
-            # statfile = os.stat(filename)
-            # filesize = statfile.st_size
-            # if filesize == 0:
-            # # manage here the 'faulty image' case
-
-            # ЗАЮЗАТЬ Pillow
-            # Если фото больше чем надо выдать исключение
-            # Если фото не того формата выдать исключение
-            # if photo.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif'))
-            # Выполнить загрузку
-            # ===================
+            # Валидация с python-magic
             # photo = request.FILES.get('photo')
             # if photo:
-            #     data['photo'] = photo
-            # ==========================
+            #     validate_type=validate_file_extension(photo)
+            #     if validate_type is True:
+            #         validate=validate_size(photo)
+            #         if validate is True:
+            #             data['photo'] = photo
+            #         else:
+            #             errors['photo'] = u"Фото должно быть не больше 2 мб и не меньше 1 кб"
+            #     else:
+            #         errors['photo'] = u"Это не фото, ты ошибся"
+
+
+
+
+
+            # # Валидация фото Django функционалом
+            # photo = request.FILES.get('photo')
+            # if photo:
+            #     validate_content(photo)
+
+
             # save studen
             if not errors:
                 student = Student(**data)
@@ -208,13 +211,29 @@ def students_delete(request, sid):
 
 
 
+# def validate_file_extension(value):
+#     ext = os.path.splitext(value.name)[1]
+#     valid_extensions = ['.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif']
+#     if not ext.lower() in valid_extensions:
+#         return False
+#     else:
+#         return True
+
+
+
+# Валидация с python-magic
+
 def validate_file_extension(value):
-    ext = os.path.splitext(value.name)[1]
-    valid_extensions = ['.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif']
-    if not ext.lower() in valid_extensions:
-        return False
-    else:
+    valid_extensions = ['png', 'jpg', 'jpeg', 'tiff', 'bmp', 'gif']
+
+    ext=magic.from_buffer(value.read())
+    ext=ext.lower().split()
+    resoult=list(set(valid_extensions) & set(ext))
+    if resoult:
         return True
+    else:
+        return False
+
 
 def validate_size(photo):
     filesize = (photo._size) / 1000
@@ -223,3 +242,13 @@ def validate_size(photo):
     else:
         return True
 
+
+# def validate_content(photo):
+#     content = photo
+#     content_type = content.content_type.split('/')[0]
+#     if content_type > settings.CONTENT_TYPE:
+#         if content._size >settings.MAX_UPLOAD_SIZE:
+#             raise forms.ValidationError(_('Приведите загружаемое фото не более чем %s. Текущий размер %s') % (filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(content._size)))
+#     else:
+#         raise forms.ValidationError(_('Это не фото'))
+#     return content
