@@ -20,7 +20,8 @@ from django.contrib.staticfiles import views
 # from django.urls import re_path
 from django.views.static import serve
 
-from students.views.students import students_list, students_add, students_edit, students_delete
+from students.views.students import students_list, students_edit, students_delete
+from students.views.students_add import students_add
 from students.views.groups import groups_list, groups_add, groups_edit, groups_delete
 from students.views.journal import journal
 from students.views.exams import exams_list
