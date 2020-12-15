@@ -1,10 +1,19 @@
 {% extends "students/base.html" %}
 {% load static from staticfiles %}
+{% block status_message %}
+    {% if errors %}
+<div class="alert alert-warning" role="alert">
+    Пожалуйста исправьте следующие ошибки
+</div>
+    {% endif %}
+{% endblock status_message %}
 {% block meta_title %}Добавить студента{% endblock meta_title %}
 {% block title %}Добавить студента{% endblock title %}
 {% block content %}
 <form  action="{% url "students_add" %}" method="post" enctype="multipart/form-data">
 {% csrf_token %}
+
+
 <div>
     <label for="first_name">Имя*</label>
     <input type="text" value="{{ request.POST.first_name }}"
