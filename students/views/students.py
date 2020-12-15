@@ -13,6 +13,7 @@ from django.core.urlresolvers import reverse
 
 import magic
 import tempfile
+from PIL import Image
 
 # from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
@@ -223,15 +224,29 @@ def students_delete(request, sid):
 
 # Валидация с python-magic
 
+# def validate_file_extension(value):
+#     valid_extensions = ['png', 'jpg', 'jpeg', 'tiff', 'bmp', 'gif']
+#
+#     ext=magic.from_buffer(value.read())
+#     ext=ext.lower().split()
+#     resoult=list(set(valid_extensions) & set(ext))
+#     if resoult:
+#         return True
+#     else:
+#         return False
+
+# Валидация с PIL
 def validate_file_extension(value):
     valid_extensions = ['png', 'jpg', 'jpeg', 'tiff', 'bmp', 'gif']
-
-    ext=magic.from_buffer(value.read())
-    ext=ext.lower().split()
-    resoult=list(set(valid_extensions) & set(ext))
-    if resoult:
-        return True
-    else:
+    try:
+        im = Image.open(value)
+        ext = im.format.lower().split()
+        resoult = list(set(valid_extensions) & set(ext))
+        if resoult:
+            return True
+        else:
+            pass
+    except:
         return False
 
 
