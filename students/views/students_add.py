@@ -94,10 +94,10 @@ def students_add(request):
                         data['photo'] = photo
                     else:
                         errors['photo'] = u"Фото должно быть не больше 2 мб и не меньше 1 кб"
-                        messages.add_message(request, messages.ERROR, 'Пожалуйста исправьте следующие ошибки')
+
                 else:
                     errors['photo'] = u"Это не фото, ты ошибся"
-                    messages.add_message(request, messages.ERROR, 'Пожалуйста исправьте следующие ошибки')
+
 
 
 
@@ -133,6 +133,7 @@ def students_add(request):
                 messages.add_message(request, messages.ERROR, u'Студент %s успешно добавлен!'%request.POST.get('first_name', '').strip())
                 return  HttpResponseRedirect(u'%s?status_message=Студент %s успешно добавлен!'%(reverse('home'), request.POST.get('first_name', '').strip()))
             else:
+                messages.add_message(request, messages.ERROR, 'Пожалуйста исправьте следующие ошибки')
                 # render form with errors and previous user input
                 return render(request, 'students/students_add.html',
                               {'groups':Group.objects.all().order_by('title'),
