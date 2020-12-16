@@ -5,6 +5,13 @@
 <div class="alert alert-warning" role="alert">
     Пожалуйста исправьте следующие ошибки
 </div>
+{% if messages %}
+<ul class="alert alert-warning" role="alert">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
     {% endif %}
 {% endblock status_message %}
 {% block meta_title %}Добавить студента{% endblock meta_title %}

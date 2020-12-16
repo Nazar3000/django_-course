@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.contrib import messages
 import os
 from django.template.defaultfilters import filesizeformat
 # from __future__ import unicode_literals
@@ -9,6 +10,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
+
 
 
 import magic
@@ -92,8 +94,10 @@ def students_add(request):
                         data['photo'] = photo
                     else:
                         errors['photo'] = u"Фото должно быть не больше 2 мб и не меньше 1 кб"
+                        messages.add_message(request, messages.ERROR, 'Пожалуйста исправьте следующие ошибки')
                 else:
                     errors['photo'] = u"Это не фото, ты ошибся"
+                    messages.add_message(request, messages.ERROR, 'Пожалуйста исправьте следующие ошибки')
 
 
 
@@ -126,6 +130,7 @@ def students_add(request):
                 student.save()
 
                 # redirect to students list
+                messages.add_message(request, messages.ERROR, u'Студент %s успешно добавлен!'%request.POST.get('first_name', '').strip())
                 return  HttpResponseRedirect(u'%s?status_message=Студент %s успешно добавлен!'%(reverse('home'), request.POST.get('first_name', '').strip()))
             else:
                 # render form with errors and previous user input
@@ -134,7 +139,9 @@ def students_add(request):
                                'errors': errors})
         elif request.POST.get('cancel_button') is not None:
             # redirect to home page on cancel button
+            messages.add_message(request, messages.ERROR, u'Добавление студента %s отменено!'%request.POST.get('first_name', '').strip())
             return HttpResponseRedirect(u'%s?status_message=Добавление студента %s отменено!'%(reverse('home'),request.POST.get('first_name', '').strip()))
+
     else:
          # initial form render
         return render(request, 'students/students_add.html',

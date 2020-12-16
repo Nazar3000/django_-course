@@ -119,7 +119,18 @@
                     {% if request.GET.status_message %}
                     <div class="alert alert-warning" role="alter">{{ request.GET.status_message }}</div>
                     {% endif %}
+
+                    {% if messages %}
+                   <ul class="alert alert-warning" role="alert">
+                       {% for message in messages %}
+                       <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                       {% endfor %}
+                   </ul>
+                    {% endif %}
+
+
                     {% endblock %}
+
 
 
 
