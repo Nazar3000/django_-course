@@ -26,6 +26,7 @@ from students.views.groups import groups_list, groups_add, groups_edit, groups_d
 from students.views.journal import journal
 from students.views.exams import exams_list
 from students.views.exams_resoult import resoult_list
+from students.views.contact_admin import contact_admin
 from  .settings import MEDIA_ROOT, DEBUG
 
 
@@ -54,6 +55,7 @@ urlpatterns = [
 
 # exams_resoult
     url(r'^resoult/$', resoult_list, name='resoult'),
+    url(r'^contact-admin/$', contact_admin, name='contact_admin'),
 ]
 
 if DEBUG:
