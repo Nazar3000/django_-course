@@ -3,15 +3,32 @@
 
 {% block status_message %}
     {% if errors %}
-<div class="alert alert-warning" role="alert">
-    Пожалуйста исправьте следующие ошибки
+
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
+    Пожалуйста исправьте следующие ошибки в полях:
+    {% if errors.first_name_id %} {{ errors.first_name_id }}{% endif %}
+    {% if errors.last_name_id %}, {{ errors.last_name_id }}{% endif %}
+    {% if errors.birthday_id %}, {{ errors.birthday_id }}{% endif %}
+    {% if errors.student_group_id %}, {{ errors.student_group_id }}{% endif %}
+    {% if errors.photo_id %}, {{ errors.photo_id }}{% endif %}
+
 </div>
 {% if messages %}
-<ul class="alert alert-warning" role="alert">
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}:
+    {% if errors.first_name_id %} {{ errors.first_name_id }}{% endif %}
+    {% if errors.last_name_id %}, {{ errors.last_name_id }}{% endif %}
+    {% if errors.birthday_id %}, {{ errors.birthday_id }}{% endif %}{% if errors.student_group_id %}, {{ errors.student_group_id }}{% endif %}
+    {% if errors.photo_id %}, {{ errors.photo_id }}{% endif %}
+    </li>
     {% endfor %}
-</ul>
+
+</div>
 {% endif %}
     {% endif %}
 {% endblock status_message %}

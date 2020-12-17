@@ -41,23 +41,27 @@ def students_add(request):
             first_name = request.POST.get('first_name', '').strip()
             if not first_name:
                 errors['first_name'] = u"Имя есть обязательным"
+                errors['first_name_id'] = "Имя"
             else:
                 data['first_name'] = first_name
 
             last_name = request.POST.get('last_name', '').strip()
             if not last_name:
                 errors['last_name'] = u"Фамилия тоже есть обязательной"
+                errors['last_name_id'] = "Фамилия"
             else:
                 data['last_name'] = last_name
 
             birthday = request.POST.get('birthday', '').strip()
             if not birthday:
                 errors['birthday'] = u"Дата рождения есть обязательной"
+                errors['birthday_id'] = "Дата"
             else:
                 try:
                     datetime.strptime(birthday, '%Y-%m-%d')
                 except Exception:
                     errors['birthday'] = u"Вы ввели %s Введите корректный формат даты (напр.1984-12-30)" % (birthday)
+                    errors['birthday_id'] = "Дата"
 
                 else:
                     data['birthday'] = birthday
@@ -66,16 +70,19 @@ def students_add(request):
             ticket = request.POST.get('ticket', '').strip()
             if not ticket:
                 errors['ticket'] = u"Номер билета есть обязательным"
+                errors['ticket_id'] = "Билет"
             else:
                 data['ticket'] = ticket
 
             student_group = request.POST.get('student_group', '').strip()
             if not student_group:
                 errors['student_group'] = u"Выберите группу для студента"
+                errors['student_group_id'] = "Группа"
             else:
                 groups = Group.objects.filter(pk=student_group)
                 if len(groups) !=1:
                     errors['student_group'] = u"Выберите коректную группу"
+                    errors['student_group_id'] = "Группа"
 
                 else:
                     data['student_group'] = groups[0]
@@ -94,9 +101,11 @@ def students_add(request):
                         data['photo'] = photo
                     else:
                         errors['photo'] = u"Фото должно быть не больше 2 мб и не меньше 1 кб"
+                        errors['photo_id'] = "Фото"
 
                 else:
                     errors['photo'] = u"Это не фото, ты ошибся"
+                    errors['photo_id'] = "Фото"
 
 
 
