@@ -15,8 +15,9 @@
     {% if errors.photo_id %}, {{ errors.photo_id }}{% endif %}
 
 </div>
+{% endif %}
 {% if messages %}
-<div class="alert alert-warning alert-dismissible" role="alert">
+<ul class="alert alert-warning alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span></button>
     {% for message in messages %}
@@ -28,9 +29,9 @@
     </li>
     {% endfor %}
 
-</div>
+</ul>
 {% endif %}
-    {% endif %}
+
 {% endblock status_message %}
 {% block meta_title %}Добавить студента{% endblock meta_title %}
 {% block title %}Добавить студента{% endblock title %}

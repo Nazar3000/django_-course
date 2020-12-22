@@ -28,7 +28,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # Application definition
 
 INSTALLED_APPS = (
@@ -38,7 +38,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'students',
+    'contact_form',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -101,3 +104,12 @@ TEMPLATE_CONTEXT_PROCESSORS = \
     "django.core.context_processors.request",
     "studentsdb.context_processors.students_proc",
 )
+
+# email settings
+ADMIN_EMAIL = 'nazarii.mazur@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '465'
+EMAIL_HOST_USER = 'mazur.nazarii@gmail.com'
+EMAIL_HOST_PASSWORD = 'R1f2N3t4H5b6Y7f8Qwerty'
+EMAIL_USE_TLS= False
+EMAIL_USE_SSL= True

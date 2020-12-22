@@ -3,3 +3,4 @@ MySQL-python==1.2.5
 Pillow
 psycopg2-binary
 python-magic==0.4.6
+django-crispy-forms==1.4.0
