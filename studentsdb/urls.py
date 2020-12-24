@@ -27,6 +27,8 @@ from students.views.journal import journal
 from students.views.exams import exams_list
 from students.views.exams_resoult import resoult_list
 from students.views.contact_admin import contact_admin
+from students.views.test_form import Test_form
+
 
 
 
@@ -64,6 +66,8 @@ urlpatterns = [
 
 # contact_form
     url(r'^contact-admin/$', contact_admin, name='contact_admin'),
+    url(r'test-form/&', Test_form.as_view(), name='test-form'),
+    # url(r^'django-contact-form/&', Test_form.as_view() )
 ]
 
 if DEBUG:
