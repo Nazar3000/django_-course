@@ -1,0 +1,54 @@
+{% extends "students/base.html" %}
+{% load static from staticfiles %}
+
+{% block status_message %}
+    {% if form.errors %}
+
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
+    Пожалуйста исправьте следующие ошибки в полях:
+    {% if errors.first_name_id %} {{ errors.first_name_id }}{% endif %}
+    {% if errors.last_name_id %}, {{ errors.last_name_id }}{% endif %}
+    {% if errors.birthday_id %}, {{ errors.birthday_id }}{% endif %}
+    {% if errors.student_group_id %}, {{ errors.student_group_id }}{% endif %}
+    {% if errors.photo_id %}, {{ errors.photo_id }}{% endif %}
+
+</div>
+{% endif %}
+{% if messages %}
+<ul class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}:
+    {% if errors.first_name_id %} {{ errors.first_name_id }}{% endif %}
+    {% if errors.last_name_id %}, {{ errors.last_name_id }}{% endif %}
+    {% if errors.birthday_id %}, {{ errors.birthday_id }}{% endif %}{% if errors.student_group_id %}, {{ errors.student_group_id }}{% endif %}
+    {% if errors.photo_id %}, {{ errors.photo_id }}{% endif %}
+    </li>
+    {% endfor %}
+
+</ul>
+{% endif %}
+
+{% endblock status_message %}
+{% block meta_title %}Редактировать студента{% endblock meta_title %}
+{% block title %}Редпктировать студента{% endblock title %}
+{% block content %}
+<form  action="{% url "students_edit" object.id %}" method="post" enctype="multipart/form-data" role="form" class="form-horizontal">
+{% csrf_token %}
+
+{{ form.as_p }}
+
+
+<div class="form-group">
+    <label class="col-sm-2 control-lable"></label>
+    <div class="col-sm-10">
+        <textarea name="notes" id="notes" class="form-control"></textarea>
+        <input type="submit" value="Добавить" name="add_button"/>
+        <button type="submit" name="cancel_button" class="btn btn-link">Отменить</button>
+    </div>
+</div>
+</form>
+{% endblock content %}
