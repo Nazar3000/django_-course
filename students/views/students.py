@@ -8,11 +8,30 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
+from django.views.generic import UpdateView
 
 
 # from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
 from ..models import Student, Group
+
+
+class StudentUpdateView(UpdateView):
+    model = Student
+    template_name = 'students/students_edit.html'
+
+    def get_success_url(self):
+        return u'%s?status_message=Студент успешно добавлен!' \
+               % reverse('home')
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            return HttpResponseRedirect(u'%s?status_message=Редактирование студента отменено!'
+                                        % reverse('home'))
+        else:
+            return super(StudentUpdateView, self).post(request, *args, **kwargs)
+
+
 
 
 # Views for Students

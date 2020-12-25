@@ -27,9 +27,8 @@ from students.views.journal import journal
 from students.views.exams import exams_list
 from students.views.exams_resoult import resoult_list
 from students.views.contact_admin import contact_admin
-
-
-
+from students.views.test_form import Test_form
+from students.views.students import StudentUpdateView
 
 
 
@@ -42,7 +41,7 @@ from  .settings import MEDIA_ROOT, DEBUG
 urlpatterns = [
     url(r'^$', students_list, name='home'),
     url(r'^students/add/$', students_add, name='students_add'),
-    url(r'^students/(?P<sid>\d+)/edit/$', students_edit, name='students_edit'),
+    url(r'^students/(?P<pk>\d+)/edit/$', StudentUpdateView.as_view(), name='students_edit'),
 
     url(r'^students/(?P<sid>\d+)/delete/$', students_delete, name='students_delete'),
 
@@ -64,6 +63,8 @@ urlpatterns = [
 
 # contact_form
     url(r'^contact-admin/$', contact_admin, name='contact_admin'),
+    url(r'test-form/&', Test_form.as_view(), name='test-form'),
+    # url(r^'django-contact-form/&', Test_form.as_view() )
 ]
 
 if DEBUG:

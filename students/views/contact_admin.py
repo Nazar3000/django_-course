@@ -59,7 +59,7 @@ def contact_admin(request):
             try:
                 send_mail(subject, message, from_email, [ADMIN_EMAIL])
             except Exception:
-                message = u'Во время отправки письма возникла ошибка. Попробуйте позже'
+                message = u'Во время отправки письма возникла ошибка. Попробуйте позже sand_email: subject:%s, message:%s, from_email:%s, ADMIN_EMAIL:%s '% (subject, message, from_email, ADMIN_EMAIL)
             else:
                 message = u'Сообщение отправлено'
             # redirect to same contact page with success message
