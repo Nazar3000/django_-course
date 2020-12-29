@@ -40,10 +40,12 @@ class StudentUpdateForm(ModelForm):
         self.helper.field_class = 'col-sm-10'
 
         # add button
-        self.helper.layout[-1] = FormActions(
-            Submit('add_button', u'Сохранить',css_class="btn btn-primary" ),
-            Submit('cancel_button', u'Отменить', css_class="btn-link"),
-        )
+        self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
+        self.helper.add_input(Submit('cancel_button', u'Отменить', css_class="btn-link"))
+        # self.helper.layout[-1] = FormActions(
+        #     Submit('add_button', u'Сохранить',css_class="btn btn-primary" ),
+        #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
+        # )
 
 class StudentUpdateView(UpdateView):
     model = Student

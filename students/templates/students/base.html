@@ -1,24 +1,19 @@
 {% load static from staticfiles %}
 <!DOCTIPE HTML>
-<html lang="uk">
+<html lang="ru">
 
     <head>
         <meta charset="UTF-8">
         <title> Сервис учета студентов -{% block meta_title %}{% endblock meta_title %}</title>
         <meta name="description"
               value="Система учета студентов Учебного Заведения"/>
-<!--        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>-->
-        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-
-
-        </script>
-
+        <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 
 
         <!-- Include Stules -->
 
-       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 
 
@@ -26,8 +21,8 @@
         <link rel="stylesheet" href="{{ PORTAL_URL }}{% static "css/main.css" %}">
     {% block extra_css %}{% endblock extra_css %}
     </head>
+    <body>
 
-    <li>
 
 
 
@@ -60,65 +55,25 @@
             <!-- End Header -->
 
             <!-- Start SubHeader -->
+
+
+
             <div class="row" id="sub-header">
-                <div class="col-lg-12">
-                    <ul class="nav nav-tabs" role="tablist">
-
-                        <li class="nav-item"
-                            role="presentation">
-                            <div {% if request.path == '/' %}class="nav-link active" {% else %} class="nav-link" {% endif %}>
-                            <a  href="{% url "home" %}?order_by=last_name">Студенты</a> </div>
-                        </li>
-
-
-                        <li class="nav-item"
-                            role="presentation">
-                            <div {% if '/journal' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}>
-                            <a href={% url "journal" %}>Посещение</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item"
-                            role="presentation">
-
-                            <div {% if '/groups/' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}>
-                            <a href="{% url "groups" %}">Групы</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item"
-                            role="presentation">
-
-                            <div {% if '/exams/' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}>
-                            <a href="{% url "exams" %}">Экзамены</a>
-                            </div>
-                        </li>
-                        <li class="nav-item"
-                            role="presentation">
-
-                            <div {% if '/resoult/' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}>
-                            <a href="{% url "resoult" %}">Результаты</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item"
-                            role="presentation">
-                            <div {% if '/contact-admin' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}>
-                            <a href="{% url "contact_admin" %}">Контакт</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item"
-                            role="presentation">
-                            <div {% if '/contact-admin' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}>
-                            <a href="{% url "test-form" %}">Test</a>
-                            </div>
-                        </li>
-
-
-                    </ul>
-                </div>
+              <div class="col-xs-12">
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" {% if request.path == '/' %}class="active"{% endif %}><a href="{% url "home" %}">Студенти</a></li>
+                  <li role="presentation" {% if '/journal' in request.path %}class="active"{% endif %}><a href="/journal">Відвідування</a></li>
+                  <li role="presentation" {% if '/groups' in request.path %}class="active"{% endif %}><a href="{% url "groups" %}">Групи</a></li>
+                  <li role="presentation" {% if '/contact-admin' in request.path %}class="active"{% endif %}><a href="{% url "contact_admin" %}">Контакт</a></li>
+                    <li role="presentation" {% if '/contact-admin' in request.path %}class="active"{% endif %}><a href="{% url "test-form" %}">TEST</a></li>
+                </ul>
+              </div>
             </div>
+
+
+
+
+
 
 
          <!--End SubHeader-->
@@ -170,11 +125,9 @@
 
 
 
-<!--    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>-->
-<!--<script src="jquery-3.5.1.js"></script>-->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <!-- Development version -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+
     {% block extra_js %}{% endblock extra_js %}
      </body>
 </html>

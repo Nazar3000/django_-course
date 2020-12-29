@@ -8,6 +8,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from crispy_forms.bootstrap import FormActions
 
+
 class AddStudentsForm(ModelForm):
     class Meta:
         model = Student
@@ -27,24 +28,27 @@ class AddStudentsForm(ModelForm):
         self.helper.html5_required = True
         self.helper.label_class = 'col-sm-2 control-label'
         self.helper.field_class = 'col-sm-10'
+        self.form_show_labels = True
 
         # add button
-        self.helper.layout[-1] = FormActions(
-            Submit('add_button', u'Сохранить', css_class="btn btn-primary"),
-            Submit('cancel_button', u'Отменить', css_class="btn-link"),
-        )
+        self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
+        self.helper.add_input(Submit('cancel_button', u'Отменить', css_class="btn-link"))
+        # self.helper.layout[-1] = FormActions(
+        #     Submit('add_button', u'Сохранить', css_class="btn btn-primary"),
+        #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
+        # )
+
 
 class AddStudents(CreateView):
     model = Student
     template_name = 'students/students_add2.html'
     form_class = AddStudentsForm
 
-
     def get_success_url(self):
-        return u'%s?status_message=Студент успешно добавлен!'% reverse('students_add2')
+        return u'%s?status_message=Студент успешно добавлен!' % reverse('home')
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            return HttpResponseRedirect(u'%s?status_message=Добавление отменено!'% reverse('home'))
+            return HttpResponseRedirect(u'%s?status_message=Добавление отменено!' % reverse('home'))
         else:
             return super(AddStudents, self).post(request, *args, **kwargs)

@@ -49,6 +49,7 @@
         {% for student in students %}
         <tr>
             <td>{{ forloop.counter }}</td>
+
             {% if student.photo %}
             <td><img height="=30" width="30"
                      src="{{ student.photo.url }}" class="rounded-circle" /> </td>
@@ -61,9 +62,9 @@
             <td><a heref="{% url "students_edit" student.id %}">{{student.student_group}}</td>
             <td>{{student.ticket}}</td>
             <td>
-                <div class="=btn-group">
-                    <button class="btn btn-default dropdown-toggle"
-                            type="button" data-toggle="dropdown">Действие
+                <div class="=btn-group col-lg-12">
+                    <button type="button" class="btn btn-default dropdown-toggle"
+                  data-toggle="dropdown">Действие
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
@@ -82,8 +83,7 @@
                 </div>
             </td>
         </tr>
-    <tr>
-        </tr>
+
         {%endfor%}
     </tbody>
 </table>
