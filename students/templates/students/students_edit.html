@@ -1,6 +1,6 @@
 {% extends "students/base.html" %}
 {% load static from staticfiles %}
-
+{% load crispy_forms_tags %}
 {% block status_message %}
     {% if form.errors %}
 
@@ -36,19 +36,8 @@
 {% block meta_title %}Редактировать студента{% endblock meta_title %}
 {% block title %}Редпктировать студента{% endblock title %}
 {% block content %}
-<form  action="{% url "students_edit" object.id %}" method="post" enctype="multipart/form-data" role="form" class="form-horizontal">
-{% csrf_token %}
-
-{{ form.as_p }}
+{% crispy form %}
 
 
-<div class="form-group">
-    <label class="col-sm-2 control-lable"></label>
-    <div class="col-sm-10">
-        <textarea name="notes" id="notes" class="form-control"></textarea>
-        <input type="submit" value="Добавить" name="add_button"/>
-        <button type="submit" name="cancel_button" class="btn btn-link">Отменить</button>
-    </div>
-</div>
-</form>
+
 {% endblock content %}

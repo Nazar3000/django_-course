@@ -9,16 +9,46 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
 from django.views.generic import UpdateView
+from django.forms import ModelForm
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+from crispy_forms.bootstrap import FormActions
 
 
 # from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
 from ..models import Student, Group
 
+class StudentUpdateForm(ModelForm):
+    class Meta:
+        model = Student
+
+    def __init__(self, *args, **kwargs):
+        super(StudentUpdateForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+
+        # set form tag attributes
+        self.helper.form_action = reverse('students_edit', kwargs={'pk':kwargs['instance'].id})
+        self.helper.form_method = 'POST'
+        self.helper.form_class = 'form-horizontal'
+
+        # set field propertyes
+        self.helper.help_tex_iline = True
+        self.helper.html5_required = True
+        self.helper.label_class = 'col-sm-2 control-label'
+        self.helper.field_class = 'col-sm-10'
+
+        # add button
+        self.helper.layout[-1] = FormActions(
+            Submit('add_button', u'Сохранить',css_class="btn btn-primary" ),
+            Submit('cancel_button', u'Отменить', css_class="btn-link"),
+        )
 
 class StudentUpdateView(UpdateView):
     model = Student
     template_name = 'students/students_edit.html'
+    form_class = StudentUpdateForm
 
     def get_success_url(self):
         return u'%s?status_message=Студент успешно добавлен!' \
