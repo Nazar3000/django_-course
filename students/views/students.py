@@ -49,7 +49,7 @@ class StudentUpdateForm(ModelForm):
 
 class StudentUpdateView(UpdateView):
     model = Student
-    template_name = 'students/students_edit.html'
+    template_name = 'students/students_form.html'
     form_class = StudentUpdateForm
 
     def get_success_url(self):

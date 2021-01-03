@@ -41,7 +41,7 @@ class AddStudentsForm(ModelForm):
 
 class AddStudents(CreateView):
     model = Student
-    template_name = 'students/students_add2.html'
+    template_name = 'students/students_form.html'
     form_class = AddStudentsForm
 
     def get_success_url(self):
