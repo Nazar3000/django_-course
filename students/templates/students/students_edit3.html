@@ -8,6 +8,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span></button>
     Пожалуйста исправьте следующие ошибки в полях:
+    {% if errors %} {{ errors }}{% endif %}
     {% if errors.first_name_id %} {{ errors.first_name_id }}{% endif %}
     {% if errors.last_name_id %}, {{ errors.last_name_id }}{% endif %}
     {% if errors.birthday_id %}, {{ errors.birthday_id }}{% endif %}
@@ -36,14 +37,16 @@
 {% block meta_title %}Добавить студента{% endblock meta_title %}
 {% block title %}Добавить студента{% endblock title %}
 {% block content %}
-<form  action="{% url "students_add" %}" method="post" enctype="multipart/form-data" role="form" class="form-horizontal">
+{% with student_id=student.id %}
+<form  action="{% url "students_edit3" student_id %}" method="post" enctype="multipart/form-data" role="form" class="form-horizontal">
+{% endwith %}
 {% csrf_token %}
 
 
 <div class="form-gorup {% if errors.first_name %}has-error{% endif %}">
     <label for="first_name" class="col-sm-2 control-lable">Имя*</label>
     <div class="col-sm-10">
-        <input type="text" value="{{ request.POST.first_name }}"
+        <input type="text" value="{{ student.first_name }}"
                name="first_name" id="first_name"
                placeholder="Введите ваше имя"
                class="form-control"/>
@@ -54,7 +57,7 @@
 <div class="form-group {% if errors.last_name %}has-errors{% endif %}">
     <label for="last_name" class="col-sm-2 control-lable">Фамилия*</label>
     <div class="col-sm-10">
-        <input type="text" value="{{ request.POST.last_name }}"
+        <input type="text" value="{{ student.last_name }}"
                name="last_name" id="last_name"
                placeholder="Введите вашу фамилию"
                class="form-control"/>
@@ -62,10 +65,9 @@
 </div>
 
 <div class="form-group {% if errors.middle_name %}has-error{% endif %}">
-    <label for="middle_name"class="col-sm-2 control-lable">Отчество
-    </label>
+    <label for="middle_name"class="col-sm-2 control-lable">Отчество</label>
     <div class="col-sm-10">
-        <input type="text" value="{{ request.POST.middle_name }}"
+        <input type="text" value="{{ student.middle_name }}"
                name="middle_name" id="middle_name"
                class="form-control"/>
         <span class="help-block">{{ errors.middle_name }}</span>
@@ -74,7 +76,7 @@
 <div class="form-group {% if errors.birthday %}has-error{% endif %}">
     <label for="birthday"class="col-sm-2 control-lable">День рождения*</label>
     <div class="col-sm-10">
-        <input type="text" value="{{ request.POST.birthday }}"
+        <input type="text" value="{{ formatedDate }}"
                name="birthday" id="birthday"
                placeholder="Напр. 1923-11-22"
                class="form-control"/>
@@ -93,7 +95,7 @@
 <div class="form-group{% if errors.ticket %}has-error{% endif %}">
     <label for="ticket"class="col-sm-2 control-lable">Билет*</label>
     <div class="col-sm-10">
-        <input type="text" value="{{ request.POST.ticket }}"
+        <input type="text" value="{{ student.ticket }}"
                name="ticket" id="ticket"
                class="form-control"/>
         <span class="help-block">{{ errors.ticket }}</span>
@@ -107,25 +109,29 @@
     <div class="col-sm-10">
     <select name="student_group" id="students_group"
             class="form-control">
+
+
+
         <option value="">Выберите группу</option>
         {% for group in groups %}
         <option value="{{ group.id }}" {% if group.id == request.POST.student_group|add:0 %}selected="1"{% endif %}>{{ group.title }}</option>
         {% endfor %}
+
 
     </select>
     <span class="help-block">{{ errors.student_group }}</span>
 </div>
     <div class="form-group {% if errors.notes %}has-error{% endif %}">
         <label for="notes" class="col-sm-2 control-lable">Дополнительные заметки</label>
-        <textarea name="notes" id="notes" class="form-control">{{ request.POST.notes }}</textarea>
+        <textarea name="notes" id="notes" class="form-control">{{ student.notes }}</textarea>
         <span class="help-block">{{ errors.notes }}</span>
     </div>
 </div>
 <div class="form-group">
     <label class="col-sm-2 control-lable"></label>
     <div class="col-sm-10">
-        <textarea name="notes" id="notes" class="form-control"></textarea>
-        <input type="submit" value="Добавить" name="add_button"/>
+
+        <input type="submit" value="Сохранить" name="edit_button"/>
         <button type="submit" name="cancel_button" class="btn btn-link">Отменить</button>
     </div>
 </div>

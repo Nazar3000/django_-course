@@ -31,7 +31,7 @@ from students.views.test_form import Test_form
 from students.views.students import StudentUpdateView
 from students.views.students_edit2 import Students_edit
 from students.views.student_add2 import AddStudents
-
+from students.views.students_edit3 import students_edit3
 
 from  .settings import MEDIA_ROOT, DEBUG
 
@@ -44,7 +44,7 @@ urlpatterns = [
     url(r'^students/add/$', students_add, name='students_add'),
     url(r'^students/add2/&', AddStudents.as_view(), name='students_add2'),
     url(r'^students/(?P<pk>\d+)/edit/$', StudentUpdateView.as_view(), name='students_edit'),
-    # url(r'^students/(?P<pk>\d+)/edit2/$', Students_edit.as_view(), name='students_edit2'),
+    url(r'^students/(?P<pk>\d+)/edit3/$', students_edit3, name='students_edit3'),
     url(r'^students/edit2/(?P<pk>\d+)', Students_edit.as_view(), name='students_edit2'),
 
     url(r'^students/(?P<sid>\d+)/delete/$', students_delete, name='students_delete'),
