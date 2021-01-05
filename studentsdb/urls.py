@@ -20,7 +20,7 @@ from django.contrib.staticfiles import views
 # from django.urls import re_path
 from django.views.static import serve
 
-from students.views.students import students_list, students_edit, students_delete
+from students.views.students import students_list, students_edit, StudentUpdateView, StudentDeleteView
 from students.views.students_add import students_add
 from students.views.groups import groups_list, groups_add, groups_edit, groups_delete
 from students.views.journal import journal
@@ -28,10 +28,10 @@ from students.views.exams import exams_list
 from students.views.exams_resoult import resoult_list
 from students.views.contact_admin import contact_admin
 from students.views.test_form import Test_form
-from students.views.students import StudentUpdateView
 from students.views.students_edit2 import Students_edit
 from students.views.student_add2 import AddStudents
 from students.views.students_edit3 import students_edit3
+
 
 from  .settings import MEDIA_ROOT, DEBUG
 
@@ -47,7 +47,7 @@ urlpatterns = [
     url(r'^students/(?P<pk>\d+)/edit3/$', students_edit3, name='students_edit3'),
     url(r'^students/edit2/(?P<pk>\d+)', Students_edit.as_view(), name='students_edit2'),
 
-    url(r'^students/(?P<sid>\d+)/delete/$', students_delete, name='students_delete'),
+    url(r'^students/(?P<pk>\d+)/delete/$', StudentDeleteView.as_view(), name='students_delete'),
 
 # Groups url
     url(r'^groups/$', groups_list, name='groups'),
