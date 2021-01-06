@@ -31,7 +31,7 @@ from students.views.test_form import Test_form
 from students.views.students_edit2 import Students_edit
 from students.views.student_add2 import AddStudents
 from students.views.students_edit3 import students_edit3
-
+from students.views.students_delete3 import students_delete
 
 from  .settings import MEDIA_ROOT, DEBUG
 
@@ -47,7 +47,9 @@ urlpatterns = [
     url(r'^students/(?P<pk>\d+)/edit3/$', students_edit3, name='students_edit3'),
     url(r'^students/edit2/(?P<pk>\d+)', Students_edit.as_view(), name='students_edit2'),
 
+
     url(r'^students/(?P<pk>\d+)/delete/$', StudentDeleteView.as_view(), name='students_delete'),
+    url(r'^students/(?P<pk>\d+)/delete3/$', students_delete, name='students_delete3'),
 
 # Groups url
     url(r'^groups/$', groups_list, name='groups'),

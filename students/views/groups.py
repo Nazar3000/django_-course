@@ -74,11 +74,16 @@ class GroupsDeleteView(DeleteView, SingleObjectMixin):
         related_stud = len(Student.objects.filter(student_group=group_id))
         students_ns = related_stud
 
-        success_url = self.get_success_url()
+        # success_url = self.get_success_url()
 
         try:
+            # self.object.delete()
+            # return HttpResponseRedirect(success_url)
             self.object.delete()
-            return HttpResponseRedirect(success_url)
+            messages.add_message(request, messages.ERROR,
+                                 u'Группа %s успешно удалена!' % object)
+            # return HttpResponseRedirect(success_url)
+            return HttpResponseRedirect(u'%s?status_message=Группа %s успешно удалена!' % (reverse('home'), object))
         except:
 
             messages.add_message(request, messages.ERROR,
@@ -86,9 +91,11 @@ class GroupsDeleteView(DeleteView, SingleObjectMixin):
             return render(request, 'students/groups_confirm_delete.html', {'object': object})
 
 
-    def get_success_url(self):
-
-        return u'%s?status_message=Группа успешно удалена!' % reverse('home')
+    # def get_success_url(self):
+    #     messages.add_message(request, messages.ERROR,
+    #                          u'Группа %s успешно удалена!' % object)
+    #
+    #     return u'%s?status_message=Группа %s успешно удалена!' % (reverse('home'), object)
 
     # def get_error_url(self):
     #     return u'%s?status_message=Группа не удалена так как в ней есть студенты!' % reverse('home')
