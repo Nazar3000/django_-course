@@ -31,9 +31,11 @@ class StudentUpdateForm(ModelForm):
 
 
         groups = Group.objects.filter(leader=self.instance)
+        grop_name = Group.objects.get(leader=self.instance)
+        leader = self.cleaned_data['student_group']
         if len(groups) > 0 and \
-            self.cleaned_data['student_group'] != groups[0]:
-            raise ValidationError(u'Этот студент является старостой другой группы', code='invalid')
+            leader != groups[0]:
+            raise ValidationError(u'Этот студент является старостой другой группы:%s'%grop_name, code='invalid')
 
         return self.cleaned_data['student_group']
 

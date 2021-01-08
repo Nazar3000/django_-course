@@ -13,12 +13,12 @@ class StudentFormAdmin(ModelForm):
         If yes, then ensure it's the same as selected group.'''
         # get group where current student is a leader
 
-
-
         groups = Group.objects.filter(leader=self.instance)
+        grop_name = Group.objects.get(leader=self.instance)
+        leader = self.cleaned_data['student_group']
         if len(groups) > 0 and \
-            self.cleaned_data['student_group'] != groups[0]:
-            raise ValidationError(u'Этот студент является старостой другой группы', code='invalid')
+                leader != groups[0]:
+            raise ValidationError(u'Этот студент является старостой другой группы:%s' % grop_name, code='invalid')
 
         return self.cleaned_data['student_group']
 
@@ -34,11 +34,13 @@ class GroupFormAdmin(ModelForm):
         students = Student.objects.filter(student_group=self.instance)
         leader = self.cleaned_data['leader']
 
-        for student in students:
-            if leader == student:
-                return self.cleaned_data['leader']
-            else:
-                raise ValidationError(u'Этот студент состоит в другой группе: %s'%leader.student_group, code='invalid')
+        if leader is not None:
+            for student in students:
+                if leader == student:
+                    return self.cleaned_data['leader']
+                else:
+                    raise ValidationError(u'Этот студент состоит в другой группе: %s' % leader.student_group,
+                                          code='invalid')
 
 
 
@@ -52,7 +54,7 @@ class StudentAdmin(admin.ModelAdmin):
     search_fields = ['last_name', 'first_name', 'ticket', 'student_group']
     form = StudentFormAdmin
     actions = ['copy_students']
-    fields = ['last_name', 'first_name']
+
     def view_on_site(self, obj):
         return reverse('students_edit', kwargs={'pk':obj.id})
 
