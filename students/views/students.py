@@ -9,7 +9,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
 from django.views.generic import UpdateView, DeleteView
-from django.forms import ModelForm
+from django.forms import ModelForm, ValidationError
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from crispy_forms.bootstrap import FormActions
@@ -22,6 +22,20 @@ from ..models import Student, Group
 class StudentUpdateForm(ModelForm):
     class Meta:
         model = Student
+
+    def clean_student_group(self):
+        ''' Check if student is leader in any group.
+        If yes, then ensure it's the same as selected group.'''
+        # get group where current student is a leader
+
+
+
+        groups = Group.objects.filter(leader=self.instance)
+        if len(groups) > 0 and \
+            self.cleaned_data['student_group'] != groups[0]:
+            raise ValidationError(u'Этот студент является старостой другой группы', code='invalid')
+
+        return self.cleaned_data['student_group']
 
     def __init__(self, *args, **kwargs):
         super(StudentUpdateForm, self).__init__(*args, **kwargs)
@@ -51,6 +65,7 @@ class StudentUpdateView(UpdateView):
     model = Student
     template_name = 'students/students_form.html'
     form_class = StudentUpdateForm
+
 
     def get_success_url(self):
         return u'%s?status_message=Студент успешно добавлен!' \
