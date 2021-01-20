@@ -23,7 +23,7 @@ from django.views.static import serve
 from students.views.students import students_list, students_edit, StudentUpdateView, StudentDeleteView
 from students.views.students_add import students_add
 from students.views.groups import groups_list, AddGroup, GroupUpdateView, GroupsDeleteView
-from students.views.journal import journal
+from students.views.journal import JournalView
 from students.views.exams import exams_list
 from students.views.exams_resoult import resoult_list
 from students.views.contact_admin import contact_admin
@@ -59,7 +59,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
 # journal
-    url(r'^journal/$', journal, name='journal'),
+    url(r'^journal/$', JournalView.as_view(), name='journal'),
 
 # exams
     url(r'^exams/$', exams_list, name='exams'),

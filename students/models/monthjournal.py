@@ -10,6 +10,7 @@ class MonthJournal(models.Model):
         verbose_name = u'Месячный Журнал'
         verbose_name_plural = u'Месячные журналы'
 
+    # list of days, each says whether student was presene or not
     key = ['present_day' + str(x) for x in range(1, 32)]
     for label in key:
         locals()[label] = models.BooleanField(default=False)

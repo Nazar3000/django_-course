@@ -5,3 +5,4 @@ psycopg2-binary
 python-magic==0.4.6
 django-crispy-forms==1.4.0
 django-contact-form==1.1
+python-dateutil==2.3
