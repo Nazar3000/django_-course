@@ -6,7 +6,14 @@
 
 <a class="btn btn-primary" href="{% url "groups_add" %}">Добавить группу</a>
             <!-- Start Groups Listing -->
-            {% if groups %}
+            {% if not groups %}
+<div class="alert alert-warning">
+    Пока нет ни одной группы в базе. Пожалуйста,
+    <a href="{% url "groups_add" %}">Добавить</a> первую.
+</div>
+
+{% else %}
+
             <table class="table table-hover table-striped" id="calendar">
                 {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
                 <thead>
@@ -32,12 +39,14 @@
                 </thead>
                 {% endwith %}
                 <tbody>
-                {% for group in groups %}
+                {% for group in groups.page_obj %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
 
+
                         <td><a heref="{% url 'groups_edit' group.id %}">{{ group.title }}</a></td>
                         <td><a heref="{% url 'students_edit' group.id %}">{{ group.leader }}</a></td>
+
 
                         <td>
                             <div class="=btn-group col-lg-12">
@@ -65,54 +74,33 @@
                 </tbody>
             </table>
             <!-- End Students List -->
-            {% else %}
-<p>Пока нет групп в базе </p>
             {% endif %}
 
 
+
+
+<tr>
+    <td>
+        {% if is_paginated %}
+        {{ context.page_obj.start_index|add:forloop.counter|add:"-1" }}
+        {% else %}
+        {{ forloop.counter }}
+        {% endif %}
+        <a title="=Редактировать" target="_blank">{{ group.title }}
+    </a>
+    </td>>
+
+</tr>
 
             <!-- Add Pagitnation-->
-            {% if groups.has_other_pages %}
-            {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
-            <nav aria-label="...">
-                <ul class="pagination">
-                    <li class="page-item">
-                      <a class="page-link" href="{% url 'groups' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">&laquo;</a>
-                    </li>
-                    {% for p in groups.paginator.page_range %}
-                    <li {% if groups.number == p %}class="page-item active"{% endif %}><a class="page-link" href="{% url 'groups' %}?page={{ p }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">{{ p }}</a></li>
-                    {% endfor %}
-                    <li>
-                      <a class="page-link" href="{% url 'groups' %}?page={{ groups.paginator.num_pages }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">&raquo;</a>
-                    </li>
-
-                </ul>
-            </nav>
-
-
-<a class="btn btn-primary" role="button" href="{% url 'groups' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ groups.paginator.load_more }}" >Load more groups</a>
-
-            {% endwith %}
-            {% endif %}
-<script>
-    jQuery(document).ready(function ($) {
-         //разрешаем выводить данные
-   var block = true;
-   //номер страницы для вывода
-   var page = 0;
-   //скроллинг
-        $(window).scroll(function () {
-            if ($(window).height() + $(window).scrollTop() >= $(document).height() && block){
-        console.log('scrollDown');
-        window.location.replace("{% url 'groups' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ groups.paginator.load_more }}");
-    }
-    //             $("#target").load("{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ students.paginator.load_more }}");
-    position = scroll;
-});});
-
-
-
-
-</script>
+{% with object_list=groups.page_obj is_paginated=groups.is_paginated paginator=groups.paginator %}
+{% include "students/pagination.html" %}
+<p>Пока нет групп в базе {{ groups }} </p>
+<p>Пока нет групп в базе {{ context }} </p>
+<p>object_list.number {{ object_list.number }} </p>
+{% if is_paginated %}
+<p>is_paginated</p>
+{% endif %}
+{% endwith %}
 
 {% endblock content %}

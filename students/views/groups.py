@@ -15,8 +15,44 @@ from django.forms import ModelForm, ValidationError
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from crispy_forms.bootstrap import FormActions
+from ..util import paginate
 
-# Views for Grops
+# Views for Grops vs old pagination
+
+# def groups_list(request):
+#     groups = Group.objects.all()
+#
+#     # try to order groups list
+#     order_by = request.GET.get('order_by', '')
+#     if order_by in ('title', 'leader'):
+#         groups = groups.order_by(order_by)
+#         if request.GET.get('reverse', '') == '1':
+#             groups = groups.reverse()
+#
+#     # set nomber on page
+#
+#     number_on_page = request.GET.get('number_on_page')
+#     if number_on_page < 1:
+#         number_on_page = 1
+#
+#     loading_step = 2
+#
+#     # paginate students
+#     paginator = Pagination(groups, number_on_page, loading_step)
+#     # paginator = Paginator(students, 3)
+#     page = request.GET.get('page')
+#     try:
+#         groups = paginator.page(page)
+#     except PageNotAnInteger:
+#         # If page is not an integer, deliver first page.
+#         groups = paginator.page(1)
+#
+#     except EmptyPage:
+#         # If page is out of range (e.g 9999), deliver last page of resoult
+#         groups = paginator.page(paginator.num_pages)
+#
+#     return render(request, 'students/groups_list.html',
+#                   {'groups': groups})
 
 def groups_list(request):
     groups = Group.objects.all()
@@ -27,35 +63,17 @@ def groups_list(request):
         groups = groups.order_by(order_by)
         if request.GET.get('reverse', '') == '1':
             groups = groups.reverse()
+    context1 = {}
+    # context1['1'] ='1'
 
-    # set nomber on page
+    context = paginate(groups, 2, request, context1, var_name='groups')
 
-    number_on_page = request.GET.get('number_on_page')
-    if number_on_page < 1:
-        number_on_page = 1
-
-    loading_step = 1
-
-    # paginate students
-    paginator = Pagination(groups, number_on_page, loading_step)
-    # paginator = Paginator(students, 3)
-    page = request.GET.get('page')
-    try:
-        groups = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        groups = paginator.page(1)
-
-    except EmptyPage:
-        # If page is out of range (e.g 9999), deliver last page of resoult
-        groups = paginator.page(paginator.num_pages)
-
+    # return context
     return render(request, 'students/groups_list.html',
-                  {'groups': groups})
+                  {'groups': context})
 
 
-def groups_add(request):
-    return HttpResponse('<h1>Groups Add Form</h1>')
+
 
 
 # def groups_edit(request, gid):
