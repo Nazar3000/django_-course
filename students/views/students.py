@@ -13,6 +13,8 @@ from django.forms import ModelForm, ValidationError
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from crispy_forms.bootstrap import FormActions
+from ..util import paginate
+
 
 
 # from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -95,30 +97,37 @@ def students_list(request):
         if request.GET.get('reverse', '') == '1':
             students = students.reverse()
 
+# ===============Old pagination===================
+
     # set nomber on page
+    #
+    # number_on_page= request.GET.get('number_on_page')
+    # if number_on_page <1:
+    #     number_on_page=1
+    #
+    # loading_step = 1
+    #
+    #
+    # # paginate students
+    # paginator = Pagination(students, number_on_page, loading_step)
+    # # paginator = Paginator(students, 3)
+    # page = request.GET.get('page')
+    # try:
+    #     students = paginator.page(page)
+    # except PageNotAnInteger:
+    #     # If page is not an integer, deliver first page.
+    #     students = paginator.page(1)
 
-    number_on_page= request.GET.get('number_on_page')
-    if number_on_page <1:
-        number_on_page=1
-
-    loading_step = 1
-
-
-    # paginate students
-    paginator = Pagination(students, number_on_page, loading_step)
-    # paginator = Paginator(students, 3)
-    page = request.GET.get('page')
-    try:
-        students = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        students = paginator.page(1)
-
-    except EmptyPage:
+    # except EmptyPage:
         # If page is out of range (e.g 9999), deliver last page of resoult
-        students = paginator.page(paginator.num_pages)
+
+        # students = paginator.page(paginator.num_pages)
+
+    # ===============Old pagination END===================
+    context1 = {}
+    context = paginate(students, 4, request, context1, var_name='student')
     return render(request, 'students/students_list.html',
-                  {'students': students})
+                  {'students': context})
 
 
     # students = (

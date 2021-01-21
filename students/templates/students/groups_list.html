@@ -79,28 +79,36 @@
 
 
 
-<tr>
-    <td>
-        {% if is_paginated %}
-        {{ context.page_obj.start_index|add:forloop.counter|add:"-1" }}
-        {% else %}
-        {{ forloop.counter }}
-        {% endif %}
-        <a title="=Редактировать" target="_blank">{{ group.title }}
-    </a>
-    </td>>
 
-</tr>
 
             <!-- Add Pagitnation-->
 {% with object_list=groups.page_obj is_paginated=groups.is_paginated paginator=groups.paginator %}
 {% include "students/pagination.html" %}
-<p>Пока нет групп в базе {{ groups }} </p>
-<p>Пока нет групп в базе {{ context }} </p>
-<p>object_list.number {{ object_list.number }} </p>
-{% if is_paginated %}
-<p>is_paginated</p>
-{% endif %}
+
 {% endwith %}
+
+
+<a class="btn btn-primary" role="button" href="{% url 'groups' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ groups.paginator.load_more }}" >Load more groups</a>
+
+<script>
+    jQuery(document).ready(function ($) {
+         //разрешаем выводить данные
+   var block = true;
+   //номер страницы для вывода
+   var page = 0;
+   //скроллинг
+        $(window).scroll(function () {
+            if ($(window).height() + $(window).scrollTop() >= $(document).height() && block){
+        console.log('scrollDown');
+        window.location.replace("{% url 'groups' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ groups.paginator.load_more }}");
+    }
+    //             $("#target").load("{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ students.paginator.load_more }}");
+    position = scroll;
+});});
+
+
+
+
+</script>
 
 {% endblock content %}
