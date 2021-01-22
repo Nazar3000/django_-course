@@ -66,7 +66,7 @@ def groups_list(request):
     context1 = {}
     # context1['1'] ='1'
 
-    context = paginate(groups, 5, request, context1, var_name='groups')
+    context = paginate(groups, 3, request, context1, var_name='groups')
 
     # return context
     return render(request, 'students/groups_list.html',

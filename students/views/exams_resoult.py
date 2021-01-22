@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from ..models import Resoult
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
-
+from  ..util import paginate
 
 # Views for Exams
 
@@ -22,28 +22,36 @@ def resoult_list(request):
 
     # set nomber on page
 
-    number_on_page = request.GET.get('number_on_page')
-    if number_on_page < 1:
-        number_on_page = 1
+    # ================OLD pagination======================
+    # number_on_page = request.GET.get('number_on_page')
+    # if number_on_page < 1:
+    #     number_on_page = 1
+    #
+    # loading_step = 1
+    #
+    # # paginate students
+    # paginator = Pagination(resoult, number_on_page, loading_step)
+    # # paginator = Paginator(students, 3)
+    # page = request.GET.get('page')
+    # try:
+    #     resoult = paginator.page(page)
+    # except PageNotAnInteger:
+    #     # If page is not an integer, deliver first page.
+    #     resoult = paginator.page(1)
+    #
+    # except EmptyPage:
+    #     # If page is out of range (e.g 9999), deliver last page of resoult
+    #     resoult = paginator.page(paginator.num_pages)
 
-    loading_step = 1
+    # ================OLD pagination end======================
 
-    # paginate students
-    paginator = Pagination(resoult, number_on_page, loading_step)
-    # paginator = Paginator(students, 3)
-    page = request.GET.get('page')
-    try:
-        resoult = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        resoult = paginator.page(1)
+    context1 = {}
+    # context1['1'] ='1'
 
-    except EmptyPage:
-        # If page is out of range (e.g 9999), deliver last page of resoult
-        resoult = paginator.page(paginator.num_pages)
+    context = paginate(resoult, 3, request, context1, var_name='')
 
     return render(request,'students/exams_resoult.html',
-                  {'resoult':resoult})
+                  {'resoult':context})
 
 
 # def exams_add(request):
