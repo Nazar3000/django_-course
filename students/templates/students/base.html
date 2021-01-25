@@ -62,11 +62,13 @@
             <div class="row" id="sub-header">
               <div class="col-xs-12">
                 <ul class="nav nav-tabs" role="tablist">
-                  <li role="presentation" {% if request.path == '/' %}class="active"{% endif %}><a href="{% url "home" %}">Студенти</a></li>
-                  <li role="presentation" {% if '/journal' in request.path %}class="active"{% endif %}><a href="/journal">Відвідування</a></li>
-                  <li role="presentation" {% if '/groups' in request.path %}class="active"{% endif %}><a href="{% url "groups" %}">Групи</a></li>
+
+                  <li role="presentation" {% if request.path == '/' %}class="active"{% endif %}><a href="{% url "home" %}">Студенты</a></li>
+                  <li role="presentation" {% if '/journal' in request.path %}class="active"{% endif %}><a href="/journal">Посещениея</a></li>
+                  <li role="presentation" {% if '/groups' in request.path %}class="active"{% endif %}><a href="{% url "groups" %}">Группы</a></li>
                   <li role="presentation" {% if '/contact-admin' in request.path %}class="active"{% endif %}><a href="{% url "contact_admin" %}">Контакт</a></li>
-                    <li role="presentation" {% if '/contact-admin' in request.path %}class="active"{% endif %}><a href="{% url "test-form" %}">TEST</a></li>
+                    <li role="presentation" {% if '/exams/' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}><a href="{% url "exams" %}">Экзамены</a></li>
+                    <li role="presentation" {% if '/resoult/' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}><a href="{% url "resoult" %}">Результаты</a></li>
                 </ul>
               </div>
             </div>

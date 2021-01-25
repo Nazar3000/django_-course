@@ -34,4 +34,5 @@ def paginate(objects, size, request, context, var_name='object_list'):
     context['is_paginated'] = objects_list.has_other_pages()
     context['page_obj'] = objects_list
     context['paginator'] = paginator
+
     return context

@@ -6,7 +6,15 @@
 
 
             <!-- Start Groups Listing -->
-            {% if exams %}
+{% if not exams %}
+
+<div class="alert alert-warning">
+    Пока нет ни одной группы в базе. Пожалуйста,
+    <a href="{% url "groups_add" %}">Добавить</a> первую.
+</div>
+
+{% else %}
+
             <table class="table table-hover table-striped" id="calendar">
                 {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
                 <thead>
@@ -46,7 +54,7 @@
                 </thead>
                 {% endwith %}
                 <tbody>
-                {% for exam in exams %}
+                {% for exam in exams.page_obj %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
 
@@ -80,35 +88,21 @@
                 </tbody>
             </table>
             <!-- End Students List -->
-            {% else %}
-<p>Пока нет экзаменов в базе </p>
+
             {% endif %}
 
 
 
             <!-- Add Pagitnation-->
-            {% if exams.has_other_pages %}
-            {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
-            <nav aria-label="...">
-                <ul class="pagination">
-                    <li class="page-item">
-                      <a class="page-link" href="{% url 'exams' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">&laquo;</a>
-                    </li>
-                    {% for p in exams.paginator.page_range %}
-                    <li {% if exams.number == p %}class="page-item active"{% endif %}><a class="page-link" href="{% url 'exams' %}?page={{ p }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">{{ p }}</a></li>
-                    {% endfor %}
-                    <li>
-                      <a class="page-link" href="{% url 'exams' %}?page={{ exams.paginator.num_pages }}&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}">&raquo;</a>
-                    </li>
+{% with object_list=exams.page_obj is_paginated=exams.is_paginated paginator=exams.paginator %}
+{% include "students/pagination.html" %}
 
-                </ul>
-            </nav>
+{% endwith %}
 
 
 <a class="btn btn-primary" role="button" href="{% url 'exams' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ exams.paginator.load_more }}" >Load more exams</a>
 
-            {% endwith %}
-            {% endif %}
+
 <script>
     jQuery(document).ready(function ($) {
          //разрешаем выводить данные

@@ -13,6 +13,12 @@
 
 
     <!-- Start Students Listing -->
+{% if not students %}
+<div class="alert alert-warning">
+    Пока нет ни одного студента в базе. Пожалуйста,
+    <a href="{% url "groups_add" %}">Добавить</a> первого.
+</div>
+{% else %}
 
 <table class="table table-hover table-striped" id="target" style="overflow: scroll;">
     {% with order_by=request.GET.order_by reverse=request.GET.reverse number_on_page=students.paginator.per_page %}
@@ -46,7 +52,7 @@
     </thead>
     {% endwith %}
     <tbody>
-        {% for student in students %}
+        {% for student in students.page_obj %}
         <tr>
             <td>{{ forloop.counter }}</td>
 
@@ -93,52 +99,17 @@
         {%endfor%}
     </tbody>
 </table>
+{% endif %}
 <!-- End Students List -->
 
     <!-- Add Pagitnation-->
 
-    {% if students.has_other_pages %}
-    {% with order_by=request.GET.order_by reverse=request.GET.reverse number_on_page=request.GET.number_on_page load_more=students.load_more %}
+{% with object_list=students.page_obj is_paginated=students.is_paginated paginator=students.paginator %}
+{% include "students/pagination.html" %}
 
-    <!-- Example single danger button -->
-<div class="btn-group">
-  <button type="button" class="btn btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-   Количество на странице {{ students.paginator.per_page }}
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page=1">1</a>
-    <a class="dropdown-item" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page=2">2</a>
-    <a class="dropdown-item" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page=5">5</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ students.paginator.count}}">ALL</a>
-  </div>
-</div>
+{% endwith %}
 
-
-    <nav aria-label="...">
-        <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{number_on_page}}">&laquo;</a>
-            </li>
-
-            {% for p in students.paginator.page_range %}
-            <li {% if students.number == p %}class="page-item active"{% endif %}><a class="page-link" href="{% url "home" %}?page={{ p }}&amp;order_by={{ order_by }}&amp;order_by={{ order_by }}&amp;reverse={{reverse }}&amp;number_on_page={{number_on_page}}">{{p}}</a></li>
-
-            {% endfor %}
-            <li class="page-item">
-              <a class="page-link" href="{% url "home" %}?page={{ students.paginator.num_pages}}&amp;order_by=={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{number_on_page}}">&raquo;</a>
-            </li>
-
-            <li class="page-item"><a class="page-link" href="#">Total pages {{ students.paginator.num_pages}}</a></li>
-
-        </ul>
-    </nav>
-<a class="btn btn-primary" role="button" href="{% url 'home' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ students.paginator.load_more }}" >Load more students</a>
-    {% endwith %}
-    {% endif %}
-
-
-
+<a class="btn btn-primary" role="button" href="{% url 'groups' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ groups.paginator.load_more }}" >Load more groups</a>
 
 <script>
     jQuery(document).ready(function ($) {

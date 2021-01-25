@@ -132,7 +132,7 @@ class JournalView(TemplateView):
                 'id': student.id,
                 'update_url': update_url,
             })
-
+            # students = queryset
                 # применяем пагинацию к списку студентов
                 # apply pagination, 10 students per page
 
