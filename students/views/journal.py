@@ -9,6 +9,8 @@ from django.template import RequestContext, loader
 from django.views.generic.base import TemplateView
 from ..models import MonthJournal, Student
 from ..util import paginate
+from django.http import JsonResponse
+import pdb; pdb.set_trace()
 
 
 
@@ -143,6 +145,25 @@ class JournalView(TemplateView):
         # finally return updated context
         # with paginated students
         return context
+
+    def post(self, request, *args, **kwargs):
+        data = request.POST
+
+        # prepare student, dates and presence data
+        current_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+        month = date(current_date.year, current_date.month, 1)
+        present = data['present'] and True or False
+        student = Student.objects.get(pk=data['pk'])
+
+        # get or create journal object for given student and month
+        journal = MonthJournal.objects.get_or_create(student=student, date=month)[0]
+        # set new presence on journal for given student and save resoult
+
+        setattr(journal, 'present_day%d' % current_date.day, present)
+        journal.save()
+
+        # return success status
+        return JsonResponse({'key':'value'})
 
 # def journal(request):
 #     return render(request, 'students/journal.html')
