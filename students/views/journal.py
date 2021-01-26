@@ -90,7 +90,11 @@ class JournalView(TemplateView):
         # вытягиваем всех студентов отсортированых по
         # queryset = Student.objects.order_by('last_name')
         # get all students from database
-        queryset = Student.objects.all().order_by('last_name')
+        # queryset = Student.objects.all().order_by('last_name')
+        if kwargs.get('pk'):
+            queryset = [Student.objects.get(pk=kwargs['pk'])]
+        else:
+            queryset = Student.objects.all().order_by('last_name')
 
         # це адреса для посту AJAX запиту, як бачите, ми
           # робитимемо його на цю ж в’юшку; в’юшка журналу

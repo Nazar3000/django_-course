@@ -59,7 +59,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
 # journal
-    url(r'^journal/$', JournalView.as_view(), name='journal'),
+    url(r'^journal/(?P<pk>\d+)?/?$', JournalView.as_view(), name='journal'),
 
 # exams
     url(r'^exams/$', exams_list, name='exams'),
