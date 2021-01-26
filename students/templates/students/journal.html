@@ -17,6 +17,15 @@
 
 {% else %}
 
+<div class="alert alert-warning">
+    Изменения в журнале сохраняются автоматически после каждого клика в таблице
+    <span id="ajax-progress-indicator"> Идет сохранение....</span>
+</div>
+
+<div id="alert-danger" class="alert alert-danger" role="alert">
+    <span>При запросе на сервер произошла ошибка:</span>
+</div>
+
 <p id="journal-nav" class="text-center">
     <a href="?month={{ prev_month }}"
        title="Предыдущий месяц">&larr;</a>

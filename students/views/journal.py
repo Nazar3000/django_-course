@@ -10,7 +10,7 @@ from django.views.generic.base import TemplateView
 from ..models import MonthJournal, Student
 from ..util import paginate
 from django.http import JsonResponse
-import pdb; pdb.set_trace()
+# import pdb; pdb.set_trace()
 
 
 
