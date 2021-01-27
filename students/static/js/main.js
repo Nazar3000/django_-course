@@ -12,7 +12,7 @@ function initJournal(){
                 'pk': box.data('student-id'),
                 'date': box.data('date'),
                 'present': box.is(':checked') ? '1' : '',
-                '1csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]'
+                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]'
                 ).val()
             },
             'beforeSend': function (xhr, settings){
@@ -34,6 +34,30 @@ function initJournal(){
     });
 }
 
+
+
+function initGroupSelector() {
+    // look up select element with groups and attach our even handler
+    // on field "change" event
+    $('#group-selector select').change(function(event){
+        // get value of currently selected group option
+        var group = $(this).val();
+
+        if (group){
+            // set cookie with expiration date 1 year sibce now;
+            // cookie creation function takes period in days
+            $.cookie('current_group', group, {'path': '/', 'expires': 365});
+        }
+        else {
+            // otherwies we delete the cookie
+            $.removeCookie('current_group', {'path': '/'});
+        }
+        // and reload a page
+        location.reload(true);
+        return true;
+    });
+}
 $(document).ready(function (){
     initJournal();
+    initGroupSelector();
 });

@@ -46,8 +46,10 @@
                     <strong>Група:</strong>
                     <select>
                         <option value='''>Все студенты</option>
-                        <option value='''>MtM -21, Назар Мазур(№1)</option>
-                        <option value='''>MtM -22, Сергей Подоба(№1)</option>
+                        {% for group in GROUPS %}
+                        <option value="{{ group.id }}"{% if group.selected %}selected="1"{% endif %}>{{ group.title }}{% if group.leader %}, {{ group.leader }}{% endif %}</option>
+                        {% endfor %}
+
                     </select>
 
                 </div>
@@ -127,7 +129,7 @@
 
 
 
-
+    <script src="{% static "js/jquery.cookie.js" %}"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
          <script src="{% static "js/main.js" %}"></script>
         <!-- Development version -->
