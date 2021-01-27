@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from ..util import paginate, get_current_group
 
 
 class Resoult(models.Model):

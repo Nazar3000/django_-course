@@ -15,7 +15,7 @@ from django.forms import ModelForm, ValidationError
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from crispy_forms.bootstrap import FormActions
-from ..util import paginate
+from ..util import paginate, get_current_group
 
 # Views for Grops vs old pagination
 
@@ -55,7 +55,12 @@ from ..util import paginate
 #                   {'groups': groups})
 
 def groups_list(request):
-    groups = Group.objects.all()
+    # check if we need to show only one group of students
+    current_group = get_current_group(request)
+    if current_group:
+        groups = Group.objects.filter(id=current_group.id)
+    else:
+        groups = Group.objects.all()
 
     # try to order groups list
     order_by = request.GET.get('order_by', '')
