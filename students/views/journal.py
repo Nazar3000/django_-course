@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.views.generic.base import TemplateView
 from ..models import MonthJournal, Student
-from ..util import paginate
+from ..util import paginate, get_current_group
 from django.http import JsonResponse
 # import pdb; pdb.set_trace()
 
@@ -94,7 +94,11 @@ class JournalView(TemplateView):
         if kwargs.get('pk'):
             queryset = [Student.objects.get(pk=kwargs['pk'])]
         else:
-            queryset = Student.objects.all().order_by('last_name')
+            current_group = get_current_group(self.request)
+            if current_group:
+                queryset = Student.objects.filter(student_group=current_group)
+            else:
+                queryset = Student.objects.all().order_by('last_name')
 
         # це адреса для посту AJAX запиту, як бачите, ми
           # робитимемо його на цю ж в’юшку; в’юшка журналу
