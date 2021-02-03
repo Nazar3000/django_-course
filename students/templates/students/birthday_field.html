@@ -1,0 +1,16 @@
+{% load crispy_forms_field %}
+
+<div id="div_id_birthday" class="form-group">
+    <label class="control-label col-sm-2 control-label requiredField" for="{{ field.id_for_label }}">{{ field.label }}
+    <span class="asteriskField">*</span>
+    </label>
+
+    <div class="controls col-sm-10">
+        <div class=" input-group col-sm-3" data-provide="datepicker" id='datetimepicker2'>
+            {% crispy_field field 'class' 'custom-control-input' %}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+</div>

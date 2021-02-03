@@ -62,8 +62,8 @@ function initGroupSelector() {
 
 function initDateFilds(){
     $('#datetimepicker2').datetimepicker({
-        format: 'YYYY-MM-DD',
-        locale: 'ru',
+        'format': 'YYYY-MM-DD',
+        'locale': 'ru',
 
     }).on('dp.hide', function (event){
         $(this).blur();

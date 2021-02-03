@@ -21,6 +21,9 @@ from ..util import paginate, get_current_group
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
 from ..models import Student, Group
 
+class CustomBirthdayField(Field):
+    template = 'students/birthday_field.html'
+
 class StudentUpdateForm(ModelForm):
     class Meta:
         model = Student
@@ -58,22 +61,22 @@ class StudentUpdateForm(ModelForm):
             'middle_name',
             # 'birthday',
 
-            # Конечный вариант1
-            HTML(""""<div id="div_id_birthday" class="form-group">
-                    <label for="id_birthday" class="control-label col-sm-2 control-label requiredField">
-                    				Enter date<span class="asteriskField">*</span>
-                    				</label>
-                    				<div class="controls col-sm-10">
-                    				<div class=" input-group col-sm-3" data-provide="datepicker" id='datetimepicker2'>
-                    				<input class="dateinput form-control " id="id_birthday" name="birthday" required="required" type="text" value="{{ student.birthday }}" />
-                    				<span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                    				</div>
-                    				</div>
-                    				</div>"""),
+            # вариант1
+            # HTML(""""<div id="div_id_birthday" class="form-group">
+            #         <label for="id_birthday" class="control-label col-sm-2 control-label requiredField">
+            #         				Enter date<span class="asteriskField">*</span>
+            #         				</label>
+            #         				<div class="controls col-sm-10">
+            #         				<div class=" input-group col-sm-3" data-provide="datepicker" id='datetimepicker2'>
+            #         				<input class="dateinput form-control " id="id_birthday" name="birthday" required="required" type="text" value="{{ student.birthday }}" />
+            #         				<span class="input-group-addon">
+            #                         <span class="glyphicon glyphicon-calendar"></span>
+            #                         </span>
+            #         				</div>
+            #         				</div>
+            #         				</div>"""),
             # Вариант2
-            Div('birthday'),
+            CustomBirthdayField('birthday'),
 
             'photo',
             'ticket',
@@ -108,6 +111,8 @@ class StudentUpdateForm(ModelForm):
             raise ValidationError(u'Этот студент является старостой другой группы:%s'%grop_name, code='invalid')
 
         return self.cleaned_data['student_group']
+
+
 
 
 class StudentUpdateView(UpdateView):
