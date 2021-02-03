@@ -28,14 +28,6 @@ class StudentUpdateForm(ModelForm):
     class Meta:
         model = Student
 
-    # def html_open(self, doc):
-    #     str = """"""
-    #     with open(doc) as report_file:
-    #         raw_html = report_file.readline()
-    #         str ="""""".join(raw_html)
-    #         return str
-
-
 
     def __init__(self, *args, **kwargs):
         super(StudentUpdateForm, self).__init__(*args, **kwargs)
