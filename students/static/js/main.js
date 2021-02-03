@@ -2,6 +2,7 @@ function initJournal(){
     var indicator = $('#ajax-progress-indicator');
     var danger = $('#alert-danger');
 
+
     $('.day-box input[type="checkbox"]').click(function(event){
         var box = $(this);
         $.ajax(box.data('url'),{
@@ -57,7 +58,36 @@ function initGroupSelector() {
         return true;
     });
 }
+
+
+function initDateFilds(){
+    $('#datetimepicker2').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale: 'ru',
+
+    }).on('dp.hide', function (event){
+        $(this).blur();
+    });
+}
+
+
+// function initDateFildsBut(){
+//     $('#calendar-button').datetimepicker({ 'format': 'YYYY-MM-DD' });
+// }
+
+// $(function initDateFildsBut () {
+//              $('#datetimepicker2').datetimepicker();
+//          });
+//
+// function initDateFildsBut(){
+//     $('#datetimepicker2').datetimepicker();
+//
+// }
+
+
 $(document).ready(function (){
     initJournal();
     initGroupSelector();
+    initDateFilds();
+    // initDateFildsBut();
 });

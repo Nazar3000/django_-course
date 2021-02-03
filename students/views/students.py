@@ -11,8 +11,8 @@ from django.core.urlresolvers import reverse
 from django.views.generic import UpdateView, DeleteView
 from django.forms import ModelForm, ValidationError
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
-from crispy_forms.bootstrap import FormActions
+from crispy_forms.layout import Submit, Layout, Fieldset, MultiField, Div, HTML, Field, ButtonHolder, Button
+from crispy_forms.bootstrap import FormActions, AppendedText, LayoutObject, PrependedText, PrependedAppendedText, FieldWithButtons, StrictButton
 from ..util import paginate, get_current_group
 
 
@@ -25,6 +25,74 @@ class StudentUpdateForm(ModelForm):
     class Meta:
         model = Student
 
+    # def html_open(self, doc):
+    #     str = """"""
+    #     with open(doc) as report_file:
+    #         raw_html = report_file.readline()
+    #         str ="""""".join(raw_html)
+    #         return str
+
+
+
+    def __init__(self, *args, **kwargs):
+        super(StudentUpdateForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+
+
+        # set form tag attributes
+        self.helper.form_action = reverse('students_edit', kwargs={'pk':kwargs['instance'].id})
+        self.helper.form_method = 'POST'
+        self.helper.form_class = 'form-horizontal'
+
+
+        # set field propertyes
+        self.helper.help_tex_iline = True
+        self.helper.html5_required = True
+        self.helper.label_class = 'col-sm-2 control-label'
+        self.helper.field_class = 'col-sm-10'
+        self.helper.layout = Layout(
+            '',
+            'first_name',
+            'last_name',
+            'middle_name',
+            # 'birthday',
+
+            # Конечный вариант1
+            HTML(""""<div id="div_id_birthday" class="form-group">
+                    <label for="id_birthday" class="control-label col-sm-2 control-label requiredField">
+                    				Enter date<span class="asteriskField">*</span>
+                    				</label>
+                    				<div class="controls col-sm-10">
+                    				<div class=" input-group col-sm-3" data-provide="datepicker" id='datetimepicker2'>
+                    				<input class="dateinput form-control " id="id_birthday" name="birthday" required="required" type="text" value="{{ student.birthday }}" />
+                    				<span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                    				</div>
+                    				</div>
+                    				</div>"""),
+            # Вариант2
+            Div('birthday'),
+
+            'photo',
+            'ticket',
+            'notes',
+            'student_group', )
+#
+            #
+
+
+
+        # add button
+        self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
+        self.helper.add_input(Submit('cancel_button', u'Отменить', css_class="btn-link"))
+
+
+        # self.helper.layout[-1] = FormActions(
+        #     Submit('add_button', u'Сохранить',css_class="btn btn-primary" ),
+        #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
+        # )
     def clean_student_group(self):
         ''' Check if student is leader in any group.
         If yes, then ensure it's the same as selected group.'''
@@ -41,29 +109,6 @@ class StudentUpdateForm(ModelForm):
 
         return self.cleaned_data['student_group']
 
-    def __init__(self, *args, **kwargs):
-        super(StudentUpdateForm, self).__init__(*args, **kwargs)
-
-        self.helper = FormHelper(self)
-
-        # set form tag attributes
-        self.helper.form_action = reverse('students_edit', kwargs={'pk':kwargs['instance'].id})
-        self.helper.form_method = 'POST'
-        self.helper.form_class = 'form-horizontal'
-
-        # set field propertyes
-        self.helper.help_tex_iline = True
-        self.helper.html5_required = True
-        self.helper.label_class = 'col-sm-2 control-label'
-        self.helper.field_class = 'col-sm-10'
-
-        # add button
-        self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
-        self.helper.add_input(Submit('cancel_button', u'Отменить', css_class="btn-link"))
-        # self.helper.layout[-1] = FormActions(
-        #     Submit('add_button', u'Сохранить',css_class="btn btn-primary" ),
-        #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
-        # )
 
 class StudentUpdateView(UpdateView):
     model = Student
