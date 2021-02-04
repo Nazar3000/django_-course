@@ -7,7 +7,7 @@ from django.template import RequestContext, loader
 from ..models import Exam
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
 from  ..util import paginate, get_current_group
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, CreateView, DeleteView
 from  django.forms import ModelForm
 from django.core.urlresolvers import reverse
 from crispy_forms.helper import FormHelper
@@ -116,6 +116,47 @@ class ExamsUpdateForm(ModelForm):
         #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
         # )
 
+
+class ExamsCreateForm(ModelForm):
+
+    class Meta:
+        model = Exam
+
+    def __init__(self, *args, **kwargs):
+        super(ExamsCreateForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+
+        # set form tag attributes
+        self.helper.form_action = reverse('exam_add')
+        self.helper.form_method = 'POST'
+        self.helper.form_class = 'form-horizontal'
+
+        # set field propertyes
+        self.helper.help_tex_iline = True
+        self.helper.html5_required = True
+        self.helper.label_class = 'col-sm-2 control-label'
+        self.helper.field_class = 'col-sm-10'
+        self.helper.layout = Layout(
+            '',
+            'title',
+
+            CustomBirthdayField('date'),
+
+            'exams_group',
+            'teacher',
+            'notes',
+        )
+
+        # add button
+        self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
+        self.helper.add_input(Submit('cancel_button', u'Отменить', css_class="btn-link"))
+        # self.helper.layout[-1] = FormActions(
+        #     Submit('add_button', u'Сохранить',css_class="btn btn-primary" ),
+        #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
+        # )
+
+
 class CustomBirthdayField(Field):
     template = 'students/date_field.html'
 
@@ -134,3 +175,52 @@ class ExamsUpdateView(UpdateView):
                                         % reverse('exams'))
         else:
             return super(ExamsUpdateView, self).post(request, *args, **kwargs)
+
+
+
+class AddExam(CreateView):
+    model = Exam
+    template_name = 'students/exams_form.html'
+    form_class = ExamsCreateForm
+
+    def get_success_url(self):
+        return u'%s?status_message=Экзамен успешно бдобавлен!'\
+    % reverse('exams')
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            return HttpResponseRedirect(u'%s?status_message=Добавлнеие экзамена отменено!'
+                                        % reverse('exams'))
+        else:
+            return super(AddExam, self).post(request, *args, **kwargs)
+
+
+class ExamDeleteView(DeleteView):
+    model = Exam
+    template_name = 'students/exam_confirm_delete.html'
+
+    def delete(self, request, *args, **kwargs):
+        # group_id = request.POST.get(object)
+
+        self.object = self.get_object()
+        # self.object = get_queryset()
+        object = self.object
+        group_id = object.id
+        # related_stud = len(Student.objects.filter(student_group=group_id))
+        # students_ns = related_stud
+
+        # success_url = self.get_success_url()
+
+        try:
+            # self.object.delete()
+            # return HttpResponseRedirect(success_url)
+            self.object.delete()
+            messages.add_message(request, messages.ERROR,
+                                 u'"Экзамен" %s успешно удален!' % object)
+            # return HttpResponseRedirect(success_url)
+            return HttpResponseRedirect(u'%s?status_message=Экзамен %s успешно удален!' % (reverse('exams'), object))
+        except:
+
+            messages.add_message(request, messages.ERROR,
+                                 u'Произошла какая-то хуйня при удалении этого экзамена %s посмотри поля в модели эзамена' % object)
+            return render(request, 'students/exam_confirm_delete.html', {'object': object})
