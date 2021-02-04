@@ -7,6 +7,12 @@ from django.template import RequestContext, loader
 from ..models import Exam
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
 from  ..util import paginate, get_current_group
+from django.views.generic import UpdateView
+from  django.forms import ModelForm
+from django.core.urlresolvers import reverse
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+from crispy_forms.bootstrap import FormActions
 
 
 # Views for Exams
@@ -70,3 +76,49 @@ def exams_list(request):
 #
 # def groups_delete(request, gid):
 #     return HttpResponse('<h1> Delete Group %s</h1>' %gid)
+
+class ExamsUpdateForm(ModelForm):
+
+    class Meta:
+        model = Exam
+
+    def __init__(self, *args, **kwargs):
+        super(ExamsUpdateForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+
+        # set form tag attributes
+        self.helper.form_action = reverse('exams_edit', kwargs={'pk': kwargs['instance'].id})
+        self.helper.form_method = 'POST'
+        self.helper.form_class = 'form-horizontal'
+
+        # set field propertyes
+        self.helper.help_tex_iline = True
+        self.helper.html5_required = True
+        self.helper.label_class = 'col-sm-2 control-label'
+        self.helper.field_class = 'col-sm-10'
+
+        # add button
+        self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
+        self.helper.add_input(Submit('cancel_button', u'Отменить', css_class="btn-link"))
+        # self.helper.layout[-1] = FormActions(
+        #     Submit('add_button', u'Сохранить',css_class="btn btn-primary" ),
+        #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
+        # )
+
+
+class ExamsUpdateView(UpdateView):
+    model = Exam
+    template_name = 'students/exams_form.html'
+    form_class = ExamsUpdateForm
+
+    def get_success_url(self):
+        return u'%s?status_message=Экзамен успешно отредактирован!'\
+    % reverse('exams')
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            return HttpResponseRedirect(u'%s?status_message=Редактирование экзамена отменено!'
+                                        % reverse('exams'))
+        else:
+            return super(ExamsUpdateView, self).post(request, *args, **kwargs)
