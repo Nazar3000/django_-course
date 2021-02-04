@@ -21,8 +21,7 @@ from ..util import paginate, get_current_group
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
 from ..models import Student, Group
 
-class CustomBirthdayField(Field):
-    template = 'students/birthday_field.html'
+
 
 class StudentUpdateForm(ModelForm):
     class Meta:
@@ -105,6 +104,9 @@ class StudentUpdateForm(ModelForm):
         return self.cleaned_data['student_group']
 
 
+
+class CustomBirthdayField(Field):
+    template = 'students/date_field.html'
 
 
 class StudentUpdateView(UpdateView):

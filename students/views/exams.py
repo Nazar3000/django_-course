@@ -11,7 +11,7 @@ from django.views.generic import UpdateView
 from  django.forms import ModelForm
 from django.core.urlresolvers import reverse
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, Layout, Field
 from crispy_forms.bootstrap import FormActions
 
 
@@ -97,6 +97,16 @@ class ExamsUpdateForm(ModelForm):
         self.helper.html5_required = True
         self.helper.label_class = 'col-sm-2 control-label'
         self.helper.field_class = 'col-sm-10'
+        self.helper.layout = Layout(
+            '',
+            'title',
+
+            CustomBirthdayField('date'),
+
+            'exams_group',
+            'teacher',
+            'notes',
+        )
 
         # add button
         self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
@@ -106,6 +116,8 @@ class ExamsUpdateForm(ModelForm):
         #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
         # )
 
+class CustomBirthdayField(Field):
+    template = 'students/date_field.html'
 
 class ExamsUpdateView(UpdateView):
     model = Exam
