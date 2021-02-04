@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, Layout, Field
 from crispy_forms.bootstrap import FormActions
 
 
@@ -29,6 +29,19 @@ class AddStudentsForm(ModelForm):
         self.helper.label_class = 'col-sm-2 control-label'
         self.helper.field_class = 'col-sm-10'
         self.form_show_labels = True
+        self.helper.layout = Layout(
+            '',
+            'first_name',
+            'last_name',
+            'middle_name',
+            # 'birthday',
+
+            CustomBirthdayField('birthday'),
+
+            'photo',
+            'ticket',
+            'notes',
+            'student_group', )
 
         # add button
         self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
@@ -38,6 +51,8 @@ class AddStudentsForm(ModelForm):
         #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
         # )
 
+class CustomBirthdayField(Field):
+    template = 'students/date_field.html'
 
 class AddStudents(CreateView):
     model = Student

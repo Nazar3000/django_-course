@@ -3,14 +3,15 @@
 {% block title %}Список Экзаменов{% endblock title %}
 {% block content %}
 
+<a class="btn btn-primary" href="{% url "exam_add" %}">Добавить экзамен</a>
 
 
             <!-- Start Groups Listing -->
 {% if not exams %}
 
 <div class="alert alert-warning">
-    Пока нет ни одной группы в базе. Пожалуйста,
-    <a href="{% url "groups_add" %}">Добавить</a> первую.
+    Пока нет ни одного экзамена в базе. Пожалуйста,
+    <a href="{% url "exam_add" %}">Добавить</a> первый.
 </div>
 
 {% else %}
@@ -64,7 +65,7 @@
                         <td><a heref="#">{{ exam.teacher }}</a></td>
 
                         <td>
-                            <div class="=dropdown">
+                            <div class="=btn-group col-lg-12">
                                 <button class="btn btn-default dropdown-toggle"
                                         type="button" data-toggle="dropdown">Действие
                                     <span class="caret"></span>
@@ -74,11 +75,12 @@
                                     <a role="menuitem" tabindex="-1"
                                        href="#">Посещение</a>
                                     </li>
+
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">Редактировать</a>
+                                        <a role="menuitem" tabindex="-1" href="{% url "exams_edit" exam.id %}">Редактировать</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">Удалить</a>
+                                        <a role="menuitem" tabindex="-1" href="{% url "exam_delete" exam.id %}">Удалить</a>
                                     </li>
                                 </ul>
                             </div>

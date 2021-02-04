@@ -47,3 +47,15 @@ th.day-header {
 #alert-danger{
   display: none;
 }
+#calendar-button{
+
+    background-color: #DCDCDC; /* Green */
+    border: none;
+    color: darkslategrey;
+    padding: 9px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+}

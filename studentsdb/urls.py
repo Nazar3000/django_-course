@@ -24,7 +24,7 @@ from students.views.students import students_list, students_edit, StudentUpdateV
 from students.views.students_add import students_add
 from students.views.groups import groups_list, AddGroup, GroupUpdateView, GroupsDeleteView
 from students.views.journal import JournalView
-from students.views.exams import exams_list
+from students.views.exams import exams_list, ExamsUpdateView, AddExam, ExamDeleteView
 from students.views.exams_resoult import resoult_list
 from students.views.contact_admin import contact_admin
 from students.views.test_form import Test_form
@@ -63,6 +63,9 @@ urlpatterns = [
 
 # exams
     url(r'^exams/$', exams_list, name='exams'),
+    url(r'^exams/(?P<pk>\d+)/edit/$', ExamsUpdateView.as_view(), name='exams_edit'),
+    url(r'^exams/add/$', AddExam.as_view(), name='exam_add'),
+    url(r'^exams/(?P<pk>\d+)/delete/$', ExamDeleteView.as_view(), name='exam_delete'),
 
 # exams_resoult
     url(r'^resoult/$', resoult_list, name='resoult'),
