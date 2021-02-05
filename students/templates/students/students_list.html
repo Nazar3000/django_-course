@@ -63,9 +63,9 @@
             <td><img height="=30" width="30"
                      src="{% static "img/default_user.png" %}" class="rounded-circle" /> </td>
             {% endif %}
-            <td><a heref="{% url "students_edit" student.id %}">{{student.last_name }}</td>
-            <td><a heref="{% url "students_edit" student.id %}">{{student.first_name}}</td>
-            <td><a heref="{% url "students_edit" student.id %}">{{student.student_group}}</td>
+            <td><a heref="{% url "students_edit" student.id %}" class="student-edit-form-link">{{student.last_name }}</td>
+            <td><a heref="{% url "students_edit" student.id %}" class="student-edit-form-link">{{student.first_name}}</td>
+            <td><a heref="{% url "students_edit" student.id %}" class="student-edit-form-link">{{student.student_group}}</td>
             <td>{{student.ticket}}</td>
             <td>
                 <div class="=btn-group col-lg-12">
@@ -77,13 +77,13 @@
                         <li><a href="{% url "journal" student.id %}">Посещение</a>
                         </li>
                         <li>
-                            <a href="{% url "students_edit" student.id %}">Редактировать</a>
+                            <a href="{% url "students_edit" student.id %} class="student-edit-form-link"">Редактировать</a>
                         </li>
                         <li>
                             <a href="{% url "students_edit2" student.id %}&amp;student=1">Редактировать2</a>
                         </li>
                         <li>
-                            <a href="{% url "students_edit3" student.id %}">Редактировать3</a>
+                            <a href="{% url "students_edit3" student.id %} ">Редактировать3</a>
                         </li>
                         <li>
                             <a href="{% url "students_delete" student.id %}">Удалить</a>
