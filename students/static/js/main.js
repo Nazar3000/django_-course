@@ -87,6 +87,7 @@ function initEditStudentPage() {
             'dataType': 'html',
             'type': 'get',
             'success': function(data, status, xhr){
+
                 // check if we got successfull response from the server
                 if(status !='success'){
                     alert('Ошибка на сервере. Попробуйте позже.');
@@ -97,6 +98,10 @@ function initEditStudentPage() {
                     html = $(data), form = html.find('#content-column form');
                 modal.find('.modal-title').html(html.find('#content-column h2').text());
                 modal.find('.modal-body').html(form);
+
+                // Вытаскивам ID студента
+                student_id = form.find('.stud_id').attr('id');
+
 
                 // init our edit form
                 initEditStudentForm(form, modal);
@@ -128,7 +133,7 @@ function initEditStudentForm(form, modal) {
     form.ajaxForm({
         'dataType': 'html',
         'error': function (){
-            alert('Ошибка на сервере. Попробуйте позже.')
+            alert('Ошибка на сервере. Попробуйте позже.');
             return false;
         },
         'success': function(data, status, xhr){
@@ -136,6 +141,8 @@ function initEditStudentForm(form, modal) {
 
             // copy alert to modal window
             modal.find('.modal-body').html(html.find('.alert'));
+            // var stud_id = html
+            // alert(data)
 
             // copy form to modal if we foud it in server response
             if (newform.length > 0) {
@@ -149,7 +156,37 @@ function initEditStudentForm(form, modal) {
                 // to get updated students list;
                 // reload after 2 seconds, so that user can read
                 // success message
-                setTimeout(function(){location.reload(true);}, 500);
+
+                // Пытаемся вытащить студента по ид
+                $.ajax({
+                    'url': "http://127.0.0.1:8000/",
+                    'async': true,
+                    'dataType': 'html',
+                    'type': 'get',
+                    // 'data': {"student.id": student_id},
+                    'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]'
+                    ).val(),
+                    'success': function (data, status, xhr) {
+                        // var cur_list = $('#content-column'), new_html = $(data),
+                        //     new_list=new_html.find('#content-column');
+                        // cur_list.find(`.stud_id[id=${student_id}]`).html(new_list.find(`.stud_id[id=${student_id}] td`));
+
+                        // alert(stud_selector);
+                        // check if we got successfull response from the server
+                        if (status != 'success') {
+                            alert('Запрос на получение студента не прошел');
+                            return false;
+                        }
+                    }
+                });
+                var cur_list = $('#content-column'), new_html = $(data),
+                            new_list=new_html.find('#content-column');
+                setTimeout(function() {modal.modal('hide');}, 1000);
+                setTimeout(function() {
+                    cur_list.find(`.stud_id[id=${student_id}]`).html(new_list.find(`.stud_id[id=${student_id}] td`));
+                }, 2000);
+
+                // setTimeout(function(){location.reload(true);}, 500);
                 }
             }
         });
