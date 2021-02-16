@@ -53,7 +53,7 @@
     {% endwith %}
     <tbody>
         {% for student in students.page_obj %}
-        <tr>
+        <tr class="stud_id"  id="{{ student.id }}">
             <td>{{ forloop.counter }}</td>
 
             {% if student.photo %}

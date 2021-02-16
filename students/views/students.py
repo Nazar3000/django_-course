@@ -72,7 +72,8 @@ class StudentUpdateForm(ModelForm):
             'photo',
             'ticket',
             'notes',
-            'student_group', )
+            'student_group',
+            HTML("""<div class="stud_id" id="{{ student.id }}"></div>"""))
 #
             #
 
