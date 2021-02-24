@@ -59,3 +59,7 @@ th.day-header {
     font-size: 16px;
 
 }
+
+.progress{
+    display: none;
+}

@@ -106,7 +106,10 @@ function initEditStudentPage() {
                 // init our edit form
                 initEditStudentForm(form, modal);
                 // setup and show modal window finally
-                modal.modal('show');
+                modal.modal({
+                    'keyboard': false,
+                    'backdrop': false,
+                    'show': true});
             },
             'error': function (){
                 alert('Ошибка на сервере. Попробуйте позже');
@@ -120,6 +123,8 @@ function initEditStudentPage() {
 
 
 function initEditStudentForm(form, modal) {
+    var butons = modal.find(".form-actions"),
+        progress = modal.find(".progress");
     // attach datepicker
     initDateFilds();
 
@@ -136,11 +141,34 @@ function initEditStudentForm(form, modal) {
             alert('Ошибка на сервере. Попробуйте позже.');
             return false;
         },
+
+        // progres indicator for ajax show
+        'beforeSend': function (data, status, xhr){
+
+            modal.find('.form-actions').append(progress);
+            $(progress).show();
+
+        },
+        // 'ajaxStop': function (data, status, xhr){
+        //     // progres indicator for ajax hide
+        //     $(".progress").hide();
+        //     modal.find(".progress").html(butons);
+        //
+        // },
+
+
         'success': function(data, status, xhr){
             var html = $(data), newform = html.find('#content-column form');
 
+            // progres indicator for ajax hide
+            // $(".progress").hide();
+            // modal.find(".progress").html(butons);
+
             // copy alert to modal window
             modal.find('.modal-body').html(html.find('.alert'));
+            newform.find('.form-actions').append(progress);
+            $(progress).show();
+
             // var stud_id = html
             // alert(data)
 
@@ -192,6 +220,15 @@ function initEditStudentForm(form, modal) {
         });
     }
 
+// $(document).on("ajaxSend", function() {
+//     $(".progress").show(); // показываем элемент
+// }).on("ajaxStop", function(){
+//     $(".progress").hide(); // скрываем элемент
+// });
+
+$(document).on("ajaxStop", function(){
+    $(".progress").hide(); // скрываем элемент
+});
 
 $(document).ready(function (){
     initJournal();
