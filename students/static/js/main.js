@@ -143,34 +143,27 @@ function initEditStudentForm(form, modal) {
         },
 
         // progres indicator for ajax show
+
         'beforeSend': function (data, status, xhr){
+
 
             modal.find('.form-actions').append(progress);
             $(progress).show();
+            // modal.find('input').prop('disabled', true);
+            // $("input").prop('disabled', true);
 
         },
-        // 'ajaxStop': function (data, status, xhr){
-        //     // progres indicator for ajax hide
-        //     $(".progress").hide();
-        //     modal.find(".progress").html(butons);
-        //
-        // },
-
 
         'success': function(data, status, xhr){
             var html = $(data), newform = html.find('#content-column form');
 
-            // progres indicator for ajax hide
-            // $(".progress").hide();
-            // modal.find(".progress").html(butons);
 
             // copy alert to modal window
             modal.find('.modal-body').html(html.find('.alert'));
             newform.find('.form-actions').append(progress);
             $(progress).show();
+            // $("input").prop('disabled', true);
 
-            // var stud_id = html
-            // alert(data)
 
             // copy form to modal if we foud it in server response
             if (newform.length > 0) {
@@ -209,10 +202,10 @@ function initEditStudentForm(form, modal) {
                 });
                 var cur_list = $('#content-column'), new_html = $(data),
                             new_list=new_html.find('#content-column');
-                setTimeout(function() {modal.modal('hide');}, 1000);
+                setTimeout(function() {modal.modal('hide');}, 5000);
                 setTimeout(function() {
                     cur_list.find(`.stud_id[id=${student_id}]`).html(new_list.find(`.stud_id[id=${student_id}] td`));
-                }, 2000);
+                }, 7000);
 
                 // setTimeout(function(){location.reload(true);}, 500);
                 }
@@ -226,9 +219,25 @@ function initEditStudentForm(form, modal) {
 //     $(".progress").hide(); // скрываем элемент
 // });
 
-$(document).on("ajaxStop", function(){
-    $(".progress").hide(); // скрываем элемент
+
+
+
+$(document).on("ajaxSend", function() {
+    $("input").prop('disabled', true);
+    // $("input").attr("disabled", true);
 });
+
+
+$(document).on("ajaxStop",
+    function () {
+    $("input").prop('disabled', false);
+        setTimeout(function () {
+                $(".progress").hide(); // скрываем элемент
+            },
+            3000);
+    }
+);
+
 
 $(document).ready(function (){
     initJournal();
