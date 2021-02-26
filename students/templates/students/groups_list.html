@@ -4,12 +4,12 @@
 {% block content %}
 
 
-<a class="btn btn-primary" href="{% url "groups_add" %}">Добавить группу</a>
+<a class="student-edit-form-link btn btn-primary" href="{% url "groups_add" %}">Добавить группу</a>
             <!-- Start Groups Listing -->
             {% if not groups %}
 <div class="alert alert-warning">
     Пока нет ни одной группы в базе. Пожалуйста,
-    <a href="{% url "groups_add" %}">Добавить</a> первую.
+    <a class="student-edit-form-link" href="{% url "groups_add" %}">Добавить</a> первую.
 </div>
 
 {% else %}
@@ -60,7 +60,7 @@
                                        href="#">Посещение</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="{% url "groups_edit" group.id %}">Редактировать</a>
+                                        <a class="student-edit-form-link"  role="menuitem" tabindex="-1" href="{% url "groups_edit" group.id %}">Редактировать</a>
                                     </li>
                                     <li role="presentation">
                                         <a role="menuitem" tabindex="-1" href="{% url "groups_delete" group.id %}">Удалить</a>

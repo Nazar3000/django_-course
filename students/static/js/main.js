@@ -3,7 +3,7 @@ function initJournal(){
     var danger = $('#alert-danger');
 
     $('.day-box input[type="checkbox"]').click(function(event){
-        var box = $(this);
+        var box = $(this), progress = $(".progress");
         $.ajax(box.data('url'),{
             'type': 'POST',
             'async': true,
@@ -18,8 +18,10 @@ function initJournal(){
             'beforeSend': function (xhr, settings){
               indicator.show();
               danger.hide();
+              $(progress).show();
 
             },
+
             'error': function (xhr, status, error){
                 // alert(error);
                 indicator.hide();
@@ -70,7 +72,7 @@ function initDateFilds(){
 }
 
 // students edit form step1
-// function initEditStudentPage() {
+// function initAddStudentPage() {
 //     $('a.student-edit-form-link').click(function(event){
 //         var modal = $('#myModal');
 //         modal.modal('show');
@@ -81,11 +83,15 @@ function initDateFilds(){
 
 function initEditStudentPage() {
     $('a.student-edit-form-link').click(function(event){
-        var link = $(this);
+        var link = $(this), progress = $(".progress");
         $.ajax({
             'url': link.attr('href'),
             'dataType': 'html',
             'type': 'get',
+            'beforeSend': function () {
+                $(progress).show();
+            },
+
             'success': function(data, status, xhr){
 
                 // check if we got successfull response from the server
@@ -124,7 +130,7 @@ function initEditStudentPage() {
 
 function initEditStudentForm(form, modal) {
     var butons = modal.find(".form-actions"),
-        progress = modal.find(".progress");
+        progress = $(".progress");
     // attach datepicker
     initDateFilds();
 
@@ -147,7 +153,9 @@ function initEditStudentForm(form, modal) {
         'beforeSend': function (data, status, xhr){
 
 
+
             modal.find('.form-actions').append(progress);
+
             $(progress).show();
             // modal.find('input').prop('disabled', true);
             // $("input").prop('disabled', true);
@@ -224,6 +232,7 @@ function initEditStudentForm(form, modal) {
 
 $(document).on("ajaxSend", function() {
     $("input").prop('disabled', true);
+    $(".student-edit-form-link").prop('disabled', true);
     // $("input").attr("disabled", true);
 });
 
@@ -231,6 +240,7 @@ $(document).on("ajaxSend", function() {
 $(document).on("ajaxStop",
     function () {
     $("input").prop('disabled', false);
+    $(".student-edit-form-link").prop('disabled', false);
         setTimeout(function () {
                 $(".progress").hide(); // скрываем элемент
             },
