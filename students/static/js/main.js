@@ -55,7 +55,13 @@ function initGroupSelector() {
             $.removeCookie('current_group', {'path': '/'});
         }
         // and reload a page
-        location.reload(true);
+        // location.reload(true);
+
+        // or update page with ajax
+        // получаем текущуюю ссылку страницы
+        url = window.location.href;
+        // вызываем функцию обновление контента аяксом
+        updateContent(url);
         return true;
     });
 }
@@ -186,13 +192,13 @@ function initEditStudentForm(form, modal) {
                 // reload after 2 seconds, so that user can read
                 // success message
 
-                // Пытаемся вытащить студента по ид
+                // Вытаскиваем обновленный список студентов чтобы после вытащить из него обновленного студента
+                //и вставить его в текущий список
                 $.ajax({
-                    'url': "http://127.0.0.1:8000/",
+                    'url': "/",
                     'async': true,
                     'dataType': 'html',
                     'type': 'get',
-                    // 'data': {"student.id": student_id},
                     'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]'
                     ).val(),
                     'success': function (data, status, xhr) {
@@ -208,6 +214,7 @@ function initEditStudentForm(form, modal) {
                         }
                     }
                 });
+                //Обновляем студетна в списке студентов на странице
                 var cur_list = $('#content-column'), new_html = $(data),
                             new_list=new_html.find('#content-column');
                 setTimeout(function() {modal.modal('hide');}, 5000);
@@ -220,6 +227,70 @@ function initEditStudentForm(form, modal) {
             }
         });
     }
+
+function bookmarksListUpdate(){
+    $('.nav-link').click(function (event){
+        var link = $(this), url=link.find('.bookmarks-link').attr('href');
+        // alert(link)
+        // alert(`Робэ ${url}`)
+        // вызываем обновление контента с помощью аякса
+        updateContent(url);
+
+        // изменяем текущую ссылку страницы на новую
+        window.history.pushState({}, null, url);
+        // $.ajax({
+        //         'url': url,
+        //         'async': true,
+        //         'dataType': 'html',
+        //         'type': 'get',
+        //         'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]'
+        //         ).val(),
+        //         'success': function (data, status, xhr){
+        //             new_content = $(data)
+        //             // alert('updated')
+        //
+        //             // Тут есть проблемма, после нижней строки функция срабатывает через одну вкладку
+        //             // видимо как-то криво вставляется панель навигации аяксом, разобраться позже
+        //             $('#sub-header .col-xs-12').html(new_content.find('#nav-tabs'));
+        //             $('#content-colums').html(new_content.find('#content-column'));
+        //
+        //
+        //             if (status != 'success') {
+        //                     alert('Запрос на получение студента не прошел');
+        //                     return false;
+        //                 }
+        //         }
+        // });
+        return false;
+    });
+}
+
+function updateContent(url){
+    $.ajax({
+            'url': url,
+            'async': true,
+            'dataType': 'html',
+            'type': 'get',
+            'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]'
+            ).val(),
+            'success': function (data, status, xhr){
+                new_content = $(data)
+                // alert('updated')
+
+                // Тут есть проблемма, после нижней строки функция срабатывает через одну вкладку
+                // видимо как-то криво вставляется панель навигации аяксом, разобраться позже
+                $('#sub-header .col-xs-12').html(new_content.find('#nav-tabs'));
+                $('#content-colums').html(new_content.find('#content-column'));
+
+
+                if (status != 'success') {
+                        alert('Запрос на получение студента не прошел');
+                        return false;
+                    }
+            }
+        });
+
+}
 
 // $(document).on("ajaxSend", function() {
 //     $(".progress").show(); // показываем элемент
@@ -254,4 +325,6 @@ $(document).ready(function (){
     initGroupSelector();
     initDateFilds();
     initEditStudentPage();
+    bookmarksListUpdate();
+    // updateContent();
 });
