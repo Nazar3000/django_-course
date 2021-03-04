@@ -3,7 +3,7 @@
 {% block title %}Список Экзаменов{% endblock title %}
 {% block content %}
 
-<a class="btn btn-primary" href="{% url "exam_add" %}">Добавить экзамен</a>
+<a class="student-edit-form-link btn btn-primary" href="{% url "exam_add" %}">Добавить экзамен</a>
 
 
             <!-- Start Groups Listing -->
@@ -77,7 +77,7 @@
                                     </li>
 
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="{% url "exams_edit" exam.id %}">Редактировать</a>
+                                        <a class="student-edit-form-link" role="menuitem" tabindex="-1" href="{% url "exams_edit" exam.id %}">Редактировать</a>
                                     </li>
                                     <li role="presentation">
                                         <a role="menuitem" tabindex="-1" href="{% url "exam_delete" exam.id %}">Удалить</a>

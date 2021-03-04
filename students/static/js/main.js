@@ -3,7 +3,7 @@ function initJournal(){
     var danger = $('#alert-danger');
 
     $('.day-box input[type="checkbox"]').click(function(event){
-        var box = $(this);
+        var box = $(this), progress = $(".progress");
         $.ajax(box.data('url'),{
             'type': 'POST',
             'async': true,
@@ -18,8 +18,10 @@ function initJournal(){
             'beforeSend': function (xhr, settings){
               indicator.show();
               danger.hide();
+              $(progress).show();
 
             },
+
             'error': function (xhr, status, error){
                 // alert(error);
                 indicator.hide();
@@ -70,7 +72,7 @@ function initDateFilds(){
 }
 
 // students edit form step1
-// function initEditStudentPage() {
+// function initAddStudentPage() {
 //     $('a.student-edit-form-link').click(function(event){
 //         var modal = $('#myModal');
 //         modal.modal('show');
@@ -81,11 +83,15 @@ function initDateFilds(){
 
 function initEditStudentPage() {
     $('a.student-edit-form-link').click(function(event){
-        var link = $(this);
+        var link = $(this), progress = $(".progress");
         $.ajax({
             'url': link.attr('href'),
             'dataType': 'html',
             'type': 'get',
+            'beforeSend': function () {
+                $(progress).show();
+            },
+
             'success': function(data, status, xhr){
 
                 // check if we got successfull response from the server
@@ -106,7 +112,10 @@ function initEditStudentPage() {
                 // init our edit form
                 initEditStudentForm(form, modal);
                 // setup and show modal window finally
-                modal.modal('show');
+                modal.modal({
+                    'keyboard': false,
+                    'backdrop': false,
+                    'show': true});
             },
             'error': function (){
                 alert('Ошибка на сервере. Попробуйте позже');
@@ -120,6 +129,8 @@ function initEditStudentPage() {
 
 
 function initEditStudentForm(form, modal) {
+    var butons = modal.find(".form-actions"),
+        progress = $(".progress");
     // attach datepicker
     initDateFilds();
 
@@ -136,13 +147,31 @@ function initEditStudentForm(form, modal) {
             alert('Ошибка на сервере. Попробуйте позже.');
             return false;
         },
+
+        // progres indicator for ajax show
+
+        'beforeSend': function (data, status, xhr){
+
+
+
+            modal.find('.form-actions').append(progress);
+
+            $(progress).show();
+            // modal.find('input').prop('disabled', true);
+            // $("input").prop('disabled', true);
+
+        },
+
         'success': function(data, status, xhr){
             var html = $(data), newform = html.find('#content-column form');
 
+
             // copy alert to modal window
             modal.find('.modal-body').html(html.find('.alert'));
-            // var stud_id = html
-            // alert(data)
+            newform.find('.form-actions').append(progress);
+            $(progress).show();
+            // $("input").prop('disabled', true);
+
 
             // copy form to modal if we foud it in server response
             if (newform.length > 0) {
@@ -181,16 +210,43 @@ function initEditStudentForm(form, modal) {
                 });
                 var cur_list = $('#content-column'), new_html = $(data),
                             new_list=new_html.find('#content-column');
-                setTimeout(function() {modal.modal('hide');}, 1000);
+                setTimeout(function() {modal.modal('hide');}, 5000);
                 setTimeout(function() {
                     cur_list.find(`.stud_id[id=${student_id}]`).html(new_list.find(`.stud_id[id=${student_id}] td`));
-                }, 2000);
+                }, 7000);
 
                 // setTimeout(function(){location.reload(true);}, 500);
                 }
             }
         });
     }
+
+// $(document).on("ajaxSend", function() {
+//     $(".progress").show(); // показываем элемент
+// }).on("ajaxStop", function(){
+//     $(".progress").hide(); // скрываем элемент
+// });
+
+
+
+
+$(document).on("ajaxSend", function() {
+    $("input").prop('disabled', true);
+    $(".student-edit-form-link").prop('disabled', true);
+    // $("input").attr("disabled", true);
+});
+
+
+$(document).on("ajaxStop",
+    function () {
+    $("input").prop('disabled', false);
+    $(".student-edit-form-link").prop('disabled', false);
+        setTimeout(function () {
+                $(".progress").hide(); // скрываем элемент
+            },
+            3000);
+    }
+);
 
 
 $(document).ready(function (){
