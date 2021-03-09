@@ -58,6 +58,7 @@ function initGroupSelector() {
         // location.reload(true);
 
         // or update page with ajax
+
         // получаем текущуюю ссылку страницы
         url = window.location.href;
         // вызываем функцию обновление контента аяксом
@@ -89,9 +90,10 @@ function initDateFilds(){
 
 function initEditStudentPage() {
     $('a.student-edit-form-link').click(function(event){
-        var link = $(this), progress = $(".progress");
+        var link = $(this), progress = $(".progress"), url=link.attr('href');
         $.ajax({
-            'url': link.attr('href'),
+            'url': url,
+            // 'url': link.attr('href'),
             'dataType': 'html',
             'type': 'get',
             'beforeSend': function () {
@@ -99,6 +101,8 @@ function initEditStudentPage() {
             },
 
             'success': function(data, status, xhr){
+                changeUrl(url);
+
 
                 // check if we got successfull response from the server
                 if(status !='success'){
@@ -122,6 +126,9 @@ function initEditStudentPage() {
                     'keyboard': false,
                     'backdrop': false,
                     'show': true});
+                EventListener(modal);
+                // window.history.pushState({page: data, type:"page"}, null, link.attr('href'));
+                // window.history.forward()
             },
             'error': function (){
                 alert('Ошибка на сервере. Попробуйте позже');
@@ -235,9 +242,11 @@ function bookmarksListUpdate(){
         // alert(`Робэ ${url}`)
         // вызываем обновление контента с помощью аякса
         updateContent(url);
+        changeUrl(url);
 
-        // изменяем текущую ссылку страницы на новую
-        window.history.pushState({}, null, url);
+
+        // изменяем текущую ссылку страницы на новую, записывая событе в кеш браузера
+        // window.history.pushState({}, null, url);
         // $.ajax({
         //         'url': url,
         //         'async': true,
@@ -264,6 +273,14 @@ function bookmarksListUpdate(){
         return false;
     });
 }
+function navigationAjax(){
+    $('.pag-vs-ajax').click(function (event){
+        var obj=$(this), url=obj.attr('href');
+        updateContent(url);
+        // alert(url)
+        return false;
+        });
+}
 
 function updateContent(url){
     $.ajax({
@@ -274,12 +291,16 @@ function updateContent(url){
             'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]'
             ).val(),
             'success': function (data, status, xhr){
-                new_content = $(data)
+                new_content = $(data);
+
+                // записываем в кеш браузера полученные данные запроса
+                NavigationCache[url] = data;
                 // alert('updated')
 
                 // Тут есть проблемма, после нижней строки функция срабатывает через одну вкладку
-                // видимо как-то криво вставляется панель навигации аяксом, разобраться позже
-                $('#sub-header .col-xs-12').html(new_content.find('#nav-tabs'));
+                // видимо как-то криво вставляется панель навигации аяксом,
+                // разобраться позже c $('.col-xs-12').html(new_content.find('#nav-tabs'));
+                $('.col-xs-12').html(new_content.find('#nav-tabs'));
                 $('#content-colums').html(new_content.find('#content-column'));
 
 
@@ -298,14 +319,81 @@ function updateContent(url){
 //     $(".progress").hide(); // скрываем элемент
 // });
 
+// изменяем текущую ссылку страницы на новую, записывая событе в кеш браузера
+function changeUrl(url) {
+    // window.history.pushState({}, null, url);
+    history.pushState(null, null, url);
+}
+
+function EventListener(modal) {
+    window.addEventListener("popstate", function () {
+        modal.modal('hide');
+        // alert('addEventListener');
 
 
+        // Get State value using e.state
+        // getContent(location.pathname, false);
+    });
+}
 
 $(document).on("ajaxSend", function() {
     $("input").prop('disabled', true);
     $(".student-edit-form-link").prop('disabled', true);
+
     // $("input").attr("disabled", true);
+    // window.addEventListener("popstate", {
+    //     alert('addEventListener')
+    // });
 });
+
+// ==================================
+// jQuery('document').ready(function(){
+//
+//         jQuery('.historyAPI').on('click', function(e){
+//             e.preventDefault();
+//             var href = $(this).attr('href');
+//
+//             // Getting Content
+//             getContent(href, true);
+//
+//             jQuery('.historyAPI').removeClass('active');
+//             $(this).addClass('active');
+//         });
+//
+//     });
+//
+//     // Adding popstate event listener to handle browser back button
+//     window.addEventListener("popstate", function() {
+//         alert('addEventListener');
+//         // Get State value using e.state
+//         getContent(location.pathname, false);
+//     });
+//
+//     function getContent(url, addEntry) {
+//         $.get(url)
+//         .done(function( data ) {
+//
+//             // Updating Content on Page
+//             $('#contentHolder').html(data);
+//
+//             if(addEntry == true) {
+//                 // Add History Entry using pushState
+//                 history.pushState(null, null, url);
+//             }
+//
+//         });
+//     }
+// ====================================
+
+// if (history.pushState){
+//     $('a.student-edit-form-link').live("click", function(){
+//         // setPage($(this).attr('href'));
+//         alert('history.pushState')
+//         return false;
+//         })
+// }
+
+// function setPage
 
 
 $(document).on("ajaxStop",
@@ -319,6 +407,36 @@ $(document).on("ajaxStop",
     }
 );
 
+// При загрузке сайта, будет создан массив просмотренных страниц.
+// При каждом переходе по ajax-ссылке, в этот массив будет записываться код страницы.
+var NavigationCache = new Array();
+$(document).ready(function(){
+  NavigationCache[window.location.pathname] = $('body').html();
+  // alert('NavigationCache works');
+  history.pushState({page: window.location.pathname, type: "page"}, null, window.location.pathname);
+});
+
+
+// Это событие, будет срабатывать, по нажатию кнопок вперед-назад в браузере,
+// все что от него требуется — вставлять в блок содержимое из кэша,
+// когда пользователь возвращается на предыдующую страницу.
+$(document).ready(function() {
+    if (history.pushState) {
+        window.onpopstate = function (event) {
+            if (event.state.type.length > 0) {
+                if (NavigationCache[event.state.page].length>0) {
+                    $('body').html(NavigationCache[event.state.page]);
+
+                }
+            }
+        }
+    }
+});
+
+
+ // $('#sub-header .col-xs-12').html(new_content.find('#nav-tabs'));
+ //                $('#content-colums').html(new_content.find('#content-column'));
+
 
 $(document).ready(function (){
     initJournal();
@@ -326,5 +444,6 @@ $(document).ready(function (){
     initDateFilds();
     initEditStudentPage();
     bookmarksListUpdate();
-    // updateContent();
+    navigationAjax();
+    // EventListener();
 });
