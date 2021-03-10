@@ -332,10 +332,6 @@ $(document).ready(function() {
 });
 
 
- // $('#sub-header .col-xs-12').html(new_content.find('#nav-tabs'));
- //                $('#content-colums').html(new_content.find('#content-column'));
-
-
 $(document).ready(function (){
     initJournal();
     initGroupSelector();
