@@ -123,7 +123,7 @@ function initEditStudentPage() {
                     'backdrop': false,
                     'show': true});
                 EventListener(modal);
-                addAtrperview(form);
+                // addAtrperview(form);
                 // window.history.pushState({page: data, type:"page"}, null, link.attr('href'));
                 // window.history.forward()
             },
@@ -144,6 +144,7 @@ function initEditStudentForm(form, modal) {
         progress = $(".progress");
     // attach datepicker
     initDateFilds();
+    addAtrperview(form);
 
     // close modal window on Cacncel button click
     form.find('input[name="cancel_button"]').click(function(event){
@@ -185,6 +186,8 @@ function initEditStudentForm(form, modal) {
                 initEditStudentForm(newform, modal);
 
             } else {
+                $('#frame').hide();
+
                 // if no form, it means success and we need to reload page
                 // to get updated students list;
                 // reload after 2 seconds, so that user can read
