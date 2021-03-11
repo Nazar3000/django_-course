@@ -123,6 +123,7 @@ function initEditStudentPage() {
                     'backdrop': false,
                     'show': true});
                 EventListener(modal);
+                addAtrperview(form);
                 // window.history.pushState({page: data, type:"page"}, null, link.attr('href'));
                 // window.history.forward()
             },
@@ -331,7 +332,24 @@ $(document).ready(function() {
     }
 });
 
+// $(document).ready(function() {
+//   // $(".clearablefileinput").dropzone({ url: "/file/post" });
+//     $(".clearablefileinput").dropzone({ window.Dropzone });
+// });
 
+// превью загружаемого фото на форме
+function preview() {
+    frame.src=URL.createObjectURL(event.target.files[0]);
+    $('#frame').show();
+}
+
+
+// добавляем атребут вызова функции превю
+function addAtrperview(form) {
+    var frame = $('#img_frame > img'), photo_container= $(form.find('#div_id_photo .controls'));
+    $(photo_container).append(frame);
+    $('.clearablefileinput').html(form.find('.clearablefileinput').attr('onchange','preview()'));
+}
 $(document).ready(function (){
     initJournal();
     initGroupSelector();
