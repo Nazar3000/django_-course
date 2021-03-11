@@ -2,6 +2,7 @@ function initJournal(){
     var indicator = $('#ajax-progress-indicator');
     var danger = $('#alert-danger');
 
+    // Обрабатываем клик по чекбоксам журнала, отправляем запрос при каждом клике
     $('.day-box input[type="checkbox"]').click(function(event){
         var box = $(this), progress = $(".progress");
         $.ajax(box.data('url'),{
@@ -15,6 +16,7 @@ function initJournal(){
                 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]'
                 ).val()
             },
+            // Отображаем индикатор отправки запроса перед самим запрососм
             'beforeSend': function (xhr, settings){
               indicator.show();
               danger.hide();
@@ -37,7 +39,8 @@ function initJournal(){
 }
 
 
-
+// Обрабатываем изменения выпадающего списка групп на странице
+// пишем выбранную группу в куки браузера для /
 function initGroupSelector() {
     // look up select element with groups and attach our even handler
     // on field "change" event
@@ -55,12 +58,19 @@ function initGroupSelector() {
             $.removeCookie('current_group', {'path': '/'});
         }
         // and reload a page
-        location.reload(true);
+        // location.reload(true);
+
+        // or update page with ajax
+
+        // получаем текущуюю ссылку страницы
+        url = window.location.href;
+        // вызываем функцию обновление контента аяксом
+        updateContent(url);
         return true;
     });
 }
 
-
+// Виджет календаря
 function initDateFilds(){
     $('#datetimepicker2').datetimepicker({
         'format': 'YYYY-MM-DD',
@@ -71,21 +81,15 @@ function initDateFilds(){
     });
 }
 
-// students edit form step1
-// function initAddStudentPage() {
-//     $('a.student-edit-form-link').click(function(event){
-//         var modal = $('#myModal');
-//         modal.modal('show');
-//         return false;
-//     });
-// }
 
 
+// Показываем модальное
 function initEditStudentPage() {
     $('a.student-edit-form-link').click(function(event){
-        var link = $(this), progress = $(".progress");
+        var link = $(this), progress = $(".progress"), url=link.attr('href');
         $.ajax({
-            'url': link.attr('href'),
+            'url': url,
+            // 'url': link.attr('href'),
             'dataType': 'html',
             'type': 'get',
             'beforeSend': function () {
@@ -93,6 +97,8 @@ function initEditStudentPage() {
             },
 
             'success': function(data, status, xhr){
+                changeUrl(url);
+
 
                 // check if we got successfull response from the server
                 if(status !='success'){
@@ -116,6 +122,10 @@ function initEditStudentPage() {
                     'keyboard': false,
                     'backdrop': false,
                     'show': true});
+                EventListener(modal);
+                // addAtrperview(form);
+                // window.history.pushState({page: data, type:"page"}, null, link.attr('href'));
+                // window.history.forward()
             },
             'error': function (){
                 alert('Ошибка на сервере. Попробуйте позже');
@@ -127,12 +137,14 @@ function initEditStudentPage() {
     });
 }
 
-
+// Обрабатываем постзапрос на аяксе для модального окна,
+// после применения изменений обновляем редактированного студента в спске
 function initEditStudentForm(form, modal) {
     var butons = modal.find(".form-actions"),
         progress = $(".progress");
     // attach datepicker
     initDateFilds();
+    addAtrperview(form);
 
     // close modal window on Cacncel button click
     form.find('input[name="cancel_button"]').click(function(event){
@@ -151,15 +163,8 @@ function initEditStudentForm(form, modal) {
         // progres indicator for ajax show
 
         'beforeSend': function (data, status, xhr){
-
-
-
             modal.find('.form-actions').append(progress);
-
             $(progress).show();
-            // modal.find('input').prop('disabled', true);
-            // $("input").prop('disabled', true);
-
         },
 
         'success': function(data, status, xhr){
@@ -181,26 +186,24 @@ function initEditStudentForm(form, modal) {
                 initEditStudentForm(newform, modal);
 
             } else {
+                $('#frame').hide();
+
                 // if no form, it means success and we need to reload page
                 // to get updated students list;
                 // reload after 2 seconds, so that user can read
                 // success message
 
-                // Пытаемся вытащить студента по ид
+                // Вытаскиваем обновленный список студентов чтобы после вытащить из него обновленного студента
+                //и вставить его в текущий список
                 $.ajax({
-                    'url': "http://127.0.0.1:8000/",
+                    'url': "/",
                     'async': true,
                     'dataType': 'html',
                     'type': 'get',
-                    // 'data': {"student.id": student_id},
                     'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]'
                     ).val(),
                     'success': function (data, status, xhr) {
-                        // var cur_list = $('#content-column'), new_html = $(data),
-                        //     new_list=new_html.find('#content-column');
-                        // cur_list.find(`.stud_id[id=${student_id}]`).html(new_list.find(`.stud_id[id=${student_id}] td`));
 
-                        // alert(stud_selector);
                         // check if we got successfull response from the server
                         if (status != 'success') {
                             alert('Запрос на получение студента не прошел');
@@ -208,6 +211,7 @@ function initEditStudentForm(form, modal) {
                         }
                     }
                 });
+                //Обновляем студетна в списке студентов на странице
                 var cur_list = $('#content-column'), new_html = $(data),
                             new_list=new_html.find('#content-column');
                 setTimeout(function() {modal.modal('hide');}, 5000);
@@ -221,19 +225,76 @@ function initEditStudentForm(form, modal) {
         });
     }
 
+function bookmarksListUpdate(){
+    $('.nav-link').click(function (event){
+        var link = $(this), url=link.find('.bookmarks-link').attr('href');
+        // вызываем обновление контента с помощью аякса
+        updateContent(url);
+        changeUrl(url);
+        return false;
+    });
+}
+function navigationAjax(){
+    $('.pag-vs-ajax').click(function (event){
+        var obj=$(this), url=obj.attr('href');
+        updateContent(url);
+        // alert(url)
+        return false;
+        });
+}
+
+function updateContent(url){
+    $.ajax({
+            'url': url,
+            'async': true,
+            'dataType': 'html',
+            'type': 'get',
+            'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]'
+            ).val(),
+            'success': function (data, status, xhr){
+                new_content = $(data);
+
+                // записываем в кеш браузера полученные данные запроса
+                NavigationCache[url] = data;
+
+                // Тут есть проблемма, после нижней строки функция срабатывает через одну вкладку
+                // видимо как-то криво вставляется панель навигации аяксом,
+                // разобраться позже c $('.col-xs-12').html(new_content.find('#nav-tabs'));
+                $('.col-xs-12').html(new_content.find('#nav-tabs'));
+                $('#content-colums').html(new_content.find('#content-column'));
+
+
+                if (status != 'success') {
+                        alert('Запрос на получение студента не прошел');
+                        return false;
+                    }
+            }
+        });
+
+}
+
 // $(document).on("ajaxSend", function() {
 //     $(".progress").show(); // показываем элемент
 // }).on("ajaxStop", function(){
 //     $(".progress").hide(); // скрываем элемент
 // });
 
+// изменяем текущую ссылку страницы на новую, записывая событе в кеш браузера
+function changeUrl(url) {
+    // window.history.pushState({}, null, url);
+    history.pushState(null, null, url);
+}
 
-
+function EventListener(modal) {
+    window.addEventListener("popstate", function () {
+        modal.modal('hide');
+    });
+}
 
 $(document).on("ajaxSend", function() {
     $("input").prop('disabled', true);
     $(".student-edit-form-link").prop('disabled', true);
-    // $("input").attr("disabled", true);
+
 });
 
 
@@ -248,10 +309,56 @@ $(document).on("ajaxStop",
     }
 );
 
+// При загрузке сайта, будет создан массив просмотренных страниц.
+// При каждом переходе по ajax-ссылке, в этот массив будет записываться код страницы.
+var NavigationCache = new Array();
+$(document).ready(function(){
+  NavigationCache[window.location.pathname] = $('body').html();
+  // alert('NavigationCache works');
+  history.pushState({page: window.location.pathname, type: "page"}, null, window.location.pathname);
+});
 
+
+// Это событие, будет срабатывать, по нажатию кнопок вперед-назад в браузере,
+// все что от него требуется — вставлять в блок содержимое из кэша,
+// когда пользователь возвращается на предыдующую страницу.
+$(document).ready(function() {
+    if (history.pushState) {
+        window.onpopstate = function (event) {
+            if (event.state.type.length > 0) {
+                if (NavigationCache[event.state.page].length>0) {
+                    $('body').html(NavigationCache[event.state.page]);
+
+                }
+            }
+        }
+    }
+});
+
+// $(document).ready(function() {
+//   // $(".clearablefileinput").dropzone({ url: "/file/post" });
+//     $(".clearablefileinput").dropzone({ window.Dropzone });
+// });
+
+// превью загружаемого фото на форме
+function preview() {
+    frame.src=URL.createObjectURL(event.target.files[0]);
+    $('#frame').show();
+}
+
+
+// добавляем атребут вызова функции превю
+function addAtrperview(form) {
+    var frame = $('#img_frame > img'), photo_container= $(form.find('#div_id_photo .controls'));
+    $(photo_container).append(frame);
+    $('.clearablefileinput').html(form.find('.clearablefileinput').attr('onchange','preview()'));
+}
 $(document).ready(function (){
     initJournal();
     initGroupSelector();
     initDateFilds();
     initEditStudentPage();
+    bookmarksListUpdate();
+    navigationAjax();
+    // EventListener();
 });
