@@ -1,7 +1,11 @@
+# created by virtualenv automatically
+#studentdb.log
 *.pyc
 *∼
 *.egg-info
 *.mo
 *.egg
 *.sqlite3
+*.log
 eggs/
+
