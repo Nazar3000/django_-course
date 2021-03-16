@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from studentsdb.settings import ADMIN_EMAIL
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
+import logging
 
 class ContactForm(forms.Form):
     def __init__(self, *args, **kwargs):
