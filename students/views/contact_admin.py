@@ -60,6 +60,8 @@ def contact_admin(request):
                 send_mail(subject, message, from_email, [ADMIN_EMAIL])
             except Exception:
                 message = u'Во время отправки письма возникла ошибка. Попробуйте позже sand_email: subject:%s, message:%s, from_email:%s, ADMIN_EMAIL:%s '% (subject, message, from_email, ADMIN_EMAIL)
+                logger = logging.getLogger(__name__)
+                logger.exception(message)
             else:
                 message = u'Сообщение отправлено'
             # redirect to same contact page with success message
