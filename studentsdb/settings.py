@@ -110,7 +110,7 @@ TEMPLATE_CONTEXT_PROCESSORS = \
 # email settings
 ADMIN_EMAIL = 'nazarii.mazur@gmail.com'
 EMAIL_HOST = 'smtp.ukr.net'
-EMAIL_PORT = '465'
+EMAIL_PORT = '2525'
 EMAIL_HOST_USER = 'django_admin@ukr.net'
 EMAIL_HOST_PASSWORD = 'Qwerty!123'
 EMAIL_USE_TLS= True
