@@ -1,10 +1,10 @@
 {% extends "students/base.html" %}
-
+{% load i18n %}
 {% load static from staticfiles %}
 
-{% block meta_title %}Учет посещения{% endblock meta_title %}
+{% block meta_title %}{% trans "Tracking attendance" %}{% endblock meta_title %}
 
-{% block title %}Учет посещения{% endblock title %}
+{% block title %}{% trans "Tracking attendance" %}{% endblock title %}
 
 {% block content %}
 
@@ -28,7 +28,7 @@
 <!--</div>-->
 
 <div id="alert-danger" class="alert alert-danger" role="alert">
-    <span>При запросе на сервер произошла ошибка:</span>
+    <span>{% trans "An error occurred while requesting the server:" %}</span>
 </div>
 
 <p id="journal-nav" class="text-center">
@@ -46,7 +46,7 @@
     <thead>
     <tr class="header">
         <th class="num">#</th>
-        <th class="name">Студент</th>
+        <th class="name">{% trans "Student" %}</th>
         {% for day in month_header %}
         <th class="day-header">
         <!-- TODO: translate day name -->

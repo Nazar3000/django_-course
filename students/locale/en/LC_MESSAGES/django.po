@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-18 14:39+0000\n"
+"POT-Creation-Date: 2021-03-19 15:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,4 +27,252 @@ msgstr ""
 
 #: helpers/pagination.py:49
 msgid "That page contains no results"
+msgstr ""
+
+#: templates/students/base.html:8 templates/students/base.html.py:43
+#: templates/students/base.html:132
+msgid "Students Accounting Service"
+msgstr ""
+
+#: templates/students/base.html:10
+msgid "App to manage students database"
+msgstr ""
+
+#: templates/students/base.html:50 templates/students/exams.html:40
+#: templates/students/students_add.html:110
+#: templates/students/students_list.html:41
+msgid "Group"
+msgstr ""
+
+#: templates/students/base.html:52
+msgid "All Students"
+msgstr ""
+
+#: templates/students/base.html:72 templates/students/students_list.html:4
+msgid "Students"
+msgstr ""
+
+#: templates/students/base.html:73 templates/students/students_list.html:78
+msgid "Journal"
+msgstr ""
+
+#: templates/students/base.html:74
+msgid "Groups"
+msgstr ""
+
+#: templates/students/base.html:75
+msgid "Contact"
+msgstr ""
+
+#: templates/students/base.html:76
+msgid "Exams"
+msgstr ""
+
+#: templates/students/base.html:77
+msgid "Exams resoult"
+msgstr ""
+
+#: templates/students/exam_confirm_delete.html:10
+#, python-format
+msgid "Are you sure you want to delete the exam? \"%(object)s\"? "
+msgstr ""
+
+#: templates/students/exams.html:3 templates/students/exams.html.py:4
+msgid "Exam List"
+msgstr ""
+
+#: templates/students/exams.html:26 templates/students/exams_resoult.html:37
+msgid "Subject"
+msgstr ""
+
+#: templates/students/exams.html:33
+msgid "Date"
+msgstr ""
+
+#: templates/students/exams.html:47 templates/students/exams_resoult.html:44
+msgid "Teacher"
+msgstr ""
+
+#: templates/students/exams.html:53 templates/students/exams_resoult.html:50
+#: templates/students/exams_resoult.html:68
+#: templates/students/groups_list.html:37
+#: templates/students/groups_list.html:55
+msgid "Action"
+msgstr ""
+
+#: templates/students/exams.html:77
+msgid "Visit"
+msgstr ""
+
+#: templates/students/exams.html:81 templates/students/exams_resoult.html:77
+#: templates/students/groups_list.html:64
+#: templates/students/students_list.html:81
+msgid "Edit"
+msgstr ""
+
+#: templates/students/exams.html:84 templates/students/exams_resoult.html:80
+#: templates/students/students_list.html:90
+msgid "Delete"
+msgstr ""
+
+#: templates/students/exams_form.html:7
+#: templates/students/group_update_form.html:6
+#: templates/students/students_form.html:7
+msgid "Correct errors in the form"
+msgstr ""
+
+#: templates/students/exams_form.html:14 templates/students/exams_form.html:15
+msgid "Add Exam"
+msgstr ""
+
+#: templates/students/exams_resoult.html:3
+#: templates/students/exams_resoult.html:4
+msgid "List of Results"
+msgstr ""
+
+#: templates/students/exams_resoult.html:23
+msgid "Mark"
+msgstr ""
+
+#: templates/students/exams_resoult.html:30 templates/students/journal.html:49
+msgid "Student"
+msgstr ""
+
+#: templates/students/group_update_form.html:13
+#: templates/students/group_update_form.html:14
+msgid "Edit group"
+msgstr ""
+
+#: templates/students/groups_confirm_delete.html:12
+#, python-format
+msgid "Do you really want to delete group: \"%(object)s\"? "
+msgstr ""
+
+#: templates/students/groups_list.html:3 templates/students/groups_list.html:4
+msgid "Group List"
+msgstr ""
+
+#: templates/students/groups_list.html:8
+msgid "Add Group"
+msgstr ""
+
+#: templates/students/groups_list.html:24
+msgid "Group Name"
+msgstr ""
+
+#: templates/students/groups_list.html:31
+msgid "Headman"
+msgstr ""
+
+#: templates/students/groups_list.html:61
+msgid "Visits"
+msgstr ""
+
+#: templates/students/groups_list.html:67
+msgid "Delet"
+msgstr ""
+
+#: templates/students/journal.html:5 templates/students/journal.html.py:7
+msgid "Tracking attendance"
+msgstr ""
+
+#: templates/students/journal.html:31
+msgid "An error occurred while requesting the server:"
+msgstr ""
+
+#: templates/students/students_add.html:11
+msgid "Please correct the following errors in the fields:"
+msgstr ""
+
+#: templates/students/students_add.html:37
+#: templates/students/students_add.html:38
+#: templates/students/students_form.html:14
+#: templates/students/students_form.html:15
+msgid "Add student"
+msgstr ""
+
+#: templates/students/students_add.html:45
+msgid "Name"
+msgstr ""
+
+#: templates/students/students_add.html:56
+#: templates/students/students_list.html:31
+msgid "Last Name"
+msgstr ""
+
+#: templates/students/students_add.html:76
+msgid "Birthday"
+msgstr ""
+
+#: templates/students/students_add.html:87
+#: templates/students/students_list.html:29
+msgid "Photo"
+msgstr ""
+
+#: templates/students/students_add.html:98
+msgid "Ticket"
+msgstr ""
+
+#: templates/students/students_add.html:114
+msgid "Select a group"
+msgstr ""
+
+#: templates/students/students_add.html:123
+msgid "Additional Notes"
+msgstr ""
+
+#: templates/students/students_add.html:133
+#: templates/students/students_edit2.html:24
+msgid "Cancel"
+msgstr ""
+
+#: templates/students/students_confirm_delete.html:6
+#: templates/students/students_confirm_delete.html:7
+msgid "Delete Student"
+msgstr ""
+
+#: templates/students/students_confirm_delete.html:11
+msgid "Are you sure you want to delete the student?"
+msgstr ""
+
+#: templates/students/students_edit2.html:9
+#: templates/students/students_edit2.html:10
+msgid "Edit student2"
+msgstr ""
+
+#: templates/students/students_list.html:5
+msgid "Students List"
+msgstr ""
+
+#: templates/students/students_list.html:11
+msgid "Add Student"
+msgstr ""
+
+#: templates/students/students_list.html:12
+msgid "Add Student2"
+msgstr ""
+
+#: templates/students/students_list.html:36
+msgid "First Name"
+msgstr ""
+
+#: templates/students/students_list.html:46
+msgid "№ Ticket"
+msgstr ""
+
+#: templates/students/students_list.html:51
+#: templates/students/students_list.html:74
+msgid "Actions"
+msgstr ""
+
+#: templates/students/students_list.html:84
+msgid "Edit2"
+msgstr ""
+
+#: templates/students/students_list.html:87
+msgid "Edit3"
+msgstr ""
+
+#: templates/students/students_list.html:93
+msgid "Delete3"
 msgstr ""

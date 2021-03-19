@@ -1,14 +1,15 @@
 {% extends "students/base.html" %}
+{% load i18n %}
 {% load static from staticfiles %}
-{% block meta_title %}Студенты{% endblock meta_title %}
-{% block title %}База студентов{% endblock title %}
+{% block meta_title %}{% trans "Students" %}{% endblock meta_title %}
+{% block title %}{% trans "Students List" %}{% endblock title %}
 {% block content %}
 
 
 
 <!-- Add Students Button-->
-<a class="btn btn-primary" href="{% url "students_add" %}">Добавить студента</a>
-<a class="student-edit-form-link btn btn-primary" href="{% url "students_add2" %}" >Добавить студента2</a>
+<a class="btn btn-primary" href="{% url "students_add" %}">{% trans "Add Student" %}</a>
+<a class="student-edit-form-link btn btn-primary" href="{% url "students_add2" %}" >{% trans "Add Student2" %}</a>
 
 
 
@@ -25,29 +26,29 @@
     <thead>
     <tr>
         <th><a heref='#'>№</a></th>
-        <th>Фото</th>
+        <th>{% trans "Photo" %}</th>
         <th><a class="pag-vs-ajax" href="{% url 'home' %}?order_by=last_name{% if order_by == 'last_name' and reverse != '1' %}&amp;reverse=1{% endif %}&amp;number_on_page={{ number_on_page }}">
-            Фамилия
+            {% trans "Last Name" %}
             {% if order_by == 'last_name' and reverse != '1' %}&uarr;
             {% elif order_by == 'last_name' and reverse == '1' %}&darr;
           {% endif %}
             </a></th>
-        <th><a class="pag-vs-ajax" href="{% url 'home' %}?order_by=first_name{% if order_by == 'first_name' and reverse != '1' %}&amp;reverse=1{% endif %}&amp;number_on_page={{ number_on_page }}">Имя
+        <th><a class="pag-vs-ajax" href="{% url 'home' %}?order_by=first_name{% if order_by == 'first_name' and reverse != '1' %}&amp;reverse=1{% endif %}&amp;number_on_page={{ number_on_page }}">{% trans "First Name" %}
             {% if order_by == 'first_name' and reverse != '1' %}&uarr;
             {% elif order_by == 'first_name' and reverse == '1' %}&darr;
           {% endif %}
             </a></th>
-        <th><a class="pag-vs-ajax" href="{% url 'home' %}?order_by=student_group{% if order_by == 'student_group' and reverse != '1' %}&amp;reverse=1{% endif %}&amp;number_on_page={{ number_on_page }}">Группа
+        <th><a class="pag-vs-ajax" href="{% url 'home' %}?order_by=student_group{% if order_by == 'student_group' and reverse != '1' %}&amp;reverse=1{% endif %}&amp;number_on_page={{ number_on_page }}">{% trans "Group" %}
             {% if order_by == 'student_group' and reverse != '1' %}&uarr;
             {% elif order_by == 'student_group' and reverse == '1' %}&darr;
           {% endif %}
             </a></th>
-        <th><a class="pag-vs-ajax" href="{% url 'home' %}?order_by=ticket{% if order_by == 'ticket' and reverse != '1' %}&amp;reverse=1{% endif %}&amp;number_on_page={{ number_on_page }}">№ Билета
+        <th><a class="pag-vs-ajax" href="{% url 'home' %}?order_by=ticket{% if order_by == 'ticket' and reverse != '1' %}&amp;reverse=1{% endif %}&amp;number_on_page={{ number_on_page }}">{% trans "№ Ticket" %}
             {% if order_by == 'ticket' and reverse != '1' %}&uarr;
             {% elif order_by == 'ticket' and reverse == '1' %}&darr;
           {% endif %}
             </a></th>
-        <th>Действие</th>
+        <th>{% trans "Actions" %}</th>
     </tr>
     </thead>
     {% endwith %}
@@ -70,26 +71,26 @@
             <td>
                 <div class="=btn-group col-lg-12">
                     <button type="button" class="btn btn-default dropdown-toggle"
-                  data-toggle="dropdown">Действие
+                  data-toggle="dropdown">{% trans "Actions" %}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{% url "journal" student.id %}">Посещение</a>
+                        <li><a href="{% url "journal" student.id %}">{% trans "Journal" %}</a>
                         </li>
                         <li>
-                            <a href="{% url "students_edit" student.id %}" class="student-edit-form-link">Редактировать</a>
+                            <a href="{% url "students_edit" student.id %}" class="student-edit-form-link">{% trans "Edit" %}</a>
                         </li>
                         <li>
-                            <a href="{% url "students_edit2" student.id %}&amp;student=1">Редактировать2</a>
+                            <a href="{% url "students_edit2" student.id %}&amp;student=1">{% trans "Edit2" %}</a>
                         </li>
                         <li>
-                            <a href="{% url "students_edit3" student.id %} ">Редактировать3</a>
+                            <a href="{% url "students_edit3" student.id %} ">{% trans "Edit3" %}</a>
                         </li>
                         <li>
-                            <a href="{% url "students_delete" student.id %}">Удалить</a>
+                            <a href="{% url "students_delete" student.id %}"{% trans "Delete" %}</a>
                         </li>
                         <li>
-                            <a href="{% url "students_delete3" student.id %}">Удалить3</a>
+                            <a href="{% url "students_delete3" student.id %}">{% trans "Delete3" %}</a>
                         </li>
                     </ul>
                 </div>

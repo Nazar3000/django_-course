@@ -1,6 +1,7 @@
 {% extends "students/base.html" %}
-{% block meta_title %}Список Результатов{% endblock meta_title %}
-{% block title %}Список Результатов{% endblock title %}
+{% load i18n %}
+{% block meta_title %}{% trans "List of Results" %}{% endblock meta_title %}
+{% block title %}{% trans "List of Results" %}{% endblock title %}
 {% block content %}
 
 
@@ -19,34 +20,34 @@
                 <tr>
                     <th><a heref='''>#</a></th>
                     <th><a class="pag-vs-ajax" href= "{% url 'resoult' %}?order_by=title{% if order_by == 'title' and reverse != '1' %}&amp;reverse=1{% endif %}">
-                        Оценка
+                        {% trans "Mark" %}
                     {% if order_by == 'title' and reverse != '1' %}&uarr;
                         {% elif order_by == 'title' and reverse == '1' %}&darr;
                         {% endif %}
                     </a>
                     </th>
                     <th><a class="pag-vs-ajax" href="{% url 'resoult' %}?order_by=student{% if order_by == 'student' and reverse != '1' %}&amp;reverse=1{% endif %}">
-                        Студент
+                        {% trans "Student" %}
                     {% if order_by == 'student' and reverse != '1'%}&uarr;
                         {% elif order_by == 'student' and reverse == '1' %}&darr;
                         {% endif %}
                     </a>
                     </th>
                     <th><a class="pag-vs-ajax" href="{% url 'resoult' %}?order_by=exam{% if order_by == 'exam' and reverse != '1' %}&amp;reverse=1{% endif %}">
-                        Предмет
+                        {% trans "Subject" %}
                     {% if order_by == 'exam' and reverse != '1'%}&uarr;
                         {% elif order_by == 'exam' and reverse == '1' %}&darr;
                         {% endif %}
                     </a>
                     </th>
                     <th><a class="pag-vs-ajax" href="{% url 'resoult' %}?order_by=teacher{% if order_by == 'teacher' and reverse != '1' %}&amp;reverse=1{% endif %}">
-                        Преподаватель
+                        {% trans "Teacher" %}
                     {% if order_by == 'teacher' and reverse != '1'%}&uarr;
                         {% elif order_by == 'teacher' and reverse == '1' %}&darr;
                         {% endif %}
                     </a>
                     </th>
-                    <th>Действие</th>
+                    <th>{% trans "Action" %}</th>
                 </tr>
 
                 </thead>
@@ -64,7 +65,7 @@
                         <td>
                             <div class="=btn-group col-lg-12">
                                 <button class="btn btn-default dropdown-toggle"
-                                        type="button" data-toggle="dropdown">Действие
+                                        type="button" data-toggle="dropdown">{% trans "Action" %}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
@@ -73,10 +74,10 @@
                                        href="#">Посещение</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">Редактировать</a>
+                                        <a role="menuitem" tabindex="-1" href="#">{% trans "Edit" %}</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">Удалить</a>
+                                        <a role="menuitem" tabindex="-1" href="#">{% trans "Delete" %}</a>
                                     </li>
                                 </ul>
                             </div>
