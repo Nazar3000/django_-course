@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-19 15:14+0000\n"
+"POT-Creation-Date: 2021-03-22 10:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,52 @@ msgstr ""
 msgid "That page contains no results"
 msgstr ""
 
+#: models/students.py:10 templates/students/exams_resoult.html:30
+#: templates/students/journal.html:49
+msgid "Student"
+msgstr ""
+
+#: models/students.py:11 templates/students/base.html:72
+#: templates/students/students_list.html:4
+msgid "Students"
+msgstr ""
+
+#: models/students.py:16 templates/students/students_add.html:45
+msgid "Name"
+msgstr ""
+
+#: models/students.py:22 templates/students/students_add.html:56
+#: templates/students/students_list.html:31
+msgid "Last Name"
+msgstr ""
+
+#: models/students.py:28
+msgid "Father name"
+msgstr ""
+
+#: models/students.py:34 templates/students/students_add.html:76
+msgid "Birthday"
+msgstr ""
+
+#: models/students.py:40 templates/students/students_add.html:87
+#: templates/students/students_list.html:29
+msgid "Photo"
+msgstr ""
+
+#: models/students.py:47 templates/students/students_add.html:98
+msgid "Ticket"
+msgstr ""
+
+#: models/students.py:53 templates/students/students_add.html:123
+msgid "Additional Notes"
+msgstr ""
+
+#: models/students.py:57 templates/students/base.html:50
+#: templates/students/exams.html:40 templates/students/students_add.html:110
+#: templates/students/students_list.html:41
+msgid "Group"
+msgstr ""
+
 #: templates/students/base.html:8 templates/students/base.html.py:43
 #: templates/students/base.html:132
 msgid "Students Accounting Service"
@@ -38,18 +84,8 @@ msgstr ""
 msgid "App to manage students database"
 msgstr ""
 
-#: templates/students/base.html:50 templates/students/exams.html:40
-#: templates/students/students_add.html:110
-#: templates/students/students_list.html:41
-msgid "Group"
-msgstr ""
-
 #: templates/students/base.html:52
 msgid "All Students"
-msgstr ""
-
-#: templates/students/base.html:72 templates/students/students_list.html:4
-msgid "Students"
 msgstr ""
 
 #: templates/students/base.html:73 templates/students/students_list.html:78
@@ -134,10 +170,6 @@ msgstr ""
 msgid "Mark"
 msgstr ""
 
-#: templates/students/exams_resoult.html:30 templates/students/journal.html:49
-msgid "Student"
-msgstr ""
-
 #: templates/students/group_update_form.html:13
 #: templates/students/group_update_form.html:14
 msgid "Edit group"
@@ -191,38 +223,16 @@ msgstr ""
 msgid "Add student"
 msgstr ""
 
-#: templates/students/students_add.html:45
-msgid "Name"
-msgstr ""
-
-#: templates/students/students_add.html:56
-#: templates/students/students_list.html:31
-msgid "Last Name"
-msgstr ""
-
-#: templates/students/students_add.html:76
-msgid "Birthday"
-msgstr ""
-
-#: templates/students/students_add.html:87
-#: templates/students/students_list.html:29
-msgid "Photo"
-msgstr ""
-
-#: templates/students/students_add.html:98
-msgid "Ticket"
+#: templates/students/students_add.html:66
+msgid "Middle name"
 msgstr ""
 
 #: templates/students/students_add.html:114
 msgid "Select a group"
 msgstr ""
 
-#: templates/students/students_add.html:123
-msgid "Additional Notes"
-msgstr ""
-
 #: templates/students/students_add.html:133
-#: templates/students/students_edit2.html:24
+#: templates/students/students_edit2.html:24 views/students.py:86
 msgid "Cancel"
 msgstr ""
 
@@ -275,4 +285,12 @@ msgstr ""
 
 #: templates/students/students_list.html:93
 msgid "Delete3"
+msgstr ""
+
+#: views/students.py:85
+msgid "Save"
+msgstr ""
+
+#: views/students.py:219
+msgid "Student updated successfully"
 msgstr ""

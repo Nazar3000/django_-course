@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-19 15:14+0000\n"
+"POT-Creation-Date: 2021-03-22 10:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,6 +31,58 @@ msgstr ""
 msgid "That page contains no results"
 msgstr ""
 
+#: models/students.py:10 templates/students/exams_resoult.html:30
+#: templates/students/journal.html:49
+#, fuzzy
+#| msgid "Students"
+msgid "Student"
+msgstr "Студенти"
+
+#: models/students.py:11 templates/students/base.html:72
+#: templates/students/students_list.html:4
+msgid "Students"
+msgstr "Студенти"
+
+#: models/students.py:16 templates/students/students_add.html:45
+#, fuzzy
+#| msgid "Last Name"
+msgid "Name"
+msgstr "Ім'я"
+
+#: models/students.py:22 templates/students/students_add.html:56
+#: templates/students/students_list.html:31
+msgid "Last Name"
+msgstr "Прізвище"
+
+#: models/students.py:28
+msgid "Father name"
+msgstr "Отчество"
+
+#: models/students.py:34 templates/students/students_add.html:76
+msgid "Birthday"
+msgstr "Дата народження"
+
+#: models/students.py:40 templates/students/students_add.html:87
+#: templates/students/students_list.html:29
+msgid "Photo"
+msgstr "Фото"
+
+#: models/students.py:47 templates/students/students_add.html:98
+#, fuzzy
+#| msgid "№ Ticket"
+msgid "Ticket"
+msgstr "No Білету"
+
+#: models/students.py:53 templates/students/students_add.html:123
+msgid "Additional Notes"
+msgstr "Додаткові замєтки"
+
+#: models/students.py:57 templates/students/base.html:50
+#: templates/students/exams.html:40 templates/students/students_add.html:110
+#: templates/students/students_list.html:41
+msgid "Group"
+msgstr "Група"
+
 #: templates/students/base.html:8 templates/students/base.html.py:43
 #: templates/students/base.html:132
 msgid "Students Accounting Service"
@@ -40,19 +92,9 @@ msgstr "Сервіс Обліку Студентів"
 msgid "App to manage students database"
 msgstr "App to manage students database"
 
-#: templates/students/base.html:50 templates/students/exams.html:40
-#: templates/students/students_add.html:110
-#: templates/students/students_list.html:41
-msgid "Group"
-msgstr "Група"
-
 #: templates/students/base.html:52
 msgid "All Students"
 msgstr "Усі Студенти"
-
-#: templates/students/base.html:72 templates/students/students_list.html:4
-msgid "Students"
-msgstr "Студенти"
 
 #: templates/students/base.html:73 templates/students/students_list.html:78
 msgid "Journal"
@@ -143,12 +185,6 @@ msgstr "Результатя єкзамену"
 msgid "Mark"
 msgstr "Оцінка"
 
-#: templates/students/exams_resoult.html:30 templates/students/journal.html:49
-#, fuzzy
-#| msgid "Students"
-msgid "Student"
-msgstr "Студенти"
-
 #: templates/students/group_update_form.html:13
 #: templates/students/group_update_form.html:14
 msgid "Edit group"
@@ -169,7 +205,7 @@ msgstr "Групи"
 #, fuzzy
 #| msgid "Group"
 msgid "Add Group"
-msgstr "Група"
+msgstr "Додати группу"
 
 #: templates/students/groups_list.html:24
 #, fuzzy
@@ -212,42 +248,16 @@ msgstr "Будьласка виправте наступні помилки"
 msgid "Add student"
 msgstr "Додати Студента"
 
-#: templates/students/students_add.html:45
-#, fuzzy
-#| msgid "Last Name"
-msgid "Name"
-msgstr "Прізвище"
-
-#: templates/students/students_add.html:56
-#: templates/students/students_list.html:31
-msgid "Last Name"
-msgstr "Прізвище"
-
-#: templates/students/students_add.html:76
-msgid "Birthday"
-msgstr "Дата народження"
-
-#: templates/students/students_add.html:87
-#: templates/students/students_list.html:29
-msgid "Photo"
-msgstr "Фото"
-
-#: templates/students/students_add.html:98
-#, fuzzy
-#| msgid "№ Ticket"
-msgid "Ticket"
-msgstr "No Білету"
+#: templates/students/students_add.html:66
+msgid "Middle name"
+msgstr "Средее имя"
 
 #: templates/students/students_add.html:114
 msgid "Select a group"
 msgstr "Виберіть группу"
 
-#: templates/students/students_add.html:123
-msgid "Additional Notes"
-msgstr "Додаткові замєтки"
-
 #: templates/students/students_add.html:133
-#: templates/students/students_edit2.html:24
+#: templates/students/students_edit2.html:24 views/students.py:86
 msgid "Cancel"
 msgstr "Отмєна"
 
@@ -256,7 +266,7 @@ msgstr "Отмєна"
 #, fuzzy
 #| msgid "All Students"
 msgid "Delete Student"
-msgstr "Усі Студенти"
+msgstr "Видалити студента"
 
 #: templates/students/students_confirm_delete.html:11
 msgid "Are you sure you want to delete the student?"
@@ -267,7 +277,7 @@ msgstr "Ви впевнені що бажаете видалити цьго ст
 #, fuzzy
 #| msgid "All Students"
 msgid "Edit student2"
-msgstr "Додати Студента2"
+msgstr "Редагувати Студента2"
 
 #: templates/students/students_list.html:5
 #, fuzzy
@@ -311,3 +321,11 @@ msgstr "Редагувати3"
 #: templates/students/students_list.html:93
 msgid "Delete3"
 msgstr "Видалити3"
+
+#: views/students.py:85
+msgid "Save"
+msgstr "Зберегти"
+
+#: views/students.py:219
+msgid "Student updated successfully"
+msgstr "Студент відредагований успішно"

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 from django.template.defaultfilters import filesizeformat
 # from __future__ import unicode_literals
 from django.conf import settings
@@ -14,6 +15,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, MultiField, Div, HTML, Field, ButtonHolder, Button
 from crispy_forms.bootstrap import FormActions, AppendedText, LayoutObject, PrependedText, PrependedAppendedText, FieldWithButtons, StrictButton
 from ..util import paginate, get_current_group
+from django.utils.translation import ugettext as _
 
 
 
@@ -80,8 +82,8 @@ class StudentUpdateForm(ModelForm):
 
 
         # add button
-        self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
-        self.helper.add_input(Submit('cancel_button', u'Отменить', css_class="btn-link"))
+        self.helper.add_input(Submit('add_button', _(u'Save'), css_class="btn btn-primary"))
+        self.helper.add_input(Submit('cancel_button', _(u'Cancel'), css_class="btn-link"))
 
 
         # self.helper.layout[-1] = FormActions(
@@ -214,7 +216,7 @@ class StudentDeleteView(DeleteView):
     template_name = 'students/students_confirm_delete.html'
 
     def get_success_url(self):
-        return u'%s?status_message=Студент успешно удален!' % reverse('home')
+        return u'%s?status_message=%s' % (reverse('home'), _(u"Student updated successfully"))
 
 # def students_delete(request, sid):
 #     return HttpResponse('<h1>Delete Student %s</h1>' %sid)
