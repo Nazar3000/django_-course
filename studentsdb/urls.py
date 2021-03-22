@@ -32,14 +32,19 @@ from students.views.students_edit2 import Students_edit
 from students.views.student_add2 import AddStudents
 from students.views.students_edit3 import students_edit3
 from students.views.students_delete3 import students_delete
+from django.views.i18n import javascript_catalog
 
 from  .settings import MEDIA_ROOT, DEBUG
 
-
+js_info_dict = {
+    'packages':('students',),
+}
 
 
 
 urlpatterns = [
+    url(r'^jsi18n\.js$', 'django.views.i18n.javascript_catalog', js_info_dict),
+    # url(r'^jsi18n\.js$', 'javascript_catalog', js_info_dict),
     url(r'^$', students_list, name='home'),
     url(r'^students/add/$', students_add, name='students_add'),
     url(r'^students/add2/&', AddStudents.as_view(), name='students_add2'),

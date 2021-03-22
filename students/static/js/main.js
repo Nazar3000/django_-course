@@ -102,7 +102,7 @@ function initEditStudentPage() {
 
                 // check if we got successfull response from the server
                 if(status !='success'){
-                    alert('Ошибка на сервере. Попробуйте позже.');
+                    alert(gettext('There was an error on the server. Please, try again a bit later'));
                     return false;
                 }
             // update modal window with arrived content from the server
@@ -128,7 +128,7 @@ function initEditStudentPage() {
                 // window.history.forward()
             },
             'error': function (){
-                alert('Ошибка на сервере. Попробуйте позже');
+                alert(gettext('There was an error on the server. Please, try again a bit later'));
                 return false;
             }
 
@@ -156,7 +156,7 @@ function initEditStudentForm(form, modal) {
     form.ajaxForm({
         'dataType': 'html',
         'error': function (){
-            alert('Ошибка на сервере. Попробуйте позже.');
+            alert(gettext('There was an error on the server. Please, try again a bit later'));
             return false;
         },
 
@@ -206,7 +206,7 @@ function initEditStudentForm(form, modal) {
 
                         // check if we got successfull response from the server
                         if (status != 'success') {
-                            alert('Запрос на получение студента не прошел');
+                            alert(gettext('Student request failed'));
                             return false;
                         }
                     }
@@ -265,7 +265,7 @@ function updateContent(url){
 
 
                 if (status != 'success') {
-                        alert('Запрос на получение студента не прошел');
+                        alert(gettext('Student request failed'));
                         return false;
                     }
             }
