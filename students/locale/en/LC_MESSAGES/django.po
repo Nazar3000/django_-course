@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-22 10:37+0000\n"
+"POT-Creation-Date: 2021-03-24 10:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Student"
 msgstr ""
 
-#: models/students.py:11 templates/students/base.html:72
+#: models/students.py:11 templates/students/base.html:87
 #: templates/students/students_list.html:4
 msgid "Students"
 msgstr ""
@@ -69,14 +69,14 @@ msgstr ""
 msgid "Additional Notes"
 msgstr ""
 
-#: models/students.py:57 templates/students/base.html:50
+#: models/students.py:57 templates/students/base.html:54
 #: templates/students/exams.html:40 templates/students/students_add.html:110
 #: templates/students/students_list.html:41
 msgid "Group"
 msgstr ""
 
 #: templates/students/base.html:8 templates/students/base.html.py:43
-#: templates/students/base.html:132
+#: templates/students/base.html:150
 msgid "Students Accounting Service"
 msgstr ""
 
@@ -84,27 +84,31 @@ msgstr ""
 msgid "App to manage students database"
 msgstr ""
 
-#: templates/students/base.html:52
+#: templates/students/base.html:56
 msgid "All Students"
 msgstr ""
 
-#: templates/students/base.html:73 templates/students/students_list.html:78
+#: templates/students/base.html:65
+msgid "Language"
+msgstr ""
+
+#: templates/students/base.html:88 templates/students/students_list.html:78
 msgid "Journal"
 msgstr ""
 
-#: templates/students/base.html:74
+#: templates/students/base.html:89
 msgid "Groups"
 msgstr ""
 
-#: templates/students/base.html:75
+#: templates/students/base.html:90
 msgid "Contact"
 msgstr ""
 
-#: templates/students/base.html:76
+#: templates/students/base.html:91
 msgid "Exams"
 msgstr ""
 
-#: templates/students/base.html:77
+#: templates/students/base.html:92
 msgid "Exams resoult"
 msgstr ""
 

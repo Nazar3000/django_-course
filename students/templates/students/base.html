@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load static from staticfiles %}
 <!DOCTIPE HTML>
-<html lang="ru">
+<html lang="ua">
 
     <head>
         <meta charset="UTF-8">
@@ -45,6 +45,10 @@
 
 
 
+
+
+
+
                 <!--Groups Selector -->
                 <div class="col-lg-4" id="group-selector">
                     <strong>{% trans "Group" %}:</strong>
@@ -57,6 +61,17 @@
                     </select>
 
                 </div>
+                <div class="col-lg-4" id="lang-selector">
+                    <strong>{% trans "Language" %}</strong>
+                    <select>
+                        {% for lang in LANGS %}
+                        <option value="{{ lang.language }}"{% if lang.selected %}selected="1"{% endif %}>{{ lang.title }}</option>
+
+                        {% endfor %}
+                    </select>
+
+                </div>
+
             </div>
 
             <!-- End Header -->
@@ -121,12 +136,15 @@
                     <h2>{% block title %}{% endblock title %}</h2>
                     {% block content %}{% endblock content %}
 
+
                 </div>
             </div>
 
              <!--End Main Page Content-->
 
             <!--Start Footer-->
+
+
             <div class="row" id="footer">
                 <div class="col-lg-12">
                     &copy; 2027 {% trans "Students Accounting Service" %}

@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 def paginate(objects, size, request, context, var_name='object_list'):
@@ -72,5 +74,28 @@ def get_current_group(request):
             return None
         else:
             return group
+    else:
+        return None
+
+# Получаем список доступных языков из сетингза для контекстпроцессора
+def get_lang_list(request):
+    from studentsdb.settings import LANGUAGE_List
+    curent_language = get_curent_language(request)
+    languages = []
+    for language in LANGUAGE_List:
+        languages.append({
+            'language':language,
+            'title': language.title,
+            'selected':curent_language and curent_language == language and True or False,
+
+        }
+        )
+    return languages
+
+# Возвращаем язык который записали в куки при выборе на фронте
+def get_curent_language(request):
+    lang = request.COOKIES.get('django_language')
+    if lang:
+        return lang
     else:
         return None

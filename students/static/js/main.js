@@ -70,6 +70,30 @@ function initGroupSelector() {
     });
 }
 
+function initLangSelector(){
+$('#lang-selector select').change(function(event){
+    // get value of currently selected lang
+    var lang = $(this).val();
+
+    if (lang) {
+        // set cookie with expiratin date 1 year since now;
+        // cookie creation function takes period in days
+        $.cookie('django_language', lang, {'path': '/', 'expires': 365}
+        );
+    }
+
+
+
+    else {
+        // otherwise we delete the cookie
+    $.removeCookie('django_language', {'path': '/'});
+}
+    // and reload a page
+    location.reload(true);
+    return true;
+});
+}
+
 // Виджет календаря
 function initDateFilds(){
     $('#datetimepicker2').datetimepicker({
@@ -360,5 +384,6 @@ $(document).ready(function (){
     initEditStudentPage();
     bookmarksListUpdate();
     navigationAjax();
-    // EventListener();
+    initLangSelector();
+
 });
