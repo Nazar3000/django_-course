@@ -16,6 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: helpers/pagination.py:42
 msgid "That page number is not an integer"
@@ -32,269 +34,269 @@ msgstr ""
 #: models/students.py:10 templates/students/exams_resoult.html:30
 #: templates/students/journal.html:49
 msgid "Student"
-msgstr ""
+msgstr "Студент"
 
 #: models/students.py:11 templates/students/base.html:87
 #: templates/students/students_list.html:4
 msgid "Students"
-msgstr ""
+msgstr "Студенты"
 
 #: models/students.py:16 templates/students/students_add.html:45
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: models/students.py:22 templates/students/students_add.html:56
 #: templates/students/students_list.html:31
 msgid "Last Name"
-msgstr ""
+msgstr "Фамилия"
 
 #: models/students.py:28
 msgid "Father name"
-msgstr ""
+msgstr "Отчество"
 
 #: models/students.py:34 templates/students/students_add.html:76
 msgid "Birthday"
-msgstr ""
+msgstr "Дата рождения"
 
 #: models/students.py:40 templates/students/students_add.html:87
 #: templates/students/students_list.html:29
 msgid "Photo"
-msgstr ""
+msgstr "Фото"
 
 #: models/students.py:47 templates/students/students_add.html:98
 msgid "Ticket"
-msgstr ""
+msgstr "Билет"
 
 #: models/students.py:53 templates/students/students_add.html:123
 msgid "Additional Notes"
-msgstr ""
+msgstr "Дополнительные заметки"
 
 #: models/students.py:57 templates/students/base.html:54
 #: templates/students/exams.html:40 templates/students/students_add.html:110
 #: templates/students/students_list.html:41
 msgid "Group"
-msgstr ""
+msgstr "Группы"
 
 #: templates/students/base.html:8 templates/students/base.html.py:43
 #: templates/students/base.html:150
 msgid "Students Accounting Service"
-msgstr ""
+msgstr "Сервис учета студентов"
 
 #: templates/students/base.html:10
 msgid "App to manage students database"
-msgstr ""
+msgstr "Сервис учета студентов"
 
 #: templates/students/base.html:56
 msgid "All Students"
-msgstr ""
+msgstr "Все студенты"
 
 #: templates/students/base.html:65
 msgid "Language"
-msgstr ""
+msgstr "Язык"
 
 #: templates/students/base.html:88 templates/students/students_list.html:78
 msgid "Journal"
-msgstr ""
+msgstr "Журнал посещений"
 
 #: templates/students/base.html:89
 msgid "Groups"
-msgstr ""
+msgstr "Группы"
 
 #: templates/students/base.html:90
 msgid "Contact"
-msgstr ""
+msgstr "Контак"
 
 #: templates/students/base.html:91
 msgid "Exams"
-msgstr ""
+msgstr "Экзамен"
 
 #: templates/students/base.html:92
 msgid "Exams resoult"
-msgstr ""
+msgstr "Результаты экзамена"
 
 #: templates/students/exam_confirm_delete.html:10
 #, python-format
 msgid "Are you sure you want to delete the exam? \"%(object)s\"? "
-msgstr ""
+msgstr "Вы уверенны что хотите удалить этот экзамен? \"%(object)s\"?"
 
 #: templates/students/exams.html:3 templates/students/exams.html.py:4
 msgid "Exam List"
-msgstr ""
+msgstr "Список экзаменов"
 
 #: templates/students/exams.html:26 templates/students/exams_resoult.html:37
 msgid "Subject"
-msgstr ""
+msgstr "Предмет"
 
 #: templates/students/exams.html:33
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: templates/students/exams.html:47 templates/students/exams_resoult.html:44
 msgid "Teacher"
-msgstr ""
+msgstr "Преподаватель"
 
 #: templates/students/exams.html:53 templates/students/exams_resoult.html:50
 #: templates/students/exams_resoult.html:68
 #: templates/students/groups_list.html:37
 #: templates/students/groups_list.html:55
 msgid "Action"
-msgstr ""
+msgstr "Дейтсвие"
 
 #: templates/students/exams.html:77
 msgid "Visit"
-msgstr ""
+msgstr "Посещение"
 
 #: templates/students/exams.html:81 templates/students/exams_resoult.html:77
 #: templates/students/groups_list.html:64
 #: templates/students/students_list.html:81
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: templates/students/exams.html:84 templates/students/exams_resoult.html:80
 #: templates/students/students_list.html:90
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: templates/students/exams_form.html:7
 #: templates/students/group_update_form.html:6
 #: templates/students/students_form.html:7
 msgid "Correct errors in the form"
-msgstr ""
+msgstr "Исправьте ошибки в форме"
 
 #: templates/students/exams_form.html:14 templates/students/exams_form.html:15
 msgid "Add Exam"
-msgstr ""
+msgstr "Добавить экзамен"
 
 #: templates/students/exams_resoult.html:3
 #: templates/students/exams_resoult.html:4
 msgid "List of Results"
-msgstr ""
+msgstr "Список результатов"
 
 #: templates/students/exams_resoult.html:23
 msgid "Mark"
-msgstr ""
+msgstr "Оценка"
 
 #: templates/students/group_update_form.html:13
 #: templates/students/group_update_form.html:14
 msgid "Edit group"
-msgstr ""
+msgstr "Редакировать группу"
 
 #: templates/students/groups_confirm_delete.html:12
 #, python-format
 msgid "Do you really want to delete group: \"%(object)s\"? "
-msgstr ""
+msgstr "Вы действительно хотите удалить группу: \"%(object)s\"? "
 
 #: templates/students/groups_list.html:3 templates/students/groups_list.html:4
 msgid "Group List"
-msgstr ""
+msgstr "Список групп"
 
 #: templates/students/groups_list.html:8
 msgid "Add Group"
-msgstr ""
+msgstr "Добавить Группу"
 
 #: templates/students/groups_list.html:24
 msgid "Group Name"
-msgstr ""
+msgstr "Название группы"
 
 #: templates/students/groups_list.html:31
 msgid "Headman"
-msgstr ""
+msgstr "Староста"
 
 #: templates/students/groups_list.html:61
 msgid "Visits"
-msgstr ""
+msgstr "Посещение"
 
 #: templates/students/groups_list.html:67
 msgid "Delet"
-msgstr ""
+msgstr "Удалить"
 
 #: templates/students/journal.html:5 templates/students/journal.html.py:7
 msgid "Tracking attendance"
-msgstr ""
+msgstr "Отслеживаине посещаемости"
 
 #: templates/students/journal.html:31
 msgid "An error occurred while requesting the server:"
-msgstr ""
+msgstr "Произошла ошибка при запросе на сервер:"
 
 #: templates/students/students_add.html:11
 msgid "Please correct the following errors in the fields:"
-msgstr ""
+msgstr "Исправьте следующие ошибки в полях:"
 
 #: templates/students/students_add.html:37
 #: templates/students/students_add.html:38
 #: templates/students/students_form.html:14
 #: templates/students/students_form.html:15
 msgid "Add student"
-msgstr ""
+msgstr "Добавить студента"
 
 #: templates/students/students_add.html:66
 msgid "Middle name"
-msgstr ""
+msgstr "Фамилия"
 
 #: templates/students/students_add.html:114
 msgid "Select a group"
-msgstr ""
+msgstr "Выберите группу"
 
 #: templates/students/students_add.html:133
 #: templates/students/students_edit2.html:24 views/students.py:86
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 #: templates/students/students_confirm_delete.html:6
 #: templates/students/students_confirm_delete.html:7
 msgid "Delete Student"
-msgstr ""
+msgstr "Удалить студента"
 
 #: templates/students/students_confirm_delete.html:11
 msgid "Are you sure you want to delete the student?"
-msgstr ""
+msgstr "Вы действительно хотите удалить студента?"
 
 #: templates/students/students_edit2.html:9
 #: templates/students/students_edit2.html:10
 msgid "Edit student2"
-msgstr ""
+msgstr "Редактировать студента2"
 
 #: templates/students/students_list.html:5
 msgid "Students List"
-msgstr ""
+msgstr "Список студентов"
 
 #: templates/students/students_list.html:11
 msgid "Add Student"
-msgstr ""
+msgstr "Добавить студента"
 
 #: templates/students/students_list.html:12
 msgid "Add Student2"
-msgstr ""
+msgstr "Добавить студента2"
 
 #: templates/students/students_list.html:36
 msgid "First Name"
-msgstr ""
+msgstr "Имя"
 
 #: templates/students/students_list.html:46
 msgid "№ Ticket"
-msgstr ""
+msgstr "Номер билета"
 
 #: templates/students/students_list.html:51
 #: templates/students/students_list.html:74
 msgid "Actions"
-msgstr ""
+msgstr "Действие"
 
 #: templates/students/students_list.html:84
 msgid "Edit2"
-msgstr ""
+msgstr "Редактировать2"
 
 #: templates/students/students_list.html:87
 msgid "Edit3"
-msgstr ""
+msgstr "Редактировать3"
 
 #: templates/students/students_list.html:93
 msgid "Delete3"
-msgstr ""
+msgstr "Удалить3"
 
 #: views/students.py:85
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: views/students.py:219
 msgid "Student updated successfully"
-msgstr ""
+msgstr "Студент обновлен успешно"
