@@ -122,6 +122,7 @@ function initEditStudentPage() {
 
             'success': function(data, status, xhr){
                 changeUrl(url);
+                alert(url);
 
 
                 // check if we got successfull response from the server
@@ -130,10 +131,15 @@ function initEditStudentPage() {
                     return false;
                 }
             // update modal window with arrived content from the server
-                var modal = $('#myModal'),
+                var modal = $('#myModal'), nav_lang = $('#lang-nav'),
                     html = $(data), form = html.find('#content-column form');
                 modal.find('.modal-title').html(html.find('#content-column h2').text());
                 modal.find('.modal-body').html(form);
+
+                //добавил навигацию по языкам
+                modal.find('#nav-lang').html(nav_lang.find('#lang-tabs'));
+
+
 
                 // Вытаскивам ID студента
                 student_id = form.find('.stud_id').attr('id');

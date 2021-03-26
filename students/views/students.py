@@ -49,6 +49,9 @@ class StudentUpdateForm(ModelForm):
         self.helper.field_class = 'col-sm-10'
         self.helper.layout = Layout(
             '',
+            Div(
+                css_id='nav-lang'
+            ),
             'first_name',
             'last_name',
             'middle_name',
