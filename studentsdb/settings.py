@@ -107,6 +107,7 @@ LANGUAGES = (
     ('uk', gettext('Ukrainian')),
     ('ru', gettext('Russian')),
 )
+# MODELTRANSLATION_FALLBACK_LANGUAGES = ('en', 'uk', 'ru')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
