@@ -105,12 +105,24 @@ function initDateFilds(){
     });
 }
 
+// Функция помошник для вызова фунции обработки модального окна
+function clickHandlerStudEdit(){
+    $('a.student-edit-form-link').click(function(event) {
+        var link = $(this), progress = $(".progress"), url = link.attr('href');
+        initEditStudentPage(url);
+        return false;
+    });
 
+}
 
 // Показываем модальное
-function initEditStudentPage() {
-    $('a.student-edit-form-link').click(function(event){
-        var link = $(this), progress = $(".progress"), url=link.attr('href');
+function initEditStudentPage(url) {
+    // $('a.student-edit-form-link').click(function(event){
+        // var link = $(this), progress = $(".progress"), url=link.attr('href');
+    alert(`initEditStudentPage ${url}`);
+
+
+        var progress = $(".progress");
         $.ajax({
             'url': url,
             // 'url': link.attr('href'),
@@ -122,7 +134,7 @@ function initEditStudentPage() {
 
             'success': function(data, status, xhr){
                 changeUrl(url);
-                alert(url);
+                alert(`initEditStudentPage str 136 ${url}`);
 
 
                 // check if we got successfull response from the server
@@ -144,6 +156,8 @@ function initEditStudentPage() {
                 // Вытаскивам ID студента
                 student_id = form.find('.stud_id').attr('id');
 
+                // запускаем обработчик навигации по языкам
+                // changLangForm();
 
                 // init our edit form
                 initEditStudentForm(form, modal);
@@ -163,9 +177,10 @@ function initEditStudentPage() {
             }
 
         });
-        return false;
-    });
+        // return false;
+    // });
 }
+
 
 // Обрабатываем постзапрос на аяксе для модального окна,
 // после применения изменений обновляем редактированного студента в спске
@@ -175,6 +190,11 @@ function initEditStudentForm(form, modal) {
     // attach datepicker
     initDateFilds();
     addAtrperview(form);
+    // changLangForm();
+    // alert(`initEditStudentForm ${url}`);
+    // changeUrl(url);
+
+
 
     // close modal window on Cacncel button click
     form.find('input[name="cancel_button"]').click(function(event){
@@ -254,6 +274,28 @@ function initEditStudentForm(form, modal) {
             }
         });
     }
+
+
+
+// Изменение ссылки запроса в форме в зависимости от выбранного языка ввода
+function changLangForm(){
+    $('#lang-tabs li').click(function (event){
+        var lang_id = $(this).find('a').attr('id');
+        url = window.location.href;
+        new_url =lang_id + url.substring(24,50);
+        changeUrl('/');
+        url = new_url;
+        alert(`changLangForm() ${url}`);
+        // changeUrl(url);
+        initEditStudentPage(url);
+
+
+        // url=cur_url.prepend(lang_id);
+        // alert(url.substring(3,30));
+
+        // alert(lang_id.find('a').attr('id'));
+    });
+}
 
 function bookmarksListUpdate(){
     $('.nav-link').click(function (event){
@@ -387,9 +429,11 @@ $(document).ready(function (){
     initJournal();
     initGroupSelector();
     initDateFilds();
-    initEditStudentPage();
+    // initEditStudentPage();
+    clickHandlerStudEdit();
     bookmarksListUpdate();
     navigationAjax();
     initLangSelector();
+    changLangForm();
 
 });

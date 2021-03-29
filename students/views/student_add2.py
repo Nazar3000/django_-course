@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Field
+from crispy_forms.layout import Submit, Layout, Field, Div
 from crispy_forms.bootstrap import FormActions
 
 
@@ -31,6 +31,9 @@ class AddStudentsForm(ModelForm):
         self.form_show_labels = True
         self.helper.layout = Layout(
             '',
+            Div(
+                css_id='nav-lang'
+            ),
             'first_name',
             'last_name',
             'middle_name',
