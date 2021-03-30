@@ -48,7 +48,7 @@ urlpatterns = [
     url(r'^$', students_list, name='home'),
     url(r'^students/add/$', students_add, name='students_add'),
     # url(r'^students/add2/&', AddStudents.as_view(), name='students_add2'),
-    url(r'^students/(?P<pk>\d+)/edit/$', StudentUpdateView.as_view(), name='students_edit'),
+    # url(r'^students/(?P<pk>\d+)/edit/$', StudentUpdateView.as_view(), name='students_edit'),
     url(r'^students/(?P<pk>\d+)/edit3/$', students_edit3, name='students_edit3'),
     url(r'^students/edit2/(?P<pk>\d+)', Students_edit.as_view(), name='students_edit2'),
 
@@ -84,6 +84,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     '',
 url(r'^students/add2/&', AddStudents.as_view(), name='students_add2'),
+url(r'^students/(?P<pk>\d+)/edit/$', StudentUpdateView.as_view(), name='students_edit'),
 
 )
 
