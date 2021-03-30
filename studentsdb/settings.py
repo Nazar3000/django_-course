@@ -32,6 +32,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # Application definition
 
 INSTALLED_APPS = (
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -90,8 +92,22 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
 
+USE_TZ = True
+LANGUAGE_COOKIE_NAME = 'django_language'
+LANGUAGE_List = {
+    'en':{'title':'EN'},
+    'uk':{'title':'UK'},
+    'ru':{'title':'RU'}
+}
+
+gettext = lambda s: s
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('uk', gettext('Ukrainian')),
+    ('ru', gettext('Russian')),
+)
+# MODELTRANSLATION_FALLBACK_LANGUAGES = ('en', 'uk', 'ru')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
@@ -105,6 +121,7 @@ TEMPLATE_CONTEXT_PROCESSORS = \
     "django.core.context_processors.request",
     "studentsdb.context_processors.students_proc",
     "students.context_processors.groups_processor",
+    "students.context_processors.lang_processor",
 )
 
 # email settings

@@ -1,18 +1,18 @@
 {% extends "students/base.html" %}
-
+{% load i18n %}
 {% load static from staticfiles %}
 {% load crispy_forms_tags %}
 {% block status_message %}
    {% if form.errors %}
-<div class="alert alert-warning" role="alert">Исправьте ошибки в форме</div>
+<div class="alert alert-warning" role="alert">{% trans "Correct errors in the form" %}</div>
 {% endif %}
 {% if request.GET.status_message %}
 <div class="alert alert-warning" role="alter">{{ request.GET.status_message }}</div>
 {% endif %}
 {% endblock status_message %}
 
-{% block meta_title %}Добавить Экзамен{% endblock meta_title %}
-{% block title %}Добавить Экзамен{% endblock title %}
+{% block meta_title %}{% trans "Add Exam" %}{% endblock meta_title %}
+{% block title %}{% trans "Add Exam" %}{% endblock title %}
 {% block content %}
 
 {% crispy form %}

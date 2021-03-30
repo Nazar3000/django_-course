@@ -1,12 +1,13 @@
 {% extends "students/base.html" %}
+{% load i18n %}
 {% load static from staticfiles %}
 
 
 
 
 
-{% block meta_title %}Редактировать студента2{% endblock meta_title %}
-{% block title %}Редпктировать студента2{% endblock title %}
+{% block meta_title %}{% trans "Edit student2" %}{% endblock meta_title %}
+{% block title %}{% trans "Edit student2" %}{% endblock title %}
 {% block content %}
 {% with student=request.GET.student %}
 <form  action="{% url "students_edit2" 14 %} " method="post" enctype="multipart/form-data" role="form" class="form-horizontal">
@@ -20,7 +21,7 @@
     <div class="col-sm-10">
         <textarea name="notes" id="notes" class="form-control"></textarea>
         <input type="submit" value="Добавить " name="add_button"/>
-        <button type="submit" name="cancel_button" class="btn btn-link">Отменить {{ student }}</button>
+        <button type="submit" name="cancel_button" class="btn btn-link">{% trans "Cancel" %} {{ student }}</button>
     </div>
 </div>
 </form>

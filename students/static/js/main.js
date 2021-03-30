@@ -70,6 +70,30 @@ function initGroupSelector() {
     });
 }
 
+function initLangSelector(){
+$('#lang-selector select').change(function(event){
+    // get value of currently selected lang
+    var lang = $(this).val();
+
+    if (lang) {
+        // set cookie with expiratin date 1 year since now;
+        // cookie creation function takes period in days
+        $.cookie('django_language', lang, {'path': '/', 'expires': 365}
+        );
+    }
+
+
+
+    else {
+        // otherwise we delete the cookie
+    $.removeCookie('django_language', {'path': '/'});
+}
+    // and reload a page
+    location.reload(true);
+    return true;
+});
+}
+
 // Виджет календаря
 function initDateFilds(){
     $('#datetimepicker2').datetimepicker({
@@ -81,12 +105,24 @@ function initDateFilds(){
     });
 }
 
+// Функция помошник для вызова фунции обработки модального окна
+function clickHandlerStudEdit(){
+    $('a.student-edit-form-link').click(function(event) {
+        var link = $(this), progress = $(".progress"), url = link.attr('href');
+        initEditStudentPage(url);
+        return false;
+    });
 
+}
 
 // Показываем модальное
-function initEditStudentPage() {
-    $('a.student-edit-form-link').click(function(event){
-        var link = $(this), progress = $(".progress"), url=link.attr('href');
+function initEditStudentPage(url) {
+    // $('a.student-edit-form-link').click(function(event){
+        // var link = $(this), progress = $(".progress"), url=link.attr('href');
+
+
+
+        var progress = $(".progress");
         $.ajax({
             'url': url,
             // 'url': link.attr('href'),
@@ -100,20 +136,43 @@ function initEditStudentPage() {
                 changeUrl(url);
 
 
+
                 // check if we got successfull response from the server
                 if(status !='success'){
-                    alert('Ошибка на сервере. Попробуйте позже.');
+                    alert(gettext('There was an error on the server. Please, try again a bit later'));
                     return false;
                 }
             // update modal window with arrived content from the server
-                var modal = $('#myModal'),
-                    html = $(data), form = html.find('#content-column form');
+                var modal = $('#myModal'), nav_lang2 = $('#nav-lang'), nav_lang1 = $('#lang-nav'),
+                    // nav_lang = $('#lang-nav'),
+                    html = $(data), form = html.find('#content-column form'), cur_lang = window.location.href.substring(22,24);
+
                 modal.find('.modal-title').html(html.find('#content-column h2').text());
                 modal.find('.modal-body').html(form);
+
+
+
+                //добавил навигацию по языкам
+                if (nav_lang1.html().length > 40) {
+                    modal.find('#nav-lang').html(nav_lang1.find('#lang-tabs'));
+                    // lang_obj= modal.find(`li a[id=${cur_lang}]`).parents('div').html();
+                } else {
+                    modal.find('#nav-lang').html(nav_lang2.find('#lang-tabs'));
+                }
+
+
+            // Тут будет вызов функции на подсветку активной вкладки
+
+
+
+
+
 
                 // Вытаскивам ID студента
                 student_id = form.find('.stud_id').attr('id');
 
+                // запускаем обработчик навигации по языкам
+                // changLangForm();
 
                 // init our edit form
                 initEditStudentForm(form, modal);
@@ -128,14 +187,15 @@ function initEditStudentPage() {
                 // window.history.forward()
             },
             'error': function (){
-                alert('Ошибка на сервере. Попробуйте позже');
+                alert(gettext('There was an error on the server. Please, try again a bit later'));
                 return false;
             }
 
         });
-        return false;
-    });
+        // return false;
+    // });
 }
+
 
 // Обрабатываем постзапрос на аяксе для модального окна,
 // после применения изменений обновляем редактированного студента в спске
@@ -145,6 +205,11 @@ function initEditStudentForm(form, modal) {
     // attach datepicker
     initDateFilds();
     addAtrperview(form);
+    changLangForm();
+
+
+
+
 
     // close modal window on Cacncel button click
     form.find('input[name="cancel_button"]').click(function(event){
@@ -156,7 +221,7 @@ function initEditStudentForm(form, modal) {
     form.ajaxForm({
         'dataType': 'html',
         'error': function (){
-            alert('Ошибка на сервере. Попробуйте позже.');
+            alert(gettext('There was an error on the server. Please, try again a bit later'));
             return false;
         },
 
@@ -206,7 +271,7 @@ function initEditStudentForm(form, modal) {
 
                         // check if we got successfull response from the server
                         if (status != 'success') {
-                            alert('Запрос на получение студента не прошел');
+                            alert(gettext('Student request failed'));
                             return false;
                         }
                     }
@@ -225,6 +290,22 @@ function initEditStudentForm(form, modal) {
         });
     }
 
+
+
+// Изменение ссылки запроса в форме в зависимости от выбранного языка ввода
+function changLangForm(){
+    $('#lang-tabs li').click(function (event){
+        var lang_id = $(this).find('a').attr('id');
+        url = window.location.href;
+        new_url =lang_id + url.substring(24,50);
+        changeUrl('/');
+        url = new_url;
+        initEditStudentPage(url);
+
+    });
+}
+
+
 function bookmarksListUpdate(){
     $('.nav-link').click(function (event){
         var link = $(this), url=link.find('.bookmarks-link').attr('href');
@@ -238,7 +319,6 @@ function navigationAjax(){
     $('.pag-vs-ajax').click(function (event){
         var obj=$(this), url=obj.attr('href');
         updateContent(url);
-        // alert(url)
         return false;
         });
 }
@@ -265,7 +345,7 @@ function updateContent(url){
 
 
                 if (status != 'success') {
-                        alert('Запрос на получение студента не прошел');
+                        alert(gettext('Student request failed'));
                         return false;
                     }
             }
@@ -314,7 +394,6 @@ $(document).on("ajaxStop",
 var NavigationCache = new Array();
 $(document).ready(function(){
   NavigationCache[window.location.pathname] = $('body').html();
-  // alert('NavigationCache works');
   history.pushState({page: window.location.pathname, type: "page"}, null, window.location.pathname);
 });
 
@@ -357,8 +436,11 @@ $(document).ready(function (){
     initJournal();
     initGroupSelector();
     initDateFilds();
-    initEditStudentPage();
+    // initEditStudentPage();
+    clickHandlerStudEdit();
     bookmarksListUpdate();
     navigationAjax();
-    // EventListener();
+    initLangSelector();
+    changLangForm();
+
 });

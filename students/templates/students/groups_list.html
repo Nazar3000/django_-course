@@ -1,10 +1,11 @@
 {% extends "students/base.html" %}
-{% block meta_title %}Список Групп{% endblock meta_title %}
-{% block title %}Список Групп{% endblock title %}
+{% load i18n %}
+{% block meta_title %}{% trans "Group List" %}{% endblock meta_title %}
+{% block title %}{% trans "Group List" %}{% endblock title %}
 {% block content %}
 
 
-<a class="student-edit-form-link btn btn-primary" href="{% url "groups_add" %}">Добавить группу</a>
+<a class="student-edit-form-link btn btn-primary" href="{% url "groups_add" %}">{% trans "Add Group" %}</a>
             <!-- Start Groups Listing -->
             {% if not groups %}
 <div class="alert alert-warning">
@@ -20,20 +21,20 @@
                 <tr>
                     <th><a heref='''>#</a></th>
                     <th><a class="pag-vs-ajax" href= "{% url 'groups' %}?order_by=title{% if order_by == 'title' and reverse != '1' %}&amp;reverse=1{% endif %}">
-                        Название
+                        {% trans "Group Name" %}
                     {% if order_by == 'title' and reverse != '1' %}&uarr;
                         {% elif order_by == 'title' and reverse == '1' %}&darr;
                         {% endif %}
                     </a>
                     </th>
                     <th><a class="pag-vs-ajax" href="{% url 'groups' %}?order_by=leader{% if order_by == 'leader' and reverse != '1' %}&amp;reverse=1{% endif %}">
-                        Староста
+                        {% trans "Headman" %}
                     {% if order_by == 'leader' and reverse != '1'%}&uarr;
                         {% elif order_by == 'leader' and reverse == '1' %}&darr;
                         {% endif %}
                     </a>
                     </th>
-                    <th>Действие</th>
+                    <th>{%trans "Action" %}</th>
                 </tr>
 
                 </thead>
@@ -51,19 +52,19 @@
                         <td>
                             <div class="btn-group col-lg-12">
                                 <button class="btn btn-default dropdown-toggle"
-                                        type="button" data-toggle="dropdown">Действие
+                                        type="button" data-toggle="dropdown">{%trans "Action" %}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
                                     <li role="presentation">
                                     <a role="menuitem" tabindex="-1"
-                                       href="#">Посещение</a>
+                                       href="#">{%trans "Visits" %}</a>
                                     </li>
                                     <li role="presentation">
-                                        <a class="student-edit-form-link"  role="menuitem" tabindex="-1" href="{% url "groups_edit" group.id %}">Редактировать</a>
+                                        <a class="student-edit-form-link"  role="menuitem" tabindex="-1" href="{% url "groups_edit" group.id %}">{% trans "Edit" %}</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="{% url "groups_delete" group.id %}">Удалить</a>
+                                        <a role="menuitem" tabindex="-1" href="{% url "groups_delete" group.id %}">{% trans "Delet" %}</a>
                                     </li>
 
                                 </ul>
