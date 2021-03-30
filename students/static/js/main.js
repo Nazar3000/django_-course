@@ -119,7 +119,7 @@ function clickHandlerStudEdit(){
 function initEditStudentPage(url) {
     // $('a.student-edit-form-link').click(function(event){
         // var link = $(this), progress = $(".progress"), url=link.attr('href');
-    alert(`initEditStudentPage ${url}`);
+
 
 
         var progress = $(".progress");
@@ -134,7 +134,7 @@ function initEditStudentPage(url) {
 
             'success': function(data, status, xhr){
                 changeUrl(url);
-                alert(`initEditStudentPage str 136 ${url}`);
+
 
 
                 // check if we got successfull response from the server
@@ -143,13 +143,28 @@ function initEditStudentPage(url) {
                     return false;
                 }
             // update modal window with arrived content from the server
-                var modal = $('#myModal'), nav_lang = $('#lang-nav'),
-                    html = $(data), form = html.find('#content-column form');
+                var modal = $('#myModal'), nav_lang2 = $('#nav-lang'), nav_lang1 = $('#lang-nav'),
+                    // nav_lang = $('#lang-nav'),
+                    html = $(data), form = html.find('#content-column form'), cur_lang = window.location.href.substring(22,24);
+
                 modal.find('.modal-title').html(html.find('#content-column h2').text());
                 modal.find('.modal-body').html(form);
 
+
+
                 //добавил навигацию по языкам
-                modal.find('#nav-lang').html(nav_lang.find('#lang-tabs'));
+                if (nav_lang1.html().length > 40) {
+                    modal.find('#nav-lang').html(nav_lang1.find('#lang-tabs'));
+                    // lang_obj= modal.find(`li a[id=${cur_lang}]`).parents('div').html();
+                } else {
+                    modal.find('#nav-lang').html(nav_lang2.find('#lang-tabs'));
+                }
+
+
+            // Тут будет вызов функции на подсветку активной вкладки
+
+
+
 
 
 
@@ -190,9 +205,9 @@ function initEditStudentForm(form, modal) {
     // attach datepicker
     initDateFilds();
     addAtrperview(form);
-    // changLangForm();
-    // alert(`initEditStudentForm ${url}`);
-    // changeUrl(url);
+    changLangForm();
+
+
 
 
 
@@ -285,17 +300,11 @@ function changLangForm(){
         new_url =lang_id + url.substring(24,50);
         changeUrl('/');
         url = new_url;
-        alert(`changLangForm() ${url}`);
-        // changeUrl(url);
         initEditStudentPage(url);
 
-
-        // url=cur_url.prepend(lang_id);
-        // alert(url.substring(3,30));
-
-        // alert(lang_id.find('a').attr('id'));
     });
 }
+
 
 function bookmarksListUpdate(){
     $('.nav-link').click(function (event){
@@ -310,7 +319,6 @@ function navigationAjax(){
     $('.pag-vs-ajax').click(function (event){
         var obj=$(this), url=obj.attr('href');
         updateContent(url);
-        // alert(url)
         return false;
         });
 }
@@ -386,7 +394,6 @@ $(document).on("ajaxStop",
 var NavigationCache = new Array();
 $(document).ready(function(){
   NavigationCache[window.location.pathname] = $('body').html();
-  // alert('NavigationCache works');
   history.pushState({page: window.location.pathname, type: "page"}, null, window.location.pathname);
 });
 
