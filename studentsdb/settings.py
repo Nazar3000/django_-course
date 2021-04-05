@@ -40,8 +40,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'registration',
     'students',
     'contact_form',
+    'studentsdb',
+
 
 )
 
@@ -124,6 +127,10 @@ TEMPLATE_CONTEXT_PROCESSORS = \
     "students.context_processors.lang_processor",
 )
 
+# AUTHENTICATION_BACKENDS = (
+#    'django.contrib.auth.backends.ModelBackend',
+# )
+
 # email settings
 ADMIN_EMAIL = 'nazarii.mazur@gmail.com'
 EMAIL_HOST = 'smtp.ukr.net'
@@ -133,7 +140,32 @@ EMAIL_HOST_PASSWORD = 'Qwerty!123'
 EMAIL_USE_TLS= True
 
 
+
+# add project templates directory as Django does not
+# pick it default
+# TEMPLATE_DIRS = (
+#    os.path.join(BASE_DIR, 'studentsdb', 'templates'),
+# )
+
+
+TEMPLATE_DIRS = (
+   os.path.join(BASE_DIR,
+                'templates',
+                # 'registration'
+                ),
+)
+
+# TEMPLATE_DIRS = (
+#    os.path.join(BASE_DIR, 'students/templates', 'students' ),
+# )
+
+
+
 LOG_FILE = os.path.join(BASE_DIR, 'studentdb.log')
+
+# django-registration-redux settings
+REGISTRATION_OPEN =True
+# LOGIN_URL = 'users:auth_login'
 
 LOGGING = {
     'version': 1,

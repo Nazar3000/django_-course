@@ -34,6 +34,8 @@ from students.views.students_edit3 import students_edit3
 from students.views.students_delete3 import students_delete
 from django.views.i18n import javascript_catalog
 from django.conf.urls.i18n import i18n_patterns
+from django.contrib.auth import views as auth_views
+from django.views.generic.base import RedirectView, TemplateView
 
 from  .settings import MEDIA_ROOT, DEBUG
 
@@ -78,7 +80,15 @@ urlpatterns = [
 # contact_form
     url(r'^contact-admin/$', contact_admin, name='contact_admin'),
     url(r'test-form/&', Test_form.as_view(), name='test-form'),
-    # url(r^'django-contact-form/&', Test_form.as_view() )
+
+
+    # User Related urls
+    # url(r'^regisgistration/$', auth_views.password_change, name='registration_register'),
+    # url(r'^resetpass/&', auth_views.password_reset, name='auth_password_reset'),
+    url(r'^users/logout/$', auth_views.logout, kwargs={'next_page':'home'}, name='auth_logout'),
+    url(r'^register/complete/$', RedirectView.as_view(pattern_name='home'), name='registration_complete'),
+    url(r'^users/', include('registration.backends.simple.urls', namespace='users')),
+
 ]
 
 urlpatterns += i18n_patterns(
