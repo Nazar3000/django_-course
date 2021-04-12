@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """studentsdb URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -83,8 +84,9 @@ urlpatterns = [
 
 
     # User Related urls
-    # url(r'^regisgistration/$', auth_views.password_change, name='registration_register'),
-    # url(r'^resetpass/&', auth_views.password_reset, name='auth_password_reset'),
+    #  можно добавить урлконфиг accounts/login/ и передать в него путь к шаблону который будет юзатся,
+    # мо умолчанию шаблон тянется из registration/login.html
+    # url(r'accounts/login/$', auth_views.login, kwargs={'template_name':'registration/login.html'}),
     url(r'^users/logout/$', auth_views.logout, kwargs={'next_page':'home'}, name='auth_logout'),
     url(r'^register/complete/$', RedirectView.as_view(pattern_name='home'), name='registration_complete'),
     url(r'^users/', include('registration.backends.simple.urls', namespace='users')),

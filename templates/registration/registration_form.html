@@ -1,4 +1,4 @@
-{% extends "students/base.html " %}
+{% extends "students/base.html" %}
 
 {% load i18n %}
 
@@ -7,7 +7,7 @@
 
 {% block status_message %}
 {% if form.errors %}
-<div class="alert alert-warning" role="alert">{% trans"Please, correct the following errors." %}{{ form.non_field_errors }}</div>
+<div class="alert alert-warning" role="alert">{% trans "Please, correct the following errors." %}{{ form.non_field_errors }}</div>
 {% endif %}
 {% endblock %}
 
@@ -30,13 +30,14 @@
 </div>
 
 <div class="form-group">
-    <label for="password" class="form-control" id="password" value="" name="password1"/>
-    <span class="help-block">{{ from.errors.password1.as_text }}</span>
+    <label for="password">{% trans "Your Password" %}</label>
+    <input type="password" class="form-control" id="password" value="" name="password1"/>
+    <span class="help-block">{{ form.errors.password1.as_text }}</span>
 </div>
 
 <div class="form-group">
     <label for="password-confirm">{% trans "Confirm Password" %}</label>
-    <input type="password" class="form-cotrol" id="password-confirm" value="" name="password2"/>
+    <input type="password" class="form-control" id="password-confirm" value="" name="password2"/>
     <span class="help-block"> {{ form.errors.password2.as_text }}</span>
 </div>
 
