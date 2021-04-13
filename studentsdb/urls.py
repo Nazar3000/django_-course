@@ -26,7 +26,9 @@ from students.views.groups import groups_list, AddGroup, GroupUpdateView, Groups
 from students.views.journal import JournalView
 from students.views.exams import exams_list, ExamsUpdateView, AddExam, ExamDeleteView
 from students.views.exams_resoult import resoult_list
-from students.views.contact_admin import contact_admin, ContactView
+from students.views.contact_admin import ContactView\
+    # contact_admin, \
+
 from students.views.test_form import Test_form
 from students.views.students_edit2 import Students_edit
 from students.views.student_add2 import AddStudents
