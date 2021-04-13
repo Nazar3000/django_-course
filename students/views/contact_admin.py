@@ -73,32 +73,32 @@ class ContactView(FormView):
 
 
 
-def contact_admin(request):
-    # check if form was posted
-    if request.method =='POST':
-       # create a form instance and populate it with data from the request:
-
-        form = ContactForm(request.POST)
-        # check whether user data is valid:
-
-        if form.is_valid():
-            # send email
-            subject = form.cleaned_data['subject']
-            message = form.cleaned_data['message']
-            from_email = form.cleaned_data['from_email']
-            try:
-                send_mail(subject, message, from_email, [ADMIN_EMAIL])
-            except Exception:
-                message = u'Во время отправки письма возникла ошибка. Попробуйте позже sand_email: subject:%s, message:%s, from_email:%s, ADMIN_EMAIL:%s '% (subject, message, from_email, ADMIN_EMAIL)
-                logger = logging.getLogger(__name__)
-                logger.exception(message)
-            else:
-                message = u'Сообщение отправлено'
-            # redirect to same contact page with success message
-            return HttpResponseRedirect(
-            u'%s?status_message=%s' % (reverse('contact_admin'), message))
-
-            # if there was not POST render blank from
-    else:
-        form = ContactForm()
-    return render(request, 'contact_admin/form.html', {'form': form})
+# def contact_admin(request):
+#     # check if form was posted
+#     if request.method =='POST':
+#        # create a form instance and populate it with data from the request:
+#
+#         form = ContactForm(request.POST)
+#         # check whether user data is valid:
+#
+#         if form.is_valid():
+#             # send email
+#             subject = form.cleaned_data['subject']
+#             message = form.cleaned_data['message']
+#             from_email = form.cleaned_data['from_email']
+#             try:
+#                 send_mail(subject, message, from_email, [ADMIN_EMAIL])
+#             except Exception:
+#                 message = u'Во время отправки письма возникла ошибка. Попробуйте позже sand_email: subject:%s, message:%s, from_email:%s, ADMIN_EMAIL:%s '% (subject, message, from_email, ADMIN_EMAIL)
+#                 logger = logging.getLogger(__name__)
+#                 logger.exception(message)
+#             else:
+#                 message = u'Сообщение отправлено'
+#             # redirect to same contact page with success message
+#             return HttpResponseRedirect(
+#             u'%s?status_message=%s' % (reverse('contact_admin'), message))
+#
+#             # if there was not POST render blank from
+#     else:
+#         form = ContactForm()
+#     return render(request, 'contact_admin/form.html', {'form': form})
