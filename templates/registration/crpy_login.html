@@ -1,0 +1,30 @@
+{% extends "students/base.html" %}
+{% load i18n %}
+{% load static from staticfiles %}
+{% load crispy_forms_tags %}
+{% block status_message %}
+   {% if form.errors %}
+<div class="alert alert-warning" role="alert">{% trans "Correct errors in the form" %}</div>
+{% endif %}
+{% if request.GET.status_message %}
+<div class="alert alert-warning" role="alter">{{ request.GET.status_message }}</div>
+{% endif %}
+{% endblock status_message %}
+
+{% load i18n %}
+
+{% block meta_title %}{% trans "Login Form" %}{% endblock meta_title %}
+
+{% block title %}{% trans "Login Form" %}{% endblock title %}
+
+
+
+
+{% block content %}
+
+
+
+{% csrf_token %}
+<input type="hidden" name="next" value="{% url "home" %}"/>
+{% crispy form %}
+{% endblock content %}
