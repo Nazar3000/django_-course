@@ -47,7 +47,7 @@ class StudentUpdateForm(ModelForm):
         self.helper.html5_required = True
         self.helper.label_class = 'col-sm-2 control-label'
         self.helper.field_class = 'col-sm-10'
-        self.helper.layout = Layout(
+        self.helper.layout = Layout(Fieldset(
             '',
             Div(
                 css_id='nav-lang'
@@ -79,6 +79,7 @@ class StudentUpdateForm(ModelForm):
             'notes',
             'student_group',
             HTML("""<div class="stud_id" id="{{ student.id }}"></div>"""))
+        )
 #
             #
 

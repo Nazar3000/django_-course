@@ -11,20 +11,9 @@
 {% endif %}
 {% endblock status_message %}
 
-{% load i18n %}
-
-{% block meta_title %}{% trans "Login Form" %}{% endblock meta_title %}
-
-{% block title %}{% trans "Login Form" %}{% endblock title %}
-
-
-
-
 {% block content %}
 
-
-
 {% csrf_token %}
-<input type="hidden" name="next" value="{% url "home" %}"/>
+
 {% crispy form %}
 {% endblock content %}
