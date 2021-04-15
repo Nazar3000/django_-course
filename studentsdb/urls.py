@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """studentsdb URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -37,6 +38,7 @@ from students.views.students_delete3 import students_delete
 from django.views.i18n import javascript_catalog
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.auth import views as auth_views
+from students.views.registration_custom import LoginFormView, LoginForm, RegistrationViewCustom
 from django.views.generic.base import RedirectView, TemplateView
 
 from  .settings import MEDIA_ROOT, DEBUG
@@ -87,8 +89,17 @@ urlpatterns = [
 
 
     # User Related urls
-    # url(r'^regisgistration/$', auth_views.password_change, name='registration_register'),
-    # url(r'^resetpass/&', auth_views.password_reset, name='auth_password_reset'),
+    #  можно добавить урлконфиг accounts/login/ и передать в него путь к шаблону который будет юзатся,
+    # мо умолчанию шаблон тянется из registration/login.html
+    # url(r'accounts/login/$', auth_views.login, kwargs={'template_name':'registration/login.html'}),
+    # url(r'accounts/login/$', LoginFormView.as_view()),
+    # первый неоч красивый вариант реализации сcrispy_forms
+    # url(r'^users/login/$ ', auth_views.login, kwargs={'authentication_form':LoginForm,'template_name':'registration/crpy_login.html' }, name='login'),
+    # Второй нормальный вариант реализации сcrispy_forms
+    url(r'^users/login/$', LoginFormView.as_view(), name='login'),
+    # Форма регистрации реализация с сcrispy_forms
+    url(r'^users/register/$', RegistrationViewCustom.as_view(), name='register'),
+
     url(r'^users/logout/$', auth_views.logout, kwargs={'next_page':'home'}, name='auth_logout'),
     url(r'^register/complete/$', RedirectView.as_view(pattern_name='home'), name='registration_complete'),
     url(r'^users/', include('registration.backends.simple.urls', namespace='users')),
