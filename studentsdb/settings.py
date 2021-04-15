@@ -165,7 +165,8 @@ LOG_FILE = os.path.join(BASE_DIR, 'studentdb.log')
 
 # django-registration-redux settings
 REGISTRATION_OPEN =True
-# LOGIN_URL = 'users:auth_login'
+LOGIN_URL = 'users:auth_login'
+LOGOUT_URL = 'users:auth_logoun'
 
 LOGGING = {
     'version': 1,

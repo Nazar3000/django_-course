@@ -10,6 +10,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -22,8 +24,8 @@ from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
 from ..models import Student, Group
 
 
-
-
+# Декоратор для ограничения доступа дял не залогиненых пользвоателей
+@login_required
 def students_add(request):
 
 

@@ -16,6 +16,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from crispy_forms.bootstrap import FormActions
 from ..util import paginate, get_current_group
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 # Views for Grops vs old pagination
 
@@ -136,6 +138,11 @@ class GroupUpdateView(UpdateView):
     template_name = 'students/group_update_form.html'
     form_class = GroupUpdateForm
 
+    # Органиечение прав для незалогининых юзеров
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(GroupUpdateView, self).dispatch(*args, **kwargs)
+
     def get_success_url(self):
         return u'%s?status_message=Группа успешно отредактирована!'\
     % reverse('groups')
@@ -153,6 +160,10 @@ class GroupsDeleteView(DeleteView):
     # group_id = object
     model = Group
     template_name = 'students/groups_confirm_delete.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(GroupsDeleteView, self).dispatch(*args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         # group_id = request.POST.get(object)

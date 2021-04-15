@@ -16,6 +16,8 @@ from crispy_forms.layout import Submit, Layout, Fieldset, MultiField, Div, HTML,
 from crispy_forms.bootstrap import FormActions, AppendedText, LayoutObject, PrependedText, PrependedAppendedText, FieldWithButtons, StrictButton
 from ..util import paginate, get_current_group
 from django.utils.translation import ugettext as _
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -116,10 +118,21 @@ class CustomBirthdayField(Field):
     template = 'students/date_field.html'
 
 
+# class LoginRequiredClass(object):
+#     @method_decorator(login_required)
+#     def dispatch(self, request, *args, **kwargs):
+#         return super(LoginRequiredClass, self).dispatch(*args, **kwargs)
+
+
 class StudentUpdateView(UpdateView):
     model = Student
     template_name = 'students/students_form.html'
     form_class = StudentUpdateForm
+
+    # Органиечение прав для незалогининых юзеров
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(StudentUpdateView, self).dispatch(*args, **kwargs)
 
 
     def get_success_url(self):
@@ -218,6 +231,11 @@ def students_edit(request, sid):
 class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'students/students_confirm_delete.html'
+
+    # Органиечение прав для незалогининых юзеров
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(StudentDeleteView, self).dispatch(*args, **kwargs)
 
     def get_success_url(self):
         return u'%s?status_message=%s' % (reverse('home'), _(u"Student updated successfully"))
