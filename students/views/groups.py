@@ -138,7 +138,7 @@ class LoginRequiredClass(FormView):
 
     # @abstractmethod
     @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         return super(LoginRequiredClass, self).dispatch(*args, **kwargs)
 
 
@@ -150,7 +150,7 @@ class GroupUpdateView(UpdateView, LoginRequiredClass):
 
     # Органиечение прав для незалогининых юзеров
     # @method_decorator(login_required)
-    # def dispatch(self, request, *args, **kwargs):
+    # def dispatch(self, *args, **kwargs):
     #     return super(GroupUpdateView, self).dispatch(*args, **kwargs)
 
     def get_success_url(self):
@@ -172,7 +172,7 @@ class GroupsDeleteView(DeleteView, LoginRequiredClass):
 
     # Органиечение прав для незалогининых юзеров
     # @method_decorator(login_required)
-    # def dispatch(self, request, *args, **kwargs):
+    # def dispatch(self, *args, **kwargs):
     #     return super(GroupsDeleteView, self).dispatch(*args, **kwargs)
 
     def delete(self, request, *args, **kwargs):

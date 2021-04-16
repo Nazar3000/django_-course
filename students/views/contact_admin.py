@@ -9,6 +9,10 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django.views.generic.edit import FormView
 import logging
+from django.contrib.auth.decorators import permission_required
+from django.utils.decorators import method_decorator
+from abc import abstractmethod, ABCMeta
+
 
 
 
@@ -52,14 +56,21 @@ class ContactForm(forms.Form):
         widget=forms.Textarea)
 
 
+class LoginRequiredClass(FormView):
+    __metaclass__ = ABCMeta
+
+    # @abstractmethod
+    @method_decorator(permission_required('auth.add_user'))
+    def dispatch(self, *args, **kwargs):
+        return super(LoginRequiredClass, self).dispatch(*args, **kwargs)
 
 
-
-class ContactView(FormView):
+class ContactView(LoginRequiredClass):
     template_name = 'contact_admin/form.html'
     form_class = ContactForm
     # success_url = '/email-sent/'
 
+    # @method_decorator(permission_required('auth.add_user'))
     def form_valid(self, form):
         subject = form.cleaned_data['subject']
         message = form.cleaned_data['message']
@@ -71,8 +82,8 @@ class ContactView(FormView):
 
 
 
-
-
+# Ограничение прав для пользователей
+# @permission_required('auth.add_user')
 # def contact_admin(request):
 #     # check if form was posted
 #     if request.method =='POST':

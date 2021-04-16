@@ -121,11 +121,13 @@ class CustomBirthdayField(Field):
 
 
 class LoginRequiredClass(FormView):
+
+    # C ABCMeta выглядит красиво но работает и без него
     __metaclass__ = ABCMeta
 
     # @abstractmethod
     @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         return super(LoginRequiredClass, self).dispatch(*args, **kwargs)
 
 
@@ -136,7 +138,7 @@ class StudentUpdateView(UpdateView, LoginRequiredClass):
 
     # Органиечение прав для незалогининых юзеров
     # @method_decorator(login_required)
-    # def dispatch(self, request, *args, **kwargs):
+    # def dispatch(self, *args, **kwargs):
     #     return super(StudentUpdateView, self).dispatch(*args, **kwargs)
 
 
@@ -239,7 +241,7 @@ class StudentDeleteView(DeleteView, LoginRequiredClass):
 
     # Органиечение прав для незалогининых юзеров
     # @method_decorator(login_required)
-    # def dispatch(self, request, *args, **kwargs):
+    # def dispatch(self, *args, **kwargs):
     #     return super(StudentDeleteView, self).dispatch(*args, **kwargs)
 
     def get_success_url(self):
