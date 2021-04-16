@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
-from django.views.generic import UpdateView, DeleteView
+from django.views.generic import UpdateView, DeleteView, FormView
 from django.forms import ModelForm, ValidationError
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, MultiField, Div, HTML, Field, ButtonHolder, Button
@@ -24,6 +24,7 @@ from django.contrib.auth.decorators import login_required
 # from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
 from ..models import Student, Group
+from abc import abstractmethod, ABCMeta
 
 
 
@@ -118,21 +119,25 @@ class CustomBirthdayField(Field):
     template = 'students/date_field.html'
 
 
-# class LoginRequiredClass(object):
-#     @method_decorator(login_required)
-#     def dispatch(self, request, *args, **kwargs):
-#         return super(LoginRequiredClass, self).dispatch(*args, **kwargs)
+
+class LoginRequiredClass(FormView):
+    __metaclass__ = ABCMeta
+
+    # @abstractmethod
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginRequiredClass, self).dispatch(*args, **kwargs)
 
 
-class StudentUpdateView(UpdateView):
+class StudentUpdateView(UpdateView, LoginRequiredClass):
     model = Student
     template_name = 'students/students_form.html'
     form_class = StudentUpdateForm
 
     # Органиечение прав для незалогининых юзеров
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(StudentUpdateView, self).dispatch(*args, **kwargs)
+    # @method_decorator(login_required)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(StudentUpdateView, self).dispatch(*args, **kwargs)
 
 
     def get_success_url(self):
@@ -228,14 +233,14 @@ def students_edit(request, sid):
     return HttpResponse('<h1>Edit Student %s</h1>' %sid)
 
 
-class StudentDeleteView(DeleteView):
+class StudentDeleteView(DeleteView, LoginRequiredClass):
     model = Student
     template_name = 'students/students_confirm_delete.html'
 
     # Органиечение прав для незалогининых юзеров
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(StudentDeleteView, self).dispatch(*args, **kwargs)
+    # @method_decorator(login_required)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(StudentDeleteView, self).dispatch(*args, **kwargs)
 
     def get_success_url(self):
         return u'%s?status_message=%s' % (reverse('home'), _(u"Student updated successfully"))

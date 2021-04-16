@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from ..models import Group, Student
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
-from django.views.generic import DeleteView, UpdateView, CreateView
+from django.views.generic import DeleteView, UpdateView, CreateView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.core.urlresolvers import reverse
 from django.contrib import messages
@@ -18,6 +18,8 @@ from crispy_forms.bootstrap import FormActions
 from ..util import paginate, get_current_group
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from abc import abstractmethod, ABCMeta
+
 
 # Views for Grops vs old pagination
 
@@ -131,17 +133,25 @@ class GroupUpdateForm(ModelForm):
         #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
         # )
 
+class LoginRequiredClass(FormView):
+    __metaclass__ = ABCMeta
+
+    # @abstractmethod
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginRequiredClass, self).dispatch(*args, **kwargs)
 
 
-class GroupUpdateView(UpdateView):
+
+class GroupUpdateView(UpdateView, LoginRequiredClass):
     model = Group
     template_name = 'students/group_update_form.html'
     form_class = GroupUpdateForm
 
     # Органиечение прав для незалогининых юзеров
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(GroupUpdateView, self).dispatch(*args, **kwargs)
+    # @method_decorator(login_required)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(GroupUpdateView, self).dispatch(*args, **kwargs)
 
     def get_success_url(self):
         return u'%s?status_message=Группа успешно отредактирована!'\
@@ -155,15 +165,15 @@ class GroupUpdateView(UpdateView):
             return super(GroupUpdateView, self).post(request, *args, **kwargs)
 
 
-class GroupsDeleteView(DeleteView):
-    # error_url = reverse('groups_delete')
-    # group_id = object
+class GroupsDeleteView(DeleteView, LoginRequiredClass):
+
     model = Group
     template_name = 'students/groups_confirm_delete.html'
 
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(GroupsDeleteView, self).dispatch(*args, **kwargs)
+    # Органиечение прав для незалогининых юзеров
+    # @method_decorator(login_required)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(GroupsDeleteView, self).dispatch(*args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         # group_id = request.POST.get(object)
