@@ -7,6 +7,7 @@ from django.template import RequestContext, loader
 from ..models import Resoult
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
 from  ..util import paginate
+from ..helpers.login_premissions import LoginRequiredClass, PremissionRequiredClass
 
 # Views for Exams
 

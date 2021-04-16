@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from ..models import Exam
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
+from ..helpers.login_premissions import LoginRequiredClass, PremissionRequiredClass
 from  ..util import paginate, get_current_group
 from django.views.generic import UpdateView, CreateView, DeleteView
 from  django.forms import ModelForm
@@ -13,6 +14,7 @@ from django.core.urlresolvers import reverse
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field
 from crispy_forms.bootstrap import FormActions
+
 
 
 # Views for Exams
@@ -157,10 +159,12 @@ class ExamsCreateForm(ModelForm):
         # )
 
 
+
+
 class CustomBirthdayField(Field):
     template = 'students/date_field.html'
 
-class ExamsUpdateView(UpdateView):
+class ExamsUpdateView(UpdateView, PremissionRequiredClass):
     model = Exam
     template_name = 'students/exams_form.html'
     form_class = ExamsUpdateForm
@@ -178,7 +182,7 @@ class ExamsUpdateView(UpdateView):
 
 
 
-class AddExam(CreateView):
+class AddExam(CreateView, PremissionRequiredClass):
     model = Exam
     template_name = 'students/exams_form.html'
     form_class = ExamsCreateForm
@@ -195,7 +199,7 @@ class AddExam(CreateView):
             return super(AddExam, self).post(request, *args, **kwargs)
 
 
-class ExamDeleteView(DeleteView):
+class ExamDeleteView(DeleteView, PremissionRequiredClass):
     model = Exam
     template_name = 'students/exam_confirm_delete.html'
 

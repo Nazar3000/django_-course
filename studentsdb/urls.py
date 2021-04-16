@@ -42,6 +42,7 @@ from students.views.registration_custom import LoginFormView, LoginForm, Registr
 from django.views.generic.base import RedirectView, TemplateView
 from django.contrib.auth.decorators import login_required
 
+
 from  .settings import MEDIA_ROOT, DEBUG
 
 js_info_dict = {
@@ -76,9 +77,9 @@ urlpatterns = [
 
 # exams
     url(r'^exams/$', login_required(exams_list), name='exams'),
-    url(r'^exams/(?P<pk>\d+)/edit/$', login_required(ExamsUpdateView.as_view()), name='exams_edit'),
-    url(r'^exams/add/$', login_required(AddExam.as_view()), name='exam_add'),
-    url(r'^exams/(?P<pk>\d+)/delete/$', login_required(ExamDeleteView.as_view()), name='exam_delete'),
+    url(r'^exams/(?P<pk>\d+)/edit/$', ExamsUpdateView.as_view(), name='exams_edit'),
+    url(r'^exams/add/$', AddExam.as_view(), name='exam_add'),
+    url(r'^exams/(?P<pk>\d+)/delete/$', ExamDeleteView.as_view(), name='exam_delete'),
 
 # exams_resoult
     url(r'^resoult/$', login_required(resoult_list), name='resoult'),

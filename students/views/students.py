@@ -18,6 +18,8 @@ from ..util import paginate, get_current_group
 from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from ..helpers.login_premissions import LoginRequiredClass, PremissionRequiredClass
+
 
 
 
@@ -120,18 +122,10 @@ class CustomBirthdayField(Field):
 
 
 
-class LoginRequiredClass(FormView):
-
-    # C ABCMeta выглядит красиво но работает и без него
-    __metaclass__ = ABCMeta
-
-    # @abstractmethod
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(LoginRequiredClass, self).dispatch(*args, **kwargs)
 
 
-class StudentUpdateView(UpdateView, LoginRequiredClass):
+
+class StudentUpdateView(UpdateView, PremissionRequiredClass):
     model = Student
     template_name = 'students/students_form.html'
     form_class = StudentUpdateForm
@@ -235,7 +229,7 @@ def students_edit(request, sid):
     return HttpResponse('<h1>Edit Student %s</h1>' %sid)
 
 
-class StudentDeleteView(DeleteView, LoginRequiredClass):
+class StudentDeleteView(DeleteView, PremissionRequiredClass):
     model = Student
     template_name = 'students/students_confirm_delete.html'
 

@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from ..models import Group, Student
 from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
+from ..helpers.login_premissions import LoginRequiredClass, PremissionRequiredClass
 from django.views.generic import DeleteView, UpdateView, CreateView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.core.urlresolvers import reverse
@@ -16,9 +17,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from crispy_forms.bootstrap import FormActions
 from ..util import paginate, get_current_group
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from abc import abstractmethod, ABCMeta
+
+
 
 
 # Views for Grops vs old pagination
@@ -133,17 +133,9 @@ class GroupUpdateForm(ModelForm):
         #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
         # )
 
-class LoginRequiredClass(FormView):
-    __metaclass__ = ABCMeta
-
-    # @abstractmethod
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(LoginRequiredClass, self).dispatch(*args, **kwargs)
 
 
-
-class GroupUpdateView(UpdateView, LoginRequiredClass):
+class GroupUpdateView(UpdateView, PremissionRequiredClass):
     model = Group
     template_name = 'students/group_update_form.html'
     form_class = GroupUpdateForm
@@ -165,7 +157,7 @@ class GroupUpdateView(UpdateView, LoginRequiredClass):
             return super(GroupUpdateView, self).post(request, *args, **kwargs)
 
 
-class GroupsDeleteView(DeleteView, LoginRequiredClass):
+class GroupsDeleteView(DeleteView, PremissionRequiredClass):
 
     model = Group
     template_name = 'students/groups_confirm_delete.html'
@@ -248,7 +240,7 @@ class GroupsAddForm(ModelForm):
         #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
         # )
 
-class AddGroup(CreateView):
+class AddGroup(CreateView, PremissionRequiredClass):
     model = Group
     template_name = 'students/group_update_form.html'
     form_class = GroupsAddForm

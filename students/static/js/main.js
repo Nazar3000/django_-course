@@ -432,15 +432,15 @@ function addAtrperview(form) {
     $(photo_container).append(frame);
     $('.clearablefileinput').html(form.find('.clearablefileinput').attr('onchange','preview()'));
 }
-// $(document).ready(function (){
-//     initJournal();
-//     initGroupSelector();
-//     initDateFilds();
-//     // initEditStudentPage();
-//     clickHandlerStudEdit();
-//     bookmarksListUpdate();
-//     navigationAjax();
-//     initLangSelector();
-//     changLangForm();
-//
-// });
+$(document).ready(function (){
+    initJournal();
+    initGroupSelector();
+    initDateFilds();
+    // initEditStudentPage();
+    clickHandlerStudEdit();
+    bookmarksListUpdate();
+    navigationAjax();
+    initLangSelector();
+    changLangForm();
+
+});

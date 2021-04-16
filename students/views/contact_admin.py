@@ -56,16 +56,16 @@ class ContactForm(forms.Form):
         widget=forms.Textarea)
 
 
-class LoginRequiredClass(FormView):
+class PremissionRequiredClass(FormView):
     __metaclass__ = ABCMeta
 
     # @abstractmethod
     @method_decorator(permission_required('auth.add_user'))
     def dispatch(self, *args, **kwargs):
-        return super(LoginRequiredClass, self).dispatch(*args, **kwargs)
+        return super(PremissionRequiredClass, self).dispatch(*args, **kwargs)
 
 
-class ContactView(LoginRequiredClass):
+class ContactView(PremissionRequiredClass):
     template_name = 'contact_admin/form.html'
     form_class = ContactForm
     # success_url = '/email-sent/'

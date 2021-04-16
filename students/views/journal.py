@@ -10,12 +10,13 @@ from django.views.generic.base import TemplateView
 from ..models import MonthJournal, Student
 from ..util import paginate, get_current_group
 from django.http import JsonResponse
+from ..helpers.login_premissions import LoginRequiredClass, PremissionRequiredClass
 # import pdb; pdb.set_trace()
 
 
 
 # Views for journal
-class JournalView(TemplateView):
+class JournalView(TemplateView, LoginRequiredClass):
     template_name = 'students/journal.html'
     def get_context_data(self, **kwargs):
         # get context data from TemplateView class
