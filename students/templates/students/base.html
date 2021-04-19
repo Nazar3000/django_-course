@@ -102,11 +102,16 @@
                 <ul id="nav-tabs" class="nav nav-tabs" role="tablist">
 
                   <li role="presentation" {% if request.path == '/' %}class="nav-link active" {% else %} class="nav-link"{% endif %}><a class="bookmarks-link" href="{% url "home" %}">{% trans "Students" %}</a></li>
+                    {% if user.is_authenticated %}
                   <li role="presentation" {% if '/journal' in request.path %}class="nav-link active" {% else %} class="nav-link"{% endif %}><a class="bookmarks-link" href="/journal">{% trans "Journal" %}</a></li>
                   <li role="presentation" {% if '/groups' in request.path %}class="nav-link active" {% else %} class="nav-link"{% endif %}><a class="bookmarks-link" href="{% url "groups" %}">{% trans "Groups" %}</a></li>
+                    {% endif %}
+
+                    {% if perms.auth.add_user %}
                   <li role="presentation" {% if '/contact-admin' in request.path %}class="nav-link active" {% else %} class="nav-link"{% endif %}><a class="bookmarks-link" href="{% url "contact_admin" %}">{% trans "Contact" %}</a></li>
                     <li role="presentation" {% if '/exams/' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}><a class="bookmarks-link" href="{% url "exams" %}">{% trans "Exams" %}</a></li>
                     <li role="presentation" {% if '/resoult/' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}><a class="bookmarks-link" href="{% url "resoult" %}">{% trans "Exams resoult" %}</a></li>
+                     {% endif %}
                 </ul>
               </div>
             </div>

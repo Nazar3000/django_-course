@@ -8,9 +8,10 @@
 
 
 <!-- Add Students Button-->
+{% if user.is_authenticated %}
 <a class="btn btn-primary" href="{% url "students_add" %}">{% trans "Add Student" %}</a>
 <a class="student-edit-form-link btn btn-primary" href="{% url "students_add2" %}" >{% trans "Add Student2" %}</a>
-
+{% endif %}
 
 
     <!-- Start Students Listing -->
@@ -64,9 +65,9 @@
             <td><img height="=30" width="30"
                      src="{% static "img/default_user.png" %}" class="rounded-circle" /> </td>
             {% endif %}
-            <td><a heref="{% url "students_edit" student.id %}" class="student-edit-form-link">{{student.last_name }}</td>
-            <td><a heref="{% url "students_edit" student.id %}" class="student-edit-form-link">{{student.first_name}}</td>
-            <td><a heref="{% url "students_edit" student.id %}" class="student-edit-form-link">{{student.student_group}}</td>
+            <td>{% if user.is_authenticated %}<a heref="{% url "students_edit" student.id %}" class="student-edit-form-link">{% endif %}{{student.last_name }}</td>
+            <td>{% if user.is_authenticated %}<a heref="{% url "students_edit" student.id %}" class="student-edit-form-link">{% endif %}{{student.first_name}}</td>
+            <td>{% if user.is_authenticated %}<a heref="{% url "students_edit" student.id %}" class="student-edit-form-link">{% endif %}{{student.student_group}}</td>
             <td>{{student.ticket}}</td>
             <td>
                 <div class="=btn-group col-lg-12">
