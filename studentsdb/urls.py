@@ -39,6 +39,7 @@ from django.views.i18n import javascript_catalog
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.auth import views as auth_views
 from students.views.registration_custom import LoginFormView, LoginForm, RegistrationViewCustom
+from students.views.user_profile import UserProfileView
 from django.views.generic.base import RedirectView, TemplateView
 from django.contrib.auth.decorators import login_required
 
@@ -104,8 +105,18 @@ urlpatterns = [
     url(r'^users/register/$', RegistrationViewCustom.as_view(), name='register'),
 
     url(r'^users/logout/$', auth_views.logout, kwargs={'next_page':'home'}, name='auth_logout'),
+# User Profile
+#     url(r'^users/profile/$', login_required(TemplateView.as_view(template_name='registration/profile.html')),
+#         name='profile'),
+    url(r'^users/profile/(?P<pk>\d+)$', login_required(UserProfileView.as_view()),
+        name='profile'),
+    url(r'users/logout/$', auth_views.logout, kwargs={'next_page':'home'}, name='auth_logout'),
+
     url(r'^register/complete/$', RedirectView.as_view(pattern_name='home'), name='registration_complete'),
     url(r'^users/', include('registration.backends.simple.urls', namespace='users')),
+
+
+
 
 ]
 
