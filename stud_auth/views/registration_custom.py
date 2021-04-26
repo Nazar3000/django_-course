@@ -51,7 +51,7 @@ class LoginForm(AuthenticationForm):
 
 
 class LoginFormView(FormView):
-    template_name = 'registration/crispy_registration.html'
+    template_name = 'crispy_registration.html'
     # form_class = LoginForm
     form_class = LoginForm
 
@@ -121,6 +121,6 @@ class RegistrationForm(REGISTRATION_FORM):
         self.helper.add_input(Submit('send_button', _(u'Register')))
 
 class RegistrationViewCustom(RegistrationView):
-    template_name = 'registration/crispy_registration.html'
+    template_name = 'crispy_registration.html'
     # form_class = LoginForm
     form_class = RegistrationForm

@@ -38,8 +38,8 @@ from students.views.students_delete3 import students_delete
 from django.views.i18n import javascript_catalog
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.auth import views as auth_views
-from students.views.registration_custom import LoginFormView, LoginForm, RegistrationViewCustom
-from views.user_profile import UserProfileView
+from stud_auth.views.registration_custom import LoginFormView, LoginForm, RegistrationViewCustom
+from stud_auth.views.user_profile import UserProfileView
 # from vi
 from django.views.generic.base import RedirectView, TemplateView
 from django.contrib.auth.decorators import login_required
