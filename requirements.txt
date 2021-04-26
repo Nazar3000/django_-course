@@ -8,3 +8,4 @@ django-contact-form==1.1
 python-dateutil==2.3
 django-modeltranslation==0.8.1
 django-registration-redux==1.2
+django-allauth==0.40.0
