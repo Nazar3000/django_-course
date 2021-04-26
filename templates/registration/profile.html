@@ -21,6 +21,8 @@
 
 
 <table class="table table-striped">
+
+
     {% if user.email %}
     <tr>
         <td>{% trans "Email" %}:</td>
@@ -40,6 +42,41 @@
         <td>{{ user.date_joined }}</td>
     </tr>
     {% endif %}
+
+    {% if user.stprofile.mobile_phone %}
+    <tr>
+        <td>{% trans "Mobile Phone" %}:</td>
+        <td>{{ user.stprofile.mobile_phone }}</td>
+    </tr>
+    {% endif %}
+
+    {% if user.stprofile.passportID %}
+    <tr>
+        <td>{% trans "PassportID" %}:</td>
+        <td>{{ user.stprofile.passportID }}</td>
+    </tr>
+    {% endif %}
+
+    {% if user.stprofile.actual_address %}
+    <tr>
+        <td>{% trans "Actual Address" %}:</td>
+        <td>{{ user.stprofile.actual_address }}</td>
+    </tr>
+    {% endif %}
+
+    {% if user.stprofile.photo %}
+
+    <tr>
+        <td>{% trans "Photo" %}:</td>
+
+        <td><img height="=50" width="50"
+                     src="{{ user.stprofile.photo.url }}" class="rounded-circle" /> </td>
+    </tr>
+    {% endif %}
+<a>user.stprofile.id={{ user.id }} </a>
+    {% for user in USERS_LIST %}
+    <a> {{ user }}</a>
+    {% endfor %}
 </table>
 
 {% endblock content %}

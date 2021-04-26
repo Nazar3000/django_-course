@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'crispy_forms',
     'registration',
     'students',
+    'stud_auth',
     'contact_form',
     'studentsdb',
 
@@ -125,6 +126,7 @@ TEMPLATE_CONTEXT_PROCESSORS = \
     "studentsdb.context_processors.students_proc",
     "students.context_processors.groups_processor",
     "students.context_processors.lang_processor",
+    "studentsdb.context_processors.users_proc",
 )
 
 # AUTHENTICATION_BACKENDS = (

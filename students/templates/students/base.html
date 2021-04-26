@@ -66,7 +66,8 @@
 <!--                User's toolbar for authenticated users-->
                 <div class="co-xs-2" id="user-toolbar">
 
-                    <a href="{% url "profile" user.id %}">user.id={{user.id}}{{ user.get_full_name|default:user.username }}</a>
+                    <a href="{% url "profile"  %}">{{ user.get_full_name|default:user.username }} v1</a>
+                    <a href="{% url "profile2" user.id %}">{{ user.get_full_name|default:user.username }} v2</a>
                     <a href="{% url "users:auth_logout" %}">{% trans "Logout" %}</a>
 
                 </div>
