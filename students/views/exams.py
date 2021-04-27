@@ -10,7 +10,7 @@ from ..helpers.login_premissions import LoginRequiredClass, PremissionRequiredCl
 from  ..util import paginate, get_current_group
 from django.views.generic import UpdateView, CreateView, DeleteView
 from  django.forms import ModelForm
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field
 from crispy_forms.bootstrap import FormActions
@@ -83,6 +83,7 @@ class ExamsUpdateForm(ModelForm):
 
     class Meta:
         model = Exam
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super(ExamsUpdateForm, self).__init__(*args, **kwargs)
@@ -123,6 +124,7 @@ class ExamsCreateForm(ModelForm):
 
     class Meta:
         model = Exam
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super(ExamsCreateForm, self).__init__(*args, **kwargs)

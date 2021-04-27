@@ -9,7 +9,7 @@ from ..helpers.pagination import Pagination, EmptyPage, PageNotAnInteger
 from ..helpers.login_premissions import LoginRequiredClass, PremissionRequiredClass
 from django.views.generic import DeleteView, UpdateView, CreateView, FormView
 from django.views.generic.detail import SingleObjectMixin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib import messages
 from django.forms import ModelForm, ValidationError
 
@@ -91,6 +91,7 @@ def groups_list(request):
 
 class GroupUpdateForm(ModelForm):
 
+
     def clean_leader(self):
         ''' Check if student is leader in any group.
                 If yes, then ensure it's the same as selected group.'''
@@ -108,6 +109,7 @@ class GroupUpdateForm(ModelForm):
 
     class Meta:
         model = Group
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super(GroupUpdateForm, self).__init__(*args, **kwargs)
@@ -215,6 +217,7 @@ class GroupsDeleteView(DeleteView, PremissionRequiredClass):
 class GroupsAddForm(ModelForm):
     class Meta:
         model = Group
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super(GroupsAddForm, self).__init__(*args, **kwargs)

@@ -1,11 +1,28 @@
-Django==1.7.2
-MySQL-python==1.2.5
-Pillow
-psycopg2-binary
-python-magic==0.4.6
-django-crispy-forms==1.4.0
-django-contact-form==1.1
-python-dateutil==2.3
-django-modeltranslation==0.8.1
-django-registration-redux==1.2
-django-allauth==0.40.0
+# Old requrement
+# Django==1.7.2
+# MySQL-python==1.2.5
+# Pillow
+# psycopg2-binary
+# python-magic==0.4.6
+# django-crispy-forms==1.4.0
+# django-contact-form==1.1
+# python-dateutil==2.3
+# django-modeltranslation==0.8.1
+# django-registration-redux==1.2
+# django-allauth==0.40.0
+
+# New requirement
+Django<2.3
+Pillow==7.1.2
+psycopg2-binary==2.8.5
+python-magic==0.4.21
+django-crispy-forms==1.11.2
+django-contact-form==1.8.2
+python-dateutil==2.8.1
+django-modeltranslation==0.15.1
+django-registration-redux==2.9
+django-allauth==0.44.0
+mysqlclient==2.0.3
+
+
+

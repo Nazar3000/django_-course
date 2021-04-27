@@ -18,7 +18,8 @@ class MonthJournal(models.Model):
     student = models.ForeignKey('Student',
                                 verbose_name=u'Студент',
                                 blank=False,
-                                unique_for_month='date')
+                                unique_for_month='date',
+                                on_delete=models.CASCADE)
 
     # we only need year and month, so always set day to first day of the month
 

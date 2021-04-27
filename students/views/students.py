@@ -8,7 +8,7 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.views.generic import UpdateView, DeleteView, FormView
 from django.forms import ModelForm, ValidationError
 from crispy_forms.helper import FormHelper
@@ -33,6 +33,7 @@ from abc import abstractmethod, ABCMeta
 class StudentUpdateForm(ModelForm):
     class Meta:
         model = Student
+        fields='__all__'
 
 
     def __init__(self, *args, **kwargs):

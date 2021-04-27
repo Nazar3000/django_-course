@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from .models import Teacher, Student, Group, Exam, Resoult, MonthJournal
-from django.core.urlresolvers import reverse
+# from django.core.urlresolvers import reverse #in django 1.7
+from django.urls import reverse
 from django.forms import ModelForm, ValidationError
 
 

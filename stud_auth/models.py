@@ -6,7 +6,10 @@ from django.utils.translation import ugettext as _
 class StProfile(models.Model):
     '''To keep extra user data'''
     # user mapping
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User,
+                                on_delete=models.CASCADE,
+                                related_name='student_profile')
+
 
     class Meta(object):
         verbose_name = _(u"User Profile")

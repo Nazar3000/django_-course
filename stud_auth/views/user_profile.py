@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 # from django.contrib.auth.forms import UserChangeForm
 from crispy_forms.helper import FormHelper
 
@@ -64,6 +64,7 @@ from django.contrib.admin import ModelAdmin
 class UserProfileForm(ModelForm):
     class Meta:
         model = StProfile
+        fields = '__all__'
 
 
 

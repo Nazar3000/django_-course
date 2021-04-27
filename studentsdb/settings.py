@@ -49,16 +49,27 @@ INSTALLED_APPS = (
 
 )
 
-MIDDLEWARE_CLASSES = (
+# MIDDLEWARE_CLASSES = (
+#     'django.contrib.sessions.middleware.SessionMiddleware',
+#     'django.middleware.locale.LocaleMiddleware',
+#     'django.middleware.common.CommonMiddleware',
+#     'django.middleware.csrf.CsrfViewMiddleware',
+#     'django.contrib.auth.middleware.AuthenticationMiddleware',
+#     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+#     'django.contrib.messages.middleware.MessageMiddleware',
+#     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+# )
+
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
 
 ROOT_URLCONF = 'studentsdb.urls'
 
@@ -120,14 +131,39 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
-TEMPLATE_CONTEXT_PROCESSORS = \
-    global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-    "django.core.context_processors.request",
-    "studentsdb.context_processors.students_proc",
-    "students.context_processors.groups_processor",
-    "students.context_processors.lang_processor",
-    "studentsdb.context_processors.users_proc",
-)
+# Old version for django 1.7
+# TEMPLATE_CONTEXT_PROCESSORS = \
+#     global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+#     "django.core.context_processors.request",
+#     "studentsdb.context_processors.students_proc",
+#     "students.context_processors.groups_processor",
+#     "students.context_processors.lang_processor",
+#     "studentsdb.context_processors.users_proc",
+# )
+
+# New version
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+
+                "studentsdb.context_processors.students_proc",
+                "students.context_processors.groups_processor",
+                "students.context_processors.lang_processor",
+                "studentsdb.context_processors.users_proc",
+            ],
+        },
+    },
+]
+
+
 
 # AUTHENTICATION_BACKENDS = (
 #    'django.contrib.auth.backends.ModelBackend',
