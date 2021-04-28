@@ -109,7 +109,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
 # journal
-    re_path(r'^journal/(?P<pk>\d+)?/?$', login_required(JournalView.as_view()), name='journal'),
+    re_path(r'journal/(?:(?P<pk>\d+)/)?/?$', login_required(JournalView.as_view()), name='journal'),
 
 # exams
     path('exams/', login_required(exams_list), name='exams'),

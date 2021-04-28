@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 
@@ -7,8 +8,8 @@ class MonthJournal(models.Model):
     ''' Student Monthly Journal'''
 
     class Meta:
-        verbose_name = u'Месячный Журнал'
-        verbose_name_plural = u'Месячные журналы'
+        verbose_name = _("Monthly Journal")
+        verbose_name_plural = _("Monthly Journals")
 
     # list of days, each says whether student was presene or not
     key = ['present_day' + str(x) for x in range(1, 32)]
@@ -16,7 +17,7 @@ class MonthJournal(models.Model):
         locals()[label] = models.BooleanField(default=False)
 
     student = models.ForeignKey('Student',
-                                verbose_name=u'Студент',
+                                verbose_name=_("Student"),
                                 blank=False,
                                 unique_for_month='date',
                                 on_delete=models.CASCADE)
@@ -66,9 +67,15 @@ class MonthJournal(models.Model):
     # present_day30 = models.BooleanField(default=False)
     # present_day31 = models.BooleanField(default=False)
 
-    def __unicode__(self):
-        return u'%s: %d, %d' % (self.student.last_name, self.date.month, self.date.year)
+   # varian for django 1.7
 
+    # def __unicode__(self):
+    #     return u'%s: %d, %d' % (self.student.last_name, self.date.month, self.date.year)
+
+    # New variant
+    def __str__(self):
+        return '%s: %d, %d' % (self.student.last_name, self.date.month,
+                               self.date.year)
 
 # for i in range(1, 32):
 #         key = 'present_day' + str(i)

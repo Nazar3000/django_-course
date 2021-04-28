@@ -70,7 +70,8 @@ class LoginFormView(FormView):
             user = authenticate(username=username, password=password)
             if user is not None:
                 if user.is_active:
-                    auth_views.login(request, user)
+
+                    auth_views.auth_login(request, user)
                     return HttpResponseRedirect(u'%s?status_message=Авторизовался'
                                                 % reverse('home'))
                 else:

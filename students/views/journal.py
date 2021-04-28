@@ -16,11 +16,13 @@ from ..helpers.login_premissions import LoginRequiredClass, PremissionRequiredCl
 
 
 # Views for journal
-class JournalView(TemplateView, LoginRequiredClass):
+# class JournalView(TemplateView, LoginRequiredClass):
+class JournalView(TemplateView):
     template_name = 'students/journal.html'
     def get_context_data(self, **kwargs):
         # get context data from TemplateView class
-        context = super(JournalView, self).get_context_data(**kwargs)
+        # context = super(JournalView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         # Разпринтить что входит вконтекст после вызова супер
         # попробовать отдельно запутстить этот модуль
 
@@ -149,7 +151,7 @@ class JournalView(TemplateView, LoginRequiredClass):
 
         context = paginate(students, 3, self.request, context,
                            var_name='students')
-
+        # context=[]
         # возвращаем обновленный словарь с данными
         # finally return updated context
         # with paginated students

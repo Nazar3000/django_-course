@@ -51,11 +51,11 @@ function initGroupSelector() {
         if (group){
             // set cookie with expiration date 1 year sibce now;
             // cookie creation function takes period in days
-            $.cookie('current_group', group, {'path': '/', 'expires': 365});
+            Cookies.set('current_group', group, {'path': '/', 'expires': 365});
         }
         else {
             // otherwies we delete the cookie
-            $.removeCookie('current_group', {'path': '/'});
+            Cookies.remove('current_group', {'path': '/'});
         }
         // and reload a page
         // location.reload(true);
@@ -78,7 +78,7 @@ $('#lang-selector select').change(function(event){
     if (lang) {
         // set cookie with expiratin date 1 year since now;
         // cookie creation function takes period in days
-        $.cookie('django_language', lang, {'path': '/', 'expires': 365}
+        Cookies.set('django_language', lang, {'path': '/', 'expires': 365}
         );
     }
 
@@ -86,7 +86,7 @@ $('#lang-selector select').change(function(event){
 
     else {
         // otherwise we delete the cookie
-    $.removeCookie('django_language', {'path': '/'});
+    Cookies.remove('django_language', {'path': '/'});
 }
     // and reload a page
     location.reload(true);
