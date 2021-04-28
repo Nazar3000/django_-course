@@ -18,6 +18,7 @@ Including another URLconf
 from django.urls import path, re_path
 from django.conf.urls import include
 from django.conf.urls import url
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles import views
 # from django.urls import re_path
@@ -50,7 +51,7 @@ from django.contrib.auth.decorators import login_required
 from registration.backends.simple import urls as reg_urls
 
 
-from  .settings import MEDIA_ROOT, DEBUG
+from  .settings import MEDIA_ROOT, DEBUG, MEDIA_URL
 
 js_info_dict = {
     'packages':('students',),
@@ -128,7 +129,7 @@ urlpatterns = [
 
 
 
-]
+] + static(MEDIA_URL, document_root=MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
     # '',

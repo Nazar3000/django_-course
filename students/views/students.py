@@ -18,7 +18,7 @@ from ..util import paginate, get_current_group
 from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from ..helpers.login_premissions import LoginRequiredClass, PremissionRequiredClass
+from ..helpers.login_premissions import LoginRequiredClass, PremissionRequiredClass, PremissionRequiredClass1
 
 
 
@@ -230,7 +230,8 @@ def students_edit(request, sid):
     return HttpResponse('<h1>Edit Student %s</h1>' %sid)
 
 
-class StudentDeleteView(DeleteView, PremissionRequiredClass):
+class StudentDeleteView(PremissionRequiredClass1):
+# class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'students/students_confirm_delete.html'
 
