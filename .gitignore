@@ -7,5 +7,9 @@
 *.egg
 *.sqlite3
 *.log
+*.img
+*.png
+*.jpeg
+*.jpg
 eggs/
 
