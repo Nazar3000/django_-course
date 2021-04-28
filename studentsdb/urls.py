@@ -15,7 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 # from django.conf.urls import include, url
-from django.urls import include, path, re_path, include
+from django.urls import path, re_path
+from django.conf.urls import include
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.staticfiles import views
@@ -79,11 +80,12 @@ urlpatterns = [
     path('users/logout/', auth_views.LogoutView.as_view(), kwargs={'next_page':'home'}, name='auth_logout'),
 
     path('register/complete/', RedirectView.as_view(pattern_name='home'), name='registration_complete'),
-    # url(r'^users/', reg_urls, namespace='users'),
+    path('users/', include((reg_urls, 'users'), namespace='users')),
+    # path('users/', include(('registration.backends.simple.urls', 'users'), namespace='users')),
 
 
     # url(r'^jsi18n\.js$', 'django.views.i18n.javascript_catalog', js_info_dict),
-    path('jsi18n\.js', JavaScriptCatalog.as_view(packages=['students']),
+    path('jsi18n/', JavaScriptCatalog.as_view(packages=['students']),
          name='javascript-catalog'),
 
     # Students Urls
