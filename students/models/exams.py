@@ -6,45 +6,45 @@ class Exam(models.Model):
     '''Exam Model'''
 
     class Meta(object):
-        verbose_name = u"Экзамен"
-        verbose_name_plural = u"Экзамены"
+        verbose_name = "Экзамен"
+        verbose_name_plural = "Экзамены"
 
     title = models.CharField(
         max_length=256,
         blank=False,
-        verbose_name=u"Предмет"
+        verbose_name="Предмет"
     )
 
     date = models.DateTimeField(
         auto_now=False,
         auto_now_add=False,
-        verbose_name=u"Дата и время"
+        verbose_name="Дата и время"
     )
 
 
     exams_group = models.ForeignKey('Group',
-                                      verbose_name=u"Группа",
+                                      verbose_name="Группа",
                                       blank=False,
                                       null=True,
                                       on_delete=models.SET_NULL
                                       )
 
     teacher = models.ForeignKey('Teacher',
-        verbose_name=u"Преподаватель",
+        verbose_name="Преподаватель",
         blank=False,
         null=True,
         on_delete=models.SET_NULL)
 
     notes = models.TextField(
         blank=True,
-        verbose_name=u"Дополнительные заметки")
+        verbose_name="Дополнительные заметки")
 
 
 
 
 
-    def __unicode__(self):
+    def __str__(self):
         if self.teacher:
-            return u"%s (%s %s)" % (self.title, self.teacher.first_name, self.teacher.last_name)
+            return "%s (%s %s)" % (self.title, self.teacher.first_name, self.teacher.last_name)
         else:
-            return u"%s" % (self.title,)
+            return "%s" % (self.title,)

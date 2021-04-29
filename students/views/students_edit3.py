@@ -40,14 +40,14 @@ def students_edit3(request, pk):
 
             first_name = request.POST.get('first_name', '').strip()
             if not first_name:
-                errors['first_name'] = u"Имя есть обязательным"
+                errors['first_name'] = "Имя есть обязательным"
                 errors['frist_name_id'] = "Имя"
             else:
                 data['first_name'] = first_name
                 studentobj.first_name = data['first_name']
             last_name = request.POST.get('last_name', '').strip()
             if not last_name:
-                errors['last_name'] = u"Фамилия тоже есть обязательной"
+                errors['last_name'] = "Фамилия тоже есть обязательной"
                 errors['last_name_id'] = "Фамилия"
             else:
                 data['last_name'] = last_name
@@ -55,13 +55,13 @@ def students_edit3(request, pk):
 
             birthday = request.POST.get('birthday', '').strip()
             if not birthday:
-                errors['birthday'] = u"Дата рождения есть обязательной"
+                errors['birthday'] = "Дата рождения есть обязательной"
                 errors['birthday_id'] = "Дата"
             else:
                 try:
                     datetime.strptime(birthday, '%Y-%m-%d')
                 except Exception:
-                    errors['birthday'] = u"Вы ввели %s Введите корректный формат даты (напр.1984-12-30)" % (birthday)
+                    errors['birthday'] = "Вы ввели %s Введите корректный формат даты (напр.1984-12-30)" % (birthday)
                     errors['birthday_id'] = "Дата"
 
                 else:
@@ -71,7 +71,7 @@ def students_edit3(request, pk):
 
             ticket = request.POST.get('ticket', '').strip()
             if not ticket:
-                errors['ticket'] = u"Номер билета есть обязательным"
+                errors['ticket'] = "Номер билета есть обязательным"
                 errors['ticket_id'] = "Билет"
             else:
                 data['ticket'] = ticket
@@ -79,12 +79,12 @@ def students_edit3(request, pk):
 
             student_group = request.POST.get('student_group', '').strip()
             if not student_group:
-                errors['student_group'] = u"Выберите группу для студента"
+                errors['student_group'] = "Выберите группу для студента"
                 errors['student_group_id'] = "Группа"
             else:
                 groups = Group.objects.filter(pk=student_group)
                 if len(groups) != 1:
-                    errors['student_group'] = u"Выберите коректную группу"
+                    errors['student_group'] = "Выберите коректную группу"
                     errors['student_group_id'] = "Группа"
 
                 else:
@@ -104,11 +104,11 @@ def students_edit3(request, pk):
                         data['photo'] = photo
                         studentobj.photo = data['photo']
                     else:
-                        errors['photo'] = u"Фото должно быть не больше 2 мб и не меньше 1 кб"
+                        errors['photo'] = "Фото должно быть не больше 2 мб и не меньше 1 кб"
                         errors['photo_id'] = "Фото"
 
                 else:
-                    errors['photo'] = u"Это не фото, ты ошибся"
+                    errors['photo'] = "Это не фото, ты ошибся"
                     errors['photo_id'] = "Фото"
 
             if not errors:
@@ -125,8 +125,8 @@ def students_edit3(request, pk):
 
                 # redirect to students list
                 messages.add_message(request, messages.ERROR,
-                                     u'Студент %s успешно изменен!' % request.POST.get('first_name', '').strip())
-                return HttpResponseRedirect(u'%s?status_message=Студент %s успешно изменен!' % (
+                                     'Студент %s успешно изменен!' % request.POST.get('first_name', '').strip())
+                return HttpResponseRedirect('%s?status_message=Студент %s успешно изменен!' % (
                 reverse('home'), request.POST.get('first_name', '').strip()))
             else:
                 messages.add_message(request, messages.ERROR, 'Пожалуйста исправьте следующие ошибки')
@@ -136,8 +136,8 @@ def students_edit3(request, pk):
 
         elif request.POST.get('cancel_button') is not None:
             # redirect to home page on cancel button
-            messages.add_message(request, messages.ERROR, u'Изменение студента %s отменено!'%request.POST.get('first_name', '').strip())
-            return HttpResponseRedirect(u'%s?status_message=Изменение студента %s отменено!'%(reverse('home'),request.POST.get('first_name', '').strip()))
+            messages.add_message(request, messages.ERROR, 'Изменение студента %s отменено!'%request.POST.get('first_name', '').strip())
+            return HttpResponseRedirect('%s?status_message=Изменение студента %s отменено!'%(reverse('home'),request.POST.get('first_name', '').strip()))
 
     else:
          # initial form render

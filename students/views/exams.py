@@ -112,8 +112,8 @@ class ExamsUpdateForm(ModelForm):
         )
 
         # add button
-        self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
-        self.helper.add_input(Submit('cancel_button', u'Отменить', css_class="btn-link"))
+        self.helper.add_input(Submit('add_button', 'Сохранить', css_class="btn btn-primary"))
+        self.helper.add_input(Submit('cancel_button', 'Отменить', css_class="btn-link"))
         # self.helper.layout[-1] = FormActions(
         #     Submit('add_button', u'Сохранить',css_class="btn btn-primary" ),
         #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
@@ -153,8 +153,8 @@ class ExamsCreateForm(ModelForm):
         )
 
         # add button
-        self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
-        self.helper.add_input(Submit('cancel_button', u'Отменить', css_class="btn-link"))
+        self.helper.add_input(Submit('add_button', 'Сохранить', css_class="btn btn-primary"))
+        self.helper.add_input(Submit('cancel_button', 'Отменить', css_class="btn-link"))
         # self.helper.layout[-1] = FormActions(
         #     Submit('add_button', u'Сохранить',css_class="btn btn-primary" ),
         #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
@@ -172,12 +172,12 @@ class ExamsUpdateView(UpdateView, PremissionRequiredClass):
     form_class = ExamsUpdateForm
 
     def get_success_url(self):
-        return u'%s?status_message=Экзамен успешно отредактирован!'\
+        return '%s?status_message=Экзамен успешно отредактирован!'\
     % reverse('exams')
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            return HttpResponseRedirect(u'%s?status_message=Редактирование экзамена отменено!'
+            return HttpResponseRedirect('%s?status_message=Редактирование экзамена отменено!'
                                         % reverse('exams'))
         else:
             return super(ExamsUpdateView, self).post(request, *args, **kwargs)
@@ -190,12 +190,12 @@ class AddExam(CreateView, PremissionRequiredClass):
     form_class = ExamsCreateForm
 
     def get_success_url(self):
-        return u'%s?status_message=Экзамен успешно бдобавлен!'\
+        return '%s?status_message=Экзамен успешно бдобавлен!'\
     % reverse('exams')
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            return HttpResponseRedirect(u'%s?status_message=Добавлнеие экзамена отменено!'
+            return HttpResponseRedirect('%s?status_message=Добавлнеие экзамена отменено!'
                                         % reverse('exams'))
         else:
             return super(AddExam, self).post(request, *args, **kwargs)
@@ -222,11 +222,11 @@ class ExamDeleteView(DeleteView, PremissionRequiredClass):
             # return HttpResponseRedirect(success_url)
             self.object.delete()
             messages.add_message(request, messages.ERROR,
-                                 u'"Экзамен" %s успешно удален!' % object)
+                                 '"Экзамен" %s успешно удален!' % object)
             # return HttpResponseRedirect(success_url)
-            return HttpResponseRedirect(u'%s?status_message=Экзамен %s успешно удален!' % (reverse('exams'), object))
+            return HttpResponseRedirect('%s?status_message=Экзамен %s успешно удален!' % (reverse('exams'), object))
         except:
 
             messages.add_message(request, messages.ERROR,
-                                 u'Произошла какая-то хуйня при удалении этого экзамена %s посмотри поля в модели эзамена' % object)
+                                 'Произошла какая-то хуйня при удалении этого экзамена %s посмотри поля в модели эзамена' % object)
             return render(request, 'students/exam_confirm_delete.html', {'object': object})

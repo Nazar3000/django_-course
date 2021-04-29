@@ -140,7 +140,7 @@ class JournalView(TemplateView):
                 # prepare metadata for current student
 
             students.append({
-                'fullname': u'%s %s'%(student.last_name, student.first_name),
+                'fullname': '%s %s'%(student.last_name, student.first_name),
                 'days': days,
                 'id': student.id,
                 'update_url': update_url,

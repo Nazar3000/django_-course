@@ -7,41 +7,41 @@ class Resoult(models.Model):
     '''Resoult Model'''
 
     class Meta(object):
-        verbose_name = u"Результ экзамена"
-        verbose_name_plural = u"Результаты экзаменов"
+        verbose_name = "Результ экзамена"
+        verbose_name_plural = "Результаты экзаменов"
 
     title = models.IntegerField(
         blank=False,
         null=True,
-        verbose_name=u"Оценка"
+        verbose_name="Оценка"
     )
 
     student = models.OneToOneField('Student',
-                                   verbose_name=u"Студент",
+                                   verbose_name="Студент",
                                    blank=False,
                                    null=True,
                                    on_delete=models.SET_NULL)
 
     exam = models.OneToOneField('Exam',
-                                verbose_name=u"Предмет",
+                                verbose_name="Предмет",
                                 blank=False,
                                 null=True,
                                 on_delete=models.SET_NULL)
 
     teacher = models.OneToOneField('Teacher',
-                                   verbose_name=u"Преподаватель",
+                                   verbose_name="Преподаватель",
                                    blank=False,
                                    null=True,
                                    on_delete=models.SET_NULL)
 
     notes = models.TextField(
         blank=True,
-        verbose_name=u"Дополнительные заметки")
+        verbose_name="Дополнительные заметки")
 
-    def __unicode__(self):
+    def __str__(self):
         if self.student:
-            return u"%s (%s %s %s %s)" % (
+            return "%s (%s %s %s %s)" % (
                 self.title, self.student.first_name, self.student.last_name, self.teacher.first_name,
                 self.teacher.last_name)
         else:
-            return u"%s" % (self.title,)
+            return "%s" % (self.title,)

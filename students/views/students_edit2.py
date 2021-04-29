@@ -9,24 +9,24 @@ class edit_form(forms.Form):
     first_name = forms.CharField(
         max_length=256,
         # initial=name,
-        label=u"Имя")
+        label="Имя")
 
     last_name = forms.CharField(
-        label=u"Фамилия",
+        label="Фамилия",
         max_length=256)
 
     middle_name = forms.CharField(
-        label=u"Отчество",
+        label="Отчество",
         max_length=256)
 
     birthday = forms.DateField(
-        label=u"Дата рождения")
+        label="Дата рождения")
 
     photo = forms.ImageField(
-        label=u"Фото")
+        label="Фото")
 
     ticket = forms.CharField(
-        label=u"Билет",
+        label="Билет",
         max_length=256)
 
     # notes = forms.TextField(

@@ -77,13 +77,13 @@ class UserProfileView(TemplateView):
 
 
     def get_success_url(self):
-        return u'%s?status_message=Изменение успешно сохранены!' \
+        return '%s?status_message=Изменение успешно сохранены!' \
                % reverse('profile')
 
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            return HttpResponseRedirect(u'%s?status_message=Редактирование профиля отменено!'
+            return HttpResponseRedirect('%s?status_message=Редактирование профиля отменено!'
                                         % reverse('profile'))
         else:
             return super(UserProfileView, self).post(request, *args, **kwargs)

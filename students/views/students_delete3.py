@@ -12,16 +12,16 @@ def students_delete(request, pk):
         studentobj.delete()
 
         messages.add_message(request, messages.ERROR,
-                             u'Студент %s успешно удален!' % studentobj)
-        return HttpResponseRedirect(u'%s?status_message=Студент %s успешно удален!' % (
+                             'Студент %s успешно удален!' % studentobj)
+        return HttpResponseRedirect('%s?status_message=Студент %s успешно удален!' % (
             reverse('home'), studentobj))
 
 
     elif request.POST.get('cancel_button') is not None:
         # redirect to home page on cancel button
         messages.add_message(request, messages.ERROR,
-                             u'Удаление студента %s отменено!' % request.POST.get('first_name', '').strip())
-        return HttpResponseRedirect(u'%s?status_message=Изменение студента %s отменено!' % (
+                             'Удаление студента %s отменено!' % request.POST.get('first_name', '').strip())
+        return HttpResponseRedirect('%s?status_message=Изменение студента %s отменено!' % (
         reverse('home'), request.POST.get('first_name', '').strip()))
     else:
         student = Student.objects.get(pk=pk)

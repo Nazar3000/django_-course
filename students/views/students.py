@@ -92,8 +92,8 @@ class StudentUpdateForm(ModelForm):
 
 
         # add button
-        self.helper.add_input(Submit('add_button', _(u'Save'), css_class="btn btn-primary"))
-        self.helper.add_input(Submit('cancel_button', _(u'Cancel'), css_class="btn-link"))
+        self.helper.add_input(Submit('add_button', _('Save'), css_class="btn btn-primary"))
+        self.helper.add_input(Submit('cancel_button', _('Cancel'), css_class="btn-link"))
 
 
         # self.helper.layout[-1] = FormActions(
@@ -153,12 +153,12 @@ class StudentUpdateView(UpdateView, LoginRequiredClass):
 
 
     def get_success_url(self):
-        return u'%s?status_message=Студент успешно добавлен!' \
+        return '%s?status_message=Студент успешно добавлен!' \
                % reverse('home')
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            return HttpResponseRedirect(u'%s?status_message=Редактирование студента отменено!'
+            return HttpResponseRedirect('%s?status_message=Редактирование студента отменено!'
                                         % reverse('home'))
         else:
             return super(StudentUpdateView, self).post(request, *args, **kwargs)

@@ -186,13 +186,13 @@ class GroupsDeleteView(DeleteView, PremissionRequiredClass):
             # return HttpResponseRedirect(success_url)
             self.object.delete()
             messages.add_message(request, messages.ERROR,
-                                 u'Группа %s успешно удалена!' % object)
+                                 'Группа %s успешно удалена!' % object)
             # return HttpResponseRedirect(success_url)
-            return HttpResponseRedirect(u'%s?status_message=Группа %s успешно удалена!' % (reverse('home'), object))
+            return HttpResponseRedirect('%s?status_message=Группа %s успешно удалена!' % (reverse('home'), object))
         except:
 
             messages.add_message(request, messages.ERROR,
-                                 u'Эта группа все еще содержит %s студентов и не может быть удалена' % students_ns)
+                                 'Эта группа все еще содержит %s студентов и не может быть удалена' % students_ns)
             return render(request, 'students/groups_confirm_delete.html', {'object': object})
 
 
@@ -236,8 +236,8 @@ class GroupsAddForm(ModelForm):
         self.helper.field_class = 'col-sm-10'
 
         # add button
-        self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
-        self.helper.add_input(Submit('cancel_button', u'Отменить', css_class="btn-link"))
+        self.helper.add_input(Submit('add_button', 'Сохранить', css_class="btn btn-primary"))
+        self.helper.add_input(Submit('cancel_button', 'Отменить', css_class="btn-link"))
         # self.helper.layout[-1] = FormActions(
         #     Submit('add_button', u'Сохранить',css_class="btn btn-primary" ),
         #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
@@ -249,12 +249,12 @@ class AddGroup(CreateView, PremissionRequiredClass):
     form_class = GroupsAddForm
 
     def get_success_url(self):
-        return u'%s?status_message=Группа успешно добавлена!' \
+        return '%s?status_message=Группа успешно добавлена!' \
                % reverse('groups')
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            return HttpResponseRedirect(u'%s?status_message=Добавление группы отменено!'
+            return HttpResponseRedirect('%s?status_message=Добавление группы отменено!'
                                         % reverse('groups'))
         else:
             return super(AddGroup, self).post(request, *args, **kwargs)

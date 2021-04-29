@@ -43,27 +43,27 @@ def students_add(request):
             # validate user input
             first_name = request.POST.get('first_name', '').strip()
             if not first_name:
-                errors['first_name'] = u"Имя есть обязательным"
+                errors['first_name'] = "Имя есть обязательным"
                 errors['first_name_id'] = "Имя"
             else:
                 data['first_name'] = first_name
 
             last_name = request.POST.get('last_name', '').strip()
             if not last_name:
-                errors['last_name'] = u"Фамилия тоже есть обязательной"
+                errors['last_name'] = "Фамилия тоже есть обязательной"
                 errors['last_name_id'] = "Фамилия"
             else:
                 data['last_name'] = last_name
 
             birthday = request.POST.get('birthday', '').strip()
             if not birthday:
-                errors['birthday'] = u"Дата рождения есть обязательной"
+                errors['birthday'] = "Дата рождения есть обязательной"
                 errors['birthday_id'] = "Дата"
             else:
                 try:
                     datetime.strptime(birthday, '%Y-%m-%d')
                 except Exception:
-                    errors['birthday'] = u"Вы ввели %s Введите корректный формат даты (напр.1984-12-30)" % (birthday)
+                    errors['birthday'] = "Вы ввели %s Введите корректный формат даты (напр.1984-12-30)" % (birthday)
                     errors['birthday_id'] = "Дата"
 
                 else:
@@ -72,19 +72,19 @@ def students_add(request):
 
             ticket = request.POST.get('ticket', '').strip()
             if not ticket:
-                errors['ticket'] = u"Номер билета есть обязательным"
+                errors['ticket'] = "Номер билета есть обязательным"
                 errors['ticket_id'] = "Билет"
             else:
                 data['ticket'] = ticket
 
             student_group = request.POST.get('student_group', '').strip()
             if not student_group:
-                errors['student_group'] = u"Выберите группу для студента"
+                errors['student_group'] = "Выберите группу для студента"
                 errors['student_group_id'] = "Группа"
             else:
                 groups = Group.objects.filter(pk=student_group)
                 if len(groups) !=1:
-                    errors['student_group'] = u"Выберите коректную группу"
+                    errors['student_group'] = "Выберите коректную группу"
                     errors['student_group_id'] = "Группа"
 
                 else:
@@ -103,11 +103,11 @@ def students_add(request):
                     if validate is True:
                         data['photo'] = photo
                     else:
-                        errors['photo'] = u"Фото должно быть не больше 2 мб и не меньше 1 кб"
+                        errors['photo'] = "Фото должно быть не больше 2 мб и не меньше 1 кб"
                         errors['photo_id'] = "Фото"
 
                 else:
-                    errors['photo'] = u"Это не фото, ты ошибся"
+                    errors['photo'] = "Это не фото, ты ошибся"
                     errors['photo_id'] = "Фото"
 
 
@@ -142,8 +142,8 @@ def students_add(request):
                 student.save()
 
                 # redirect to students list
-                messages.add_message(request, messages.ERROR, u'Студент %s успешно добавлен!'%request.POST.get('first_name', '').strip())
-                return  HttpResponseRedirect(u'%s?status_message=Студент %s успешно добавлен!'%(reverse('home'), request.POST.get('first_name', '').strip()))
+                messages.add_message(request, messages.ERROR, 'Студент %s успешно добавлен!'%request.POST.get('first_name', '').strip())
+                return  HttpResponseRedirect('%s?status_message=Студент %s успешно добавлен!'%(reverse('home'), request.POST.get('first_name', '').strip()))
             else:
                 messages.add_message(request, messages.ERROR, 'Пожалуйста исправьте следующие ошибки')
                 # render form with errors and previous user input
@@ -152,8 +152,8 @@ def students_add(request):
                                'errors': errors})
         elif request.POST.get('cancel_button') is not None:
             # redirect to home page on cancel button
-            messages.add_message(request, messages.ERROR, u'Добавление студента %s отменено!'%request.POST.get('first_name', '').strip())
-            return HttpResponseRedirect(u'%s?status_message=Добавление студента %s отменено!'%(reverse('home'),request.POST.get('first_name', '').strip()))
+            messages.add_message(request, messages.ERROR, 'Добавление студента %s отменено!'%request.POST.get('first_name', '').strip())
+            return HttpResponseRedirect('%s?status_message=Добавление студента %s отменено!'%(reverse('home'),request.POST.get('first_name', '').strip()))
 
     else:
          # initial form render

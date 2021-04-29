@@ -48,8 +48,8 @@ class AddStudentsForm(ModelForm):
             'student_group', )
 
         # add button
-        self.helper.add_input(Submit('add_button', u'Сохранить', css_class="btn btn-primary"))
-        self.helper.add_input(Submit('cancel_button', u'Отменить', css_class="btn-link"))
+        self.helper.add_input(Submit('add_button', 'Сохранить', css_class="btn btn-primary"))
+        self.helper.add_input(Submit('cancel_button', 'Отменить', css_class="btn-link"))
         # self.helper.layout[-1] = FormActions(
         #     Submit('add_button', u'Сохранить', css_class="btn btn-primary"),
         #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
@@ -64,10 +64,10 @@ class AddStudents(CreateView):
     form_class = AddStudentsForm
 
     def get_success_url(self):
-        return u'%s?status_message=Студент успешно добавлен!' % reverse('home')
+        return '%s?status_message=Студент успешно добавлен!' % reverse('home')
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            return HttpResponseRedirect(u'%s?status_message=Добавление отменено!' % reverse('home'))
+            return HttpResponseRedirect('%s?status_message=Добавление отменено!' % reverse('home'))
         else:
             return super(AddStudents, self).post(request, *args, **kwargs)

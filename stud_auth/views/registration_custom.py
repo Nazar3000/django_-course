@@ -43,7 +43,7 @@ class LoginForm(AuthenticationForm):
         ))
 
         # form buttons
-        self.helper.add_input(Submit('send_button', _(u'Login')))
+        self.helper.add_input(Submit('send_button', _('Login')))
         # self.helper.add_input(Submit('cancel_button', u'Отмена'))
 
 
@@ -57,12 +57,12 @@ class LoginFormView(FormView):
 
 
     def get_success_url(self):
-        return u'%s?status_message=Успешно залогались' \
+        return '%s?status_message=Успешно залогались' \
                % reverse('home')
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            return HttpResponseRedirect(u'%s?status_message=Передумал авторизоваться'
+            return HttpResponseRedirect('%s?status_message=Передумал авторизоваться'
                                         % reverse('home'))
         else:
             username = request.POST['username']
@@ -72,13 +72,13 @@ class LoginFormView(FormView):
                 if user.is_active:
 
                     auth_views.auth_login(request, user)
-                    return HttpResponseRedirect(u'%s?status_message=Авторизовался'
+                    return HttpResponseRedirect('%s?status_message=Авторизовался'
                                                 % reverse('home'))
                 else:
-                    return HttpResponseRedirect(u'%s?status_message=a disabled account error message'
+                    return HttpResponseRedirect('%s?status_message=a disabled account error message'
                                                 % reverse('login'))
             else:
-                return HttpResponseRedirect(u'%s?status_message=Такого пользователя не существует'
+                return HttpResponseRedirect('%s?status_message=Такого пользователя не существует'
                                             % reverse('login'))
 
 
@@ -119,7 +119,7 @@ class RegistrationForm(REGISTRATION_FORM):
 
         # form buttons
 
-        self.helper.add_input(Submit('send_button', _(u'Register')))
+        self.helper.add_input(Submit('send_button', _('Register')))
 
 class RegistrationViewCustom(RegistrationView):
     template_name = 'crispy_registration.html'
