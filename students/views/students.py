@@ -100,21 +100,36 @@ class StudentUpdateForm(ModelForm):
         #     Submit('add_button', u'Сохранить',css_class="btn btn-primary" ),
         #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
         # )
+
+    # ========================Works in django 1.7======
+    # def clean_student_group(self):
+    #     ''' Check if student is leader in any group.
+    #     If yes, then ensure it's the same as selected group.'''
+    #     # get group where current student is a leader
+    #
+    #     groups = Group.objects.filter(leader=self.instance)
+    #     grop_name = Group.objects.get(leader=self.instance)
+    #     leader = self.cleaned_data['student_group']
+    #     if len(groups) > 0 and \
+    #             leader != groups[0]:
+    #         raise ValidationError(u'Этот студент является старостой другой группы:%s' % grop_name, code='invalid')
+    #
+    #     return self.cleaned_data['student_group']
+    # ========================Works in django 1.7======
+
     def clean_student_group(self):
-        ''' Check if student is leader in any group.
-        If yes, then ensure it's the same as selected group.'''
+        """Check if student is leader in any group.
+
+        If yes, then ensure it's the same as selected group."""
         # get group where current student is a leader
-
-
-
-        groups = Group.objects.filter(leader=self.instance)
-        grop_name = Group.objects.get(leader=self.instance)
-        leader = self.cleaned_data['student_group']
-        if len(groups) > 0 and \
-            leader != groups[0]:
-            raise ValidationError(u'Этот студент является старостой другой группы:%s'%grop_name, code='invalid')
+        group = Group.objects.filter(leader=self.instance).first()
+        if group and self.cleaned_data['student_group'] != group:
+            raise ValidationError(
+                _("Student is a leader of a different group."),
+                code='invalid')
 
         return self.cleaned_data['student_group']
+
 
 
 

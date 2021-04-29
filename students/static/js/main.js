@@ -4,7 +4,7 @@ function initJournal(){
 
     // Обрабатываем клик по чекбоксам журнала, отправляем запрос при каждом клике
     $('.day-box input[type="checkbox"]').click(function(event){
-        // alert("it works");
+
         var box = $(this), progress = $(".progress");
         $.ajax(box.data('url'),{
             'type': 'POST',
@@ -22,7 +22,7 @@ function initJournal(){
               indicator.show();
               danger.hide();
               $(progress).show();
-              // alert("it works");
+
 
             },
 

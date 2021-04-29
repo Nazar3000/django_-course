@@ -3,8 +3,8 @@
 {% load i18n %}
 {% load static from staticfiles %}
 
-{% block meta_title %}{% trans ”Delete Group” %}{% endblock meta_title %}
-{% block title %}{% trans ”Delete Group” %}{% endblock title %}
+{% block meta_title %}{% trans "Delete Group" %}{% endblock meta_title %}
+{% block title %}{% trans "Delete Group" %}{% endblock title %}
 {% block content %}
 
 <form action="{% url "groups_delete" object.id %}" method="post">
