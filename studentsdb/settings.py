@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # Application definition
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,15 +39,21 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+# 3rd party apps
     'crispy_forms',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'registration',
+# project apps
     'students',
     'stud_auth',
     'contact_form',
     'studentsdb',
 
-
-)
+]
 
 # MIDDLEWARE_CLASSES = (
 #     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -131,6 +137,12 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
+SITE_ID=1
+
+LOGIN_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_ON_GE = True
+
+
 # Old version for django 1.7
 # TEMPLATE_CONTEXT_PROCESSORS = \
 #     global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
@@ -165,9 +177,12 @@ TEMPLATES = [
 
 
 
-# AUTHENTICATION_BACKENDS = (
-#    'django.contrib.auth.backends.ModelBackend',
-# )
+AUTHENTICATION_BACKENDS = [
+# Needed to login by username in Django admin, regardless of `allauth
+   'django.contrib.auth.backends.ModelBackend',
+# `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # email settings
 ADMIN_EMAIL = 'nazarii.mazur@gmail.com'

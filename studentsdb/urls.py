@@ -61,6 +61,8 @@ js_info_dict = {
 
 urlpatterns = [
  # User Related urls
+# Авоторизация и регистрация с django-registration-redux
+
     #  можно добавить урлконфиг accounts/login/ и передать в него путь к шаблону который будет юзатся,
     # мо умолчанию шаблон тянется из registration/login.html
     # url(r'accounts/login/$', auth_views.login, kwargs={'template_name':'registration/login.html'}),
@@ -82,6 +84,10 @@ urlpatterns = [
     path('register/complete/', RedirectView.as_view(pattern_name='home'), name='registration_complete'),
     path('users/', include((reg_urls, 'users'), namespace='users')),
     # path('users/', include(('registration.backends.simple.urls', 'users'), namespace='users')),
+
+    # Авоторизация и регистрация с django-allauth
+    path('accounts/', include('allauth.urls')),
+
 
 
     # url(r'^jsi18n\.js$', 'django.views.i18n.javascript_catalog', js_info_dict),
