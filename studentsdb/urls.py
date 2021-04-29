@@ -72,13 +72,12 @@ urlpatterns = [
     # Форма регистрации реализация с сcrispy_forms
     path('users/register/', RegistrationViewCustom.as_view(), name='register'),
 
-    path('users/logout/', auth_views.LogoutView.as_view(), kwargs={'next_page':'home'}, name='auth_logout'),
+    path('users/logout/', auth_views.LogoutView.as_view(next_page='home'), name='auth_logout'),
 # User Profile
     path('users/profile/', login_required(TemplateView.as_view(template_name='registration/profile.html')),
         name='profile'),
     path('users/profile/<int:pk>', login_required(UserProfileView.as_view()),
         name='profile2'),
-    path('users/logout/', auth_views.LogoutView.as_view(), kwargs={'next_page':'home'}, name='auth_logout'),
 
     path('register/complete/', RedirectView.as_view(pattern_name='home'), name='registration_complete'),
     path('users/', include((reg_urls, 'users'), namespace='users')),

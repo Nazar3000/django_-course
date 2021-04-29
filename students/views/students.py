@@ -126,7 +126,7 @@ class CustomBirthdayField(Field):
 
 
 
-class StudentUpdateView(UpdateView, PremissionRequiredClass):
+class StudentUpdateView(UpdateView, LoginRequiredClass):
     model = Student
     template_name = 'students/students_form.html'
     form_class = StudentUpdateForm
@@ -230,7 +230,7 @@ def students_edit(request, sid):
     return HttpResponse('<h1>Edit Student %s</h1>' %sid)
 
 
-class StudentDeleteView(DeleteView, PremissionRequiredClass):
+class StudentDeleteView(DeleteView, LoginRequiredClass):
 # class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'students/students_confirm_delete.html'
