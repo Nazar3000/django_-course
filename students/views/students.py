@@ -18,7 +18,7 @@ from ..util import paginate, get_current_group
 from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from ..helpers.login_premissions import LoginRequiredClass, PremissionRequiredClass, PremissionRequiredClass1
+from ..helpers.login_premissions import LoginRequiredClass, PremissionRequiredClass
 
 
 
@@ -230,7 +230,7 @@ def students_edit(request, sid):
     return HttpResponse('<h1>Edit Student %s</h1>' %sid)
 
 
-class StudentDeleteView(PremissionRequiredClass1):
+class StudentDeleteView(DeleteView, PremissionRequiredClass):
 # class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'students/students_confirm_delete.html'
@@ -241,7 +241,7 @@ class StudentDeleteView(PremissionRequiredClass1):
     #     return super(StudentDeleteView, self).dispatch(*args, **kwargs)
 
     def get_success_url(self):
-        return u'%s?status_message=%s' % (reverse('home'), _(u"Student updated successfully"))
+        return '%s?status_message=%s' % (reverse('home'), _("Student updated successfully"))
 
 # def students_delete(request, sid):
 #     return HttpResponse('<h1>Delete Student %s</h1>' %sid)
