@@ -25,7 +25,7 @@ class MonthJournal(models.Model):
     # we only need year and month, so always set day to first day of the month
 
     date = models.DateField(
-        verbose_name=u'Дата',
+        verbose_name='Дата',
         blank=False
     )
 
