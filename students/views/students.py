@@ -8,7 +8,7 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.views.generic import UpdateView, DeleteView, FormView
 from django.forms import ModelForm, ValidationError
 from crispy_forms.helper import FormHelper
@@ -33,6 +33,7 @@ from abc import abstractmethod, ABCMeta
 class StudentUpdateForm(ModelForm):
     class Meta:
         model = Student
+        fields='__all__'
 
 
     def __init__(self, *args, **kwargs):
@@ -99,21 +100,36 @@ class StudentUpdateForm(ModelForm):
         #     Submit('add_button', u'Сохранить',css_class="btn btn-primary" ),
         #     Submit('cancel_button', u'Отменить', css_class="btn-link"),
         # )
+
+    # ========================Works in django 1.7======
+    # def clean_student_group(self):
+    #     ''' Check if student is leader in any group.
+    #     If yes, then ensure it's the same as selected group.'''
+    #     # get group where current student is a leader
+    #
+    #     groups = Group.objects.filter(leader=self.instance)
+    #     grop_name = Group.objects.get(leader=self.instance)
+    #     leader = self.cleaned_data['student_group']
+    #     if len(groups) > 0 and \
+    #             leader != groups[0]:
+    #         raise ValidationError(u'Этот студент является старостой другой группы:%s' % grop_name, code='invalid')
+    #
+    #     return self.cleaned_data['student_group']
+    # ========================Works in django 1.7======
+
     def clean_student_group(self):
-        ''' Check if student is leader in any group.
-        If yes, then ensure it's the same as selected group.'''
+        """Check if student is leader in any group.
+
+        If yes, then ensure it's the same as selected group."""
         # get group where current student is a leader
-
-
-
-        groups = Group.objects.filter(leader=self.instance)
-        grop_name = Group.objects.get(leader=self.instance)
-        leader = self.cleaned_data['student_group']
-        if len(groups) > 0 and \
-            leader != groups[0]:
-            raise ValidationError(u'Этот студент является старостой другой группы:%s'%grop_name, code='invalid')
+        group = Group.objects.filter(leader=self.instance).first()
+        if group and self.cleaned_data['student_group'] != group:
+            raise ValidationError(
+                _("Student is a leader of a different group."),
+                code='invalid')
 
         return self.cleaned_data['student_group']
+
 
 
 
@@ -125,7 +141,7 @@ class CustomBirthdayField(Field):
 
 
 
-class StudentUpdateView(UpdateView, PremissionRequiredClass):
+class StudentUpdateView(UpdateView, LoginRequiredClass):
     model = Student
     template_name = 'students/students_form.html'
     form_class = StudentUpdateForm
@@ -229,7 +245,8 @@ def students_edit(request, sid):
     return HttpResponse('<h1>Edit Student %s</h1>' %sid)
 
 
-class StudentDeleteView(DeleteView, PremissionRequiredClass):
+class StudentDeleteView(DeleteView, LoginRequiredClass):
+# class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'students/students_confirm_delete.html'
 
@@ -239,7 +256,7 @@ class StudentDeleteView(DeleteView, PremissionRequiredClass):
     #     return super(StudentDeleteView, self).dispatch(*args, **kwargs)
 
     def get_success_url(self):
-        return u'%s?status_message=%s' % (reverse('home'), _(u"Student updated successfully"))
+        return '%s?status_message=%s' % (reverse('home'), _("Student updated successfully"))
 
 # def students_delete(request, sid):
 #     return HttpResponse('<h1>Delete Student %s</h1>' %sid)

@@ -1,11 +1,21 @@
 /* Global Styles */
 .alert {
+  /*
+    Відстань зверху 10px
+    Відстань справа 0px
+    Відстань знизу 5px
+    Відстань зліва 0px
+  */
   margin: 10px 0 5px 0;
 }
 h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
 }
 
+/* Table Styles */
+.table td {
+  vertical-align: middle;
+}
 /* Groups Selector */
 #group-selector {
   margin-top: 30px;
@@ -22,14 +32,17 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Footer Styles */
 #footer {
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #dee2e6;
   padding-top: 10px;
+  margin-top: 10px;
 }
 
 /* Form Styles */
 textarea,
 select,
-input {
+input,
+.custom-file,
+.input-group {
   max-width: 300px;
 }
 
@@ -73,4 +86,16 @@ th.day-header {
 #user-toolbar{
     margin-top: 30px;
     text-align: right;
+}
+
+/* Modal Styles */
+.modal-dialog {
+  max-width: 600px;
+}
+
+.modal-dialog textarea,
+.modal-dialog select,
+.modal-dialog input,
+.modal-dialog .custom-file {
+  max-width: initial;
 }

@@ -1,27 +1,42 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from .models import Teacher, Student, Group, Exam, Resoult, MonthJournal
-from django.core.urlresolvers import reverse
+# from django.core.urlresolvers import reverse #in django 1.7
+from django.urls import reverse
 from django.forms import ModelForm, ValidationError
 
 
 
 class StudentFormAdmin(ModelForm):
 
-    def clean_student_group(self):
-        ''' Check if student is leader in any group.
-        If yes, then ensure it's the same as selected group.'''
-        # get group where current student is a leader
 
-        groups = Group.objects.filter(leader=self.instance)
-        grop_name = Group.objects.get(leader=self.instance)
-        leader = self.cleaned_data['student_group']
-        if len(groups) > 0 and \
-                leader != groups[0]:
-            raise ValidationError(u'Этот студент является старостой другой группы:%s' % grop_name, code='invalid')
+    # ========================Works in django 1.7======
+    # def clean_student_group(self):
+    #     ''' Check if student is leader in any group.
+    #     If yes, then ensure it's the same as selected group.'''
+    #     # get group where current student is a leader
+    #
+    #     groups = Group.objects.filter(leader=self.instance)
+    #     grop_name = Group.objects.get(leader=self.instance)
+    #     leader = self.cleaned_data['student_group']
+    #     if len(groups) > 0 and \
+    #             leader != groups[0]:
+    #         raise ValidationError(u'Этот студент является старостой другой группы:%s' % grop_name, code='invalid')
+    #
+    #     return self.cleaned_data['student_group']
+    # ========================Works in django 1.7======
+    def clean_student_group(self):
+        """Check if student is leader in any group.
+
+        If yes, then ensure it's the same as selected group."""
+        # get group where current student is a leader
+        group = Group.objects.filter(leader=self.instance).first()
+        if group and self.cleaned_data['student_group'] != group:
+            raise ValidationError(
+                _("Student is a leader of a different group."),
+                code='invalid')
 
         return self.cleaned_data['student_group']
-
 
 
 class GroupFormAdmin(ModelForm):

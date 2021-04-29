@@ -2,7 +2,7 @@
 from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from ..models import Student
 
 def students_delete(request, pk):

@@ -8,7 +8,7 @@ from django.views.generic.edit import FormView
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, HTML, Fieldset
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.translation import ugettext as _
 from registration.backends.simple.views import RegistrationView
@@ -70,7 +70,8 @@ class LoginFormView(FormView):
             user = authenticate(username=username, password=password)
             if user is not None:
                 if user.is_active:
-                    auth_views.login(request, user)
+
+                    auth_views.auth_login(request, user)
                     return HttpResponseRedirect(u'%s?status_message=Авторизовался'
                                                 % reverse('home'))
                 else:
