@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
     'registration',
 # project apps
     'students',
@@ -142,6 +143,18 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 SITE_ID=1
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_ON_GE = True
+
+SOCIALACCOUNT_PROVIDERS ={
+    'facebook':{
+# For each OAuth based provider, either add a ``SocialApp`` # (``socialaccount`` app) containing the required client
+# credentials, or list them here:
+    'APP':{
+        'client_id': '147747830644183',
+        'secret':'20df20f881fec249187ee921eccf7d36',
+    }
+    }
+}
+
 
 
 

@@ -64,7 +64,8 @@
                 </div>
 
 <!--                User's toolbar for authenticated users-->
-                <div class="co-xs-2" id="user-toolbar">
+                {% load socialaccount %}
+                <div class="col-sm-6 text-right my-auto" id="user-toolbar">
 
                     <a href="{% url "profile"  %}">{{ user.get_full_name|default:user.username }} v1</a>
 <!--                    <a href="{% url "profile2" user.id %}">{{ user.get_full_name|default:user.username }} v2</a>-->
@@ -77,6 +78,7 @@
                 {% else %}
 <!--                User's toolbar for anonymous users-->
                 <div class="col-xs-2" id="user-toolbar">
+                    <a href="{% provider_login_url "facebook" method="oauth2" next=request.path %}">{% trans "via Facebook" %}</a> |
                     <a href="{% url "users:auth_login" %}">{% trans "Login" %}</a> |
                     <a href="{% url 'account_login' %}">{% trans "Login" %}(allauth)</a> |
                     <a href="{% url 'login_allauth_crispy' %}">{% trans "Login" %}(allauth+crispy)</a> |
