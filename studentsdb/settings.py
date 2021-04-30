@@ -137,10 +137,12 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
+# django-allauth configs
+ACCOUNT_EMAIL_VERIFICATION = "none"
 SITE_ID=1
-
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_ON_GE = True
+
 
 
 # Old version for django 1.7
