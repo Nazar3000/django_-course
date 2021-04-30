@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from django.forms import ModelForm
-# from django.contrib.auth import login
+
+
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 from django.views.generic.edit import FormView
-from django import forms
+
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, HTML, Fieldset
 from django.urls import reverse
@@ -52,7 +52,6 @@ class LoginForm(AuthenticationForm):
 
 class LoginFormView(FormView):
     template_name = 'crispy_registration.html'
-    # form_class = LoginForm
     form_class = LoginForm
 
 
