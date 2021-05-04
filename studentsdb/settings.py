@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+
     'registration',
 # project apps
     'students',
@@ -152,8 +154,15 @@ SOCIALACCOUNT_PROVIDERS ={
         'client_id': '147747830644183',
         'secret':'20df20f881fec249187ee921eccf7d36',
     }
+    },
+    'google': {
+    'APP':{
+        'client_id': '514997829159-8sf2nqo6vj0g01p1hnnm05oqen5s3cln.apps.googleusercontent.com',
+        'secret':'WpweZh5ZvwMRVVxOX5O5Ezbn',
+    }
     }
 }
+
 
 
 

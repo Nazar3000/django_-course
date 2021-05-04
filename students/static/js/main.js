@@ -434,6 +434,28 @@ function addAtrperview(form) {
     $(photo_container).append(frame);
     $('.clearablefileinput').html(form.find('.clearablefileinput').attr('onchange','preview()'));
 }
+
+// FB.XFBML.parse(document.getElementById('foo'));
+// FB.XFBML.parse();
+
+
+// Завернуть в именную функцию и сделать вызов редидок общим внизу
+$(document).ready(function() {
+  $.ajaxSetup({ cache: true });
+  $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
+    FB.init({
+      appId: '{147747830644183}',
+      version: 'v2.7' // or v2.1, v2.2, v2.3, ...
+    });
+    $('#loginbutton,#feedbutton').removeAttr('disabled');
+    // FB.getLoginStatus(updateStatusCallback);
+  });
+});
+// Доделать позже когда выкниу на девсервер
+// https://developers.facebook.com/docs/facebook-login/web
+// https://developers.facebook.com/docs/facebook-login/web/login-button
+
+
 $(document).ready(function (){
     initJournal();
     initGroupSelector();
