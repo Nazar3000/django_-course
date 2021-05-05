@@ -6,28 +6,28 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, '..', 'db.sqlite3'),
     # }
-# 'default': {
-#
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#
-#         'NAME': 'students_db',
-#
-#         'USER': 'students_db_user',
-#
-#         'PASSWORD': 'password',
-#
-#         'HOST': 'localhost',
-#
-#         'PORT': '5432',
-#
-#     }
+'default': {
 
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'studentsdb',
+
+        'USER': 'studentsdb',
+
+        'PASSWORD': '1q2w3e4r5t6y',
+
         'HOST': 'localhost',
-        'USER': 'students_db_user',
-        'PASSWORD': 'password',
-        'NAME': 'students_db',
+
+        'PORT': '',
+
     }
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'HOST': 'localhost',
+    #     'USER': 'students_db_user',
+    #     'PASSWORD': 'password',
+    #     'NAME': 'students_db',
+    # }
 
 }
