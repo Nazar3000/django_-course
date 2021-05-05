@@ -87,8 +87,10 @@
 <!--                User's toolbar for anonymous users-->
                 <div class="col-xs-2" id="user-toolbar">
 
-                    <a href="{% provider_login_url "facebook" method="oauth2" next=request.path %}"> </div>{% trans "via Facebook" %}</a> |
-                    <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div> |
+                    <a href="{% provider_login_url "facebook" method="oauth2" next=request.path %}"> <img height="=80" width="180"
+                     src="{% static "img/faceboock_button.png" %}"/></a> |
+<!--
+<!--                    <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div> |-->
                     <a href="{% provider_login_url "google" method="oauth2" next=request.path %}"> {% trans "via Google" %}</a>
                     <a href="{% url "users:auth_login" %}">{% trans "Login" %}</a> |
                     <a href="{% url 'account_login' %}">{% trans "Login" %}(allauth)</a> |
