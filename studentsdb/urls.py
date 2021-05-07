@@ -47,7 +47,7 @@ from stud_auth.views.registration_custom import LoginFormView, LoginForm, Regist
 
 from stud_auth.views.allauth_custom import LoginFormView as LoginFormViewAllauth
 from stud_auth.views.allauth_custom import SignupView as SignupViewAllauth
-from stud_auth.views.user_profile import UserProfileView
+from stud_auth.views.user_profile import UserProfileView, UserUpdateView
 from allauth.account.views import LogoutView as LogoutViewAllauth
 from django.views.generic.base import RedirectView, TemplateView
 from django.contrib.auth.decorators import login_required
@@ -83,6 +83,9 @@ urlpatterns = [
         name='profile'),
     path('users/profile/<int:pk>', login_required(UserProfileView.as_view()),
         name='profile2'),
+path('users/update/<int:pk>', login_required(UserUpdateView.as_view()),
+        name='user_update'),
+
 
     path('register/complete/', RedirectView.as_view(pattern_name='home'), name='registration_complete'),
     path('users/', include((reg_urls, 'users'), namespace='users')),

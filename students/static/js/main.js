@@ -457,14 +457,14 @@ $(document).ready(function() {
 
 
 $(document).ready(function (){
-    initJournal();
-    initGroupSelector();
-    initDateFilds();
-    // initEditStudentPage();
-    clickHandlerStudEdit();
-    bookmarksListUpdate();
-    navigationAjax();
-    initLangSelector();
-    changLangForm();
+    // initJournal();
+    // initGroupSelector();
+    // initDateFilds();
+    // // initEditStudentPage();
+    // clickHandlerStudEdit();
+    // bookmarksListUpdate();
+    // navigationAjax();
+    // initLangSelector();
+    // changLangForm();
 
 });

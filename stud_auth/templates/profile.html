@@ -1,0 +1,22 @@
+{% extends "students/base.html" %}
+{% load i18n %}
+{% load static from staticfiles %}
+{% load crispy_forms_tags %}
+{% block meta_title %}{{ user.get_full_name|default:user.username }}{% endblock meta_title %}
+
+{% block title %}{{ user.get_full_name|default:user.username }}{% endblock title %}
+{% block status_message %}
+   {% if form.errors %}
+<div class="alert alert-warning" role="alert">{% trans "Correct errors in the form" %}</div>
+{% endif %}
+{% if request.GET.status_message %}
+<div class="alert alert-warning" role="alter">{{ request.GET.status_message }}</div>
+{% endif %}
+{% endblock status_message %}
+
+{% block content %}
+
+{% csrf_token %}
+
+
+{% endblock content %}

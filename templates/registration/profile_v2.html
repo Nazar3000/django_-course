@@ -4,7 +4,9 @@
 
 {% block meta_title %}{{ user.get_full_name|default:user.username }}{% endblock meta_title %}
 
-{% block title %}{{ user.get_full_name|default:user.username }}{% endblock title %}
+{% block title %}{{ user.get_full_name|default:user.username }}
+<a href="{% url "user_update" user1.id %}" ">{% trans "Edit" %}</a>
+{% endblock title %}
 {% block status_message %}
 {% if form.errors %}
 <div class="alert alert-warning" role="alert">
