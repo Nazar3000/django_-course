@@ -23,48 +23,48 @@
 <table class="table table-striped">
 
 
-    {% if user.email %}
+    {% if user1.email %}
     <tr>
         <td>{% trans "Email" %}:</td>
-        <td>{{ user.email }}</td>
+        <td>{{ user1.email }}</td>
     </tr>
     {% endif %}
-    {% if user.username %}
+    {% if user1.username %}
     <tr>
         <td>{% trans "Username" %}:</td>
-        <td>{{ user.username }}</td>
+        <td>{{ user1.username }}</td>
     </tr>
     {% endif %}
 
-    {% if user.date_joined %}
+    {% if user1.date_joined %}
     <tr>
         <td>{% trans "Joined" %}</td>
-        <td>{{ user.date_joined }}</td>
+        <td>{{ user1.date_joined }}</td>
     </tr>
     {% endif %}
 
-    {% if user.student_profile.mobile_phone %}
+    {% if user1.student_profile.mobile_phone %}
     <tr>
         <td>{% trans "Mobile Phone" %}:</td>
-        <td>{{ user.student_profile.mobile_phone }}</td>
+        <td>{{ user1.student_profile.mobile_phone }}</td>
     </tr>
     {% endif %}
 
-    {% if user.student_profile.passportID %}
+    {% if user1.student_profile.passportID %}
     <tr>
         <td>{% trans "PassportID" %}:</td>
-        <td>{{ user.student_profile.passportID }}</td>
+        <td>{{ user1.student_profile.passportID }}</td>
     </tr>
     {% endif %}
 
-    {% if user.student_profile.actual_address %}
+    {% if user1.student_profile.actual_address %}
     <tr>
         <td>{% trans "Actual Address" %}:</td>
-        <td>{{ user.student_profile.actual_address }}</td>
+        <td>{{ user1.student_profile.actual_address }}</td>
     </tr>
     {% endif %}
 
-    {% if user.stprofile.photo %}
+    {% if user1.student_profile.photo %}
 
     <tr>
         <td>{% trans "Photo" %}:</td>
@@ -74,6 +74,9 @@
     </tr>
     {% endif %}
 <!--<a>user.stprofile.id={{ user.id }} </a>-->
+<!--<a>queryset2={{ queryset2 }} </a>-->
+<!--    <a>user1 fulname={{ user1.email }} </a>-->
+<!--    <a> -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;{{ user }}</a>-->
 <!--    {% for user in USERS_LIST %}-->
 <!--    <a> {{ user }}</a>-->
 <!--    {% endfor %}-->

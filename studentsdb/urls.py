@@ -44,9 +44,10 @@ from django.views.i18n import JavaScriptCatalog
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.auth import views as auth_views
 from stud_auth.views.registration_custom import LoginFormView, LoginForm, RegistrationViewCustom
-from stud_auth.views.user_profile import UserProfileView
+
 from stud_auth.views.allauth_custom import LoginFormView as LoginFormViewAllauth
 from stud_auth.views.allauth_custom import SignupView as SignupViewAllauth
+from stud_auth.views.user_profile import UserProfileView
 from allauth.account.views import LogoutView as LogoutViewAllauth
 from django.views.generic.base import RedirectView, TemplateView
 from django.contrib.auth.decorators import login_required

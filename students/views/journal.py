@@ -23,8 +23,7 @@ class JournalView(TemplateView):
         # get context data from TemplateView class
         # context = super(JournalView, self).get_context_data(**kwargs)
         context = super().get_context_data(**kwargs)
-        # Разпринтить что входит вконтекст после вызова супер
-        # попробовать отдельно запутстить этот модуль
+
 
         # проверяем передано ли месяц в параметре,
         # если нет - вычисляем текущий;

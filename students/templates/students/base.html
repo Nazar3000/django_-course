@@ -76,7 +76,7 @@
                 <div class="col-sm-6 text-right my-auto" id="user-toolbar">
 
                     <a href="{% url "profile"  %}">{{ user.get_full_name|default:user.username }} v1</a>
-<!--                    <a href="{% url "profile2" user.id %}">{{ user.get_full_name|default:user.username }} v2</a>-->
+                    <a href="{% url "profile2" user.id %}">{{ user.get_full_name|default:user.username }} v2</a>
                     <a href="{% url "users:auth_logout" %}">{% trans "Logout" %}</a> |
                     <a href="{% url 'account_logout' %}">{% trans "Logout" %}(allauth)</a> |
                      <a href="{% url 'logout_allauth_crispy' %}">{% trans "Logout" %}(allauth2)</a>
