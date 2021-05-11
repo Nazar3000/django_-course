@@ -210,12 +210,12 @@ AUTHENTICATION_BACKENDS = [
 
 # email settings
 ADMIN_EMAIL = 'nazarii.mazur@gmail.com'
-EMAIL_HOST = 'smtp.ukr.net'
-EMAIL_PORT = '2525'
-EMAIL_HOST_USER = 'django_admin@ukr.net'
-EMAIL_HOST_PASSWORD = 'Qwerty!123'
-EMAIL_USE_TLS= True
-
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '465'
+EMAIL_HOST_USER = 'mazur.nazarii@gmail.com'
+EMAIL_HOST_PASSWORD = 'R1f2N3t4H5b6Y7f8Qwerty!123'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 
 
 # add project templates directory as Django does not

@@ -12,6 +12,7 @@ import logging
 from django.contrib.auth.decorators import permission_required
 from django.utils.decorators import method_decorator
 from abc import abstractmethod, ABCMeta
+from django.utils.translation import ugettext as _
 
 
 
@@ -22,7 +23,7 @@ from abc import abstractmethod, ABCMeta
 class ContactForm(forms.Form):
     def __init__(self, *args, **kwargs):
         # call original initializator
-        super(ContactForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         # this helper object allows us to customize form
         self.helper = FormHelper()
@@ -78,7 +79,11 @@ class ContactView(PremissionRequiredClass):
 
         send_mail(subject, message, from_email, [ADMIN_EMAIL])
 
-        return super(ContactView, self).form_valid(form)
+        return super().form_valid(form)
+
+
+    def get_success_url(self):
+        return '%s?status_message=%s' % (reverse('home'), _("Email sent successfully"))
 
 
 
