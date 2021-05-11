@@ -1,0 +1,41 @@
+{% extends "students/base.html" %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block meta_title %}{% trans "Users List" %}{% endblock meta_title %}
+
+{% block title %}{% trans "Users List" %}{% endblock title %}
+
+{% block content %}
+
+{% csrf_token %}
+
+<table class="table table-hover table-striped" id="target" style="overflow: scroll;">
+    <thead>
+
+    <tr>
+<!--        <th><a heref='#'>№</a></th>-->
+        <th>{% trans "User" %}</th>
+        <th>{% trans "Last Name" %}</th>
+        <th>{% trans "First Name" %}</th>
+        <th>{% trans "Email" %}</th>
+
+    </tr>
+    </thead>
+
+
+    <tbody>
+    {% for user in users_obj %}
+    <tr class="">
+        <td><a href="{% url "profile2" user.id %}">{{ user }}</td>
+        <td> <a href="{% url "profile2" user.id %}">{{ user.last_name }} </td>
+        <td> <a href="{% url "profile2" user.id %}">{{ user.first_name }} </td>
+        <td> <a href="{% url "profile2" user.id %}">{{ user.email }} </td>
+
+
+    </tr>
+    {% endfor %}
+    </tbody>
+
+{% endblock content %}

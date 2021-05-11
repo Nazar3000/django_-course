@@ -135,6 +135,7 @@
                   <li role="presentation" {% if '/contact-admin' in request.path %}class="nav-link active" {% else %} class="nav-link"{% endif %}><a class="bookmarks-link" href="{% url "contact_admin" %}">{% trans "Contact" %}</a></li>
                     <li role="presentation" {% if '/exams/' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}><a class="bookmarks-link" href="{% url "exams" %}">{% trans "Exams" %}</a></li>
                     <li role="presentation" {% if '/resoult/' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}><a class="bookmarks-link" href="{% url "resoult" %}">{% trans "Exams resoult" %}</a></li>
+                    <li role="presentation" {% if '/resoult/' in request.path %} class="nav-link active" {% else %} class="nav-link"{% endif %}><a class="bookmarks-link" href="{% url "users_list" %}">{% trans "Users List" %}</a></li>
                      {% endif %}
                 </ul>
               </div>
