@@ -10,6 +10,7 @@ from django.views.generic import UpdateView, DeleteView, FormView
 from django.utils.translation import ugettext as _
 
 
+
 class UserProfileView(TemplateView):
     template_name ='registration/profile_v2.html'
 
@@ -46,8 +47,8 @@ class UserUpdateForm(ModelForm):
     class Meta:
 
         model = User
-        # fields=('first_name', 'last_name', 'email')
-        fields = '__all__'
+        fields=('first_name', 'last_name', 'email')
+        # fields = '__all__'
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

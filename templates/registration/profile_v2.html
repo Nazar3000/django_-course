@@ -4,8 +4,9 @@
 
 {% block meta_title %}{{ user.get_full_name|default:user.username }}{% endblock meta_title %}
 
-{% block title %}{{ user.get_full_name|default:user.username }}
+{% block title %}{{ user.get_full_name|default:user.username }} |
 <a href="{% url "user_update" user1.id %}" ">{% trans "Edit" %}</a>
+
 {% endblock title %}
 {% block status_message %}
 {% if form.errors %}
@@ -75,6 +76,7 @@
                      src="{{ user.stprofile.photo.url }}" class="rounded-circle" /> </td>
     </tr>
     {% endif %}
+     <a href="{% url "pass_change_allauth" %}">{% trans "Change Password" %}</a>
 <!--<a>user.stprofile.id={{ user.id }} </a>-->
 <!--<a>queryset2={{ queryset2 }} </a>-->
 <!--    <a>user1 fulname={{ user1.email }} </a>-->
