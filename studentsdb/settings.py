@@ -141,7 +141,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
 # django-allauth configs
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
 SITE_ID=1
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_ON_GE = True
