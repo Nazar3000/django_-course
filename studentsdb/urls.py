@@ -47,12 +47,15 @@ from stud_auth.views.registration_custom import LoginFormView, LoginForm, Regist
 
 from stud_auth.views.allauth_custom import LoginFormView as LoginFormViewAllauth
 from stud_auth.views.allauth_custom import SignupView as SignupViewAllauth
+from stud_auth.views.allauth_custom import PasswordResetView as PasswordResetAllauth
 from stud_auth.views.user_profile import UserProfileView, UserUpdateView
 from stud_auth.views.users_list import UsersListView
 from allauth.account.views import LogoutView as LogoutViewAllauth
 from django.views.generic.base import RedirectView, TemplateView
 from django.contrib.auth.decorators import login_required
 from registration.backends.simple import urls as reg_urls
+# from allauth.account.views import PasswordResetView as PasswordResetViewAllauth
+
 
 
 
@@ -98,6 +101,7 @@ urlpatterns = [
     path('accounts/login_allauth_crispy/', LoginFormViewAllauth.as_view(), name='login_allauth_crispy'),
     path('accounts/signup_allauth_crispy/', SignupViewAllauth.as_view(), name='signup_allauth_crispy'),
     path('accounts/logout_allauth_crispy/', LogoutViewAllauth.as_view(), name='logout_allauth_crispy'),
+    path('accounts/pass_reset_allauth/', PasswordResetAllauth.as_view(), name='pass_reset_allauth'),
     path('accounts/', include('allauth.urls')),
 
 

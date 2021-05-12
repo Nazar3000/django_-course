@@ -460,7 +460,7 @@ $(document).ready(function (){
     // initJournal();
     // initGroupSelector();
     // initDateFilds();
-    // // initEditStudentPage();
+    // initEditStudentPage();
     // clickHandlerStudEdit();
     // bookmarksListUpdate();
     // navigationAjax();
