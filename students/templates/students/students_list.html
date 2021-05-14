@@ -1,6 +1,7 @@
 {% extends "students/base.html" %}
 {% load i18n %}
 {% load static from staticfiles %}
+{% load pagenav %}
 {% block meta_title %}{% trans "Students" %}{% endblock meta_title %}
 {% block title %}{% trans "Students List" %}{% endblock title %}
 {% block content %}
@@ -109,6 +110,8 @@
 {% with object_list=students.page_obj is_paginated=students.is_paginated paginator=students.paginator %}
 {% include "students/pagination.html" %}
 
+<!--Добавил кастомный тег который не работат, разобраться в этом когданибудь потом-->
+<!--{% pagenav students is_paginated paginator %}-->
 {% endwith %}
 
 <a class="btn btn-primary" role="button" href="{% url 'groups' %}?page=1&amp;order_by={{ order_by }}&amp;reverse={{ reverse }}&amp;number_on_page={{ groups.paginator.load_more }}" >Load more groups</a>
